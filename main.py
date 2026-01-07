@@ -1,10 +1,10 @@
 import pygame
 from libs.widgets_lib import System
 
-sys = System(800, 500)
+sys = System(900, 600, 0, 0, 0)
 sys.initialize()
 
-screen = sys.set_screen(0, 0, 0)
+screen = sys.get_screen()
 # sys.setBg(100, 100, 100)
 
 running = True
@@ -15,10 +15,9 @@ while running:
         if event.type == pygame.QUIT:
             running = False
             
-    # Draw a solid blue circle in the center
-    pygame.draw.circle(screen, (0, 100, 0), (0, 0), 75)
-    pygame.draw.rect(screen, (100, 100, 100), (500, 300, 200, 50))
-
+        sys.draw_circle(250, 250, 250, 0, 0, 400)
+        sys.draw_rect(100, 100, 100, 100, 100, 200, 400)
+        
     # Flip the display
     pygame.display.flip()
 

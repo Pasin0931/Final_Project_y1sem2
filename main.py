@@ -1,6 +1,19 @@
 import pygame
 from libs.widgets_lib import System
 
+from pygame.locals import (
+    K_UP,
+    K_DOWN,
+    K_LEFT,
+    K_RIGHT,
+    K_ESCAPE,
+    KEYDOWN,
+    K_w,
+    K_s,
+    K_SPACE,
+    QUIT
+)
+
 sys = System(900, 600, 0, 0, 0)
 sys.initialize()
 
@@ -15,11 +28,21 @@ while running:
         if event.type == pygame.QUIT:
             running = False
             
-        sys.draw_circle(250, 250, 250, 0, 0, 400)
-        sys.draw_rect(100, 100, 100, 100, 100, 200, 400)
-        
-    # Flip the display
-    pygame.display.flip()
+        if event.type == KEYDOWN:
+            if event.key == K_w:
+                print("W")
+                sys.draw_rect(100, 100, 100, 100, 100, 200, 400)
+                
+            elif event.key == K_s:
+                print("S")
+                sys.draw_circle(250, 250, 250, 0, 0, 400)
+            
+            elif event.key == K_SPACE:
+                print("SPACE")
+                running == False
+                sys.stop()
+                break
+            
+        pygame.display.flip()
 
-# Done! Time to quit.
-screen.exit()
+sys.stop()

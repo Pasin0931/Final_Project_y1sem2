@@ -1,8 +1,10 @@
 import pygame
 
-from libs.widgets_lib import System, Player
+from libs.system_lib import System
+from libs.sprite_lib import Player
 
 from pygame.locals import (
+    RLEACCEL,
     K_UP,
     K_DOWN,
     K_LEFT,
@@ -16,13 +18,19 @@ from pygame.locals import (
     K_d
 )
 
-sys = System(800, 600, 0, 0, 0)
+sys = System(0, 0, 0, 0, 0) # 1280, 720, 0, 0, 0
 
 sys.initialize()
 
+current_w, current_h = sys.get_resolution()
+# print(current_w, current_h)
+
+sys.w = current_w
+sys.h = current_h
+
 screen = sys.get_screen()
 
-player = Player()
+player = Player(sys)
 
 running = True
 while running:
@@ -35,7 +43,7 @@ while running:
 
     pressed_keys = pygame.key.get_pressed()
 
-    player.update(sys, pressed_keys)
+    player.update(pressed_keys)
 
     screen.fill((0, 0, 0))
     

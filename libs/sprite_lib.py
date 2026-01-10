@@ -22,21 +22,23 @@ class Player(pygame.sprite.Sprite):
         self.surf = pygame.Surface((75, 25))
         self.surf.fill((255, 255, 255))
         
-        self.surf = pygame.image.load("./pictures/player/mc.png").convert()
+        self.surf = pygame.image.load("./pictures/player/mc.png").convert_alpha()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         
         self.rect = self.surf.get_rect()
         
-        self.rect.x = sys.w / 2.2
-        self.rect.y = sys.h / 2.5
+        self.rect.x = sys.w // 2.2
+        self.rect.y = sys.h // 1.27
+        
+        self.ground_location = sys.h / 1.27
         
         print(self.rect.x, self.rect.y)
         
     def update(self, pressed_keys):
         # print(self.rect) # debug
         
-        if pressed_keys[K_w]:
-            self.rect.move_ip(0, -1) # speed up
+        # if pressed_keys[K_w]:
+        #     self.rect.move_ip(0, -1) # speed up
         if pressed_keys[K_s]:
             self.rect.move_ip(0, 1) # speed down
         if pressed_keys[K_a]:
@@ -50,5 +52,5 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = self.sys.w
         if self.rect.top <= 0:
             self.rect.top = 0
-        if self.rect.bottom >= self.sys.h:
-            self.rect.bottom = self.sys.h
+        if self.rect.bottom >= self.ground_location:
+            self.rect.bottom = self.ground_location

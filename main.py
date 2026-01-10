@@ -1,6 +1,6 @@
 import pygame
 
-from libs.system_lib import System
+from libs.system_lib import System, Background
 from libs.sprite_lib import Player
 
 from pygame.locals import (
@@ -32,11 +32,7 @@ screen = sys.get_screen()
 
 player = Player(sys)
 
-bg = pygame.image.load("./pictures/stage/s1.png").convert()
-# bg = pygame.image.load("./pictures/stage/s2.png").convert()
-# bg = pygame.image.load("./pictures/stage/s3.png").convert()
-# bg = pygame.image.load("./pictures/stage/s4.png").convert()
-# bg = pygame.image.load("./pictures/stage/s5.png").convert()
+bg = Background("s1").get_bg()
 
 bg = pygame.transform.scale_by(bg, 1.1) # scale bg image up by 1.1
 # screen.blit(bg, (0, 0))

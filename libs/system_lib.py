@@ -33,3 +33,11 @@ class System:
         
     def stop(self):
         pygame.quit()
+        
+class Background:
+    def __init__(self, f_name):
+        self.f_name = f_name
+        
+    def get_bg(self):
+        b_g = pygame.image.load(f"./pictures/stage/{self.f_name}.png").convert()
+        return b_g

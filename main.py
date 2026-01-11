@@ -17,7 +17,8 @@ from pygame.locals import (
     K_a,
     K_s,
     K_d,
-    K_LSHIFT
+    K_LSHIFT,
+    K_SPACE,
 )
 
 sys = System(0, 0, 0, 0, 0) # 1280, 720, 0, 0, 0
@@ -35,14 +36,14 @@ screen = sys.get_screen()
 player = Player(sys)
 
 bg = Background("menu", "image").get_bg()
-
 bg = pygame.transform.scale_by(bg, 1.1) # scale bg image up by 1.1
 # screen.blit(bg, (0, 0))
 
 running = True
-
 while running:
     dashing = False
+    jump = False
+    
     for event in pygame.event.get():
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
@@ -50,12 +51,16 @@ while running:
             
             if event.key == K_LSHIFT:
                 dashing = True
+                
+            if event.key == K_SPACE or event.key == K_w:
+                print("jumping")
+                jump = True
             
         elif event.type == QUIT:
             running = False
             
     pressed_keys = pygame.key.get_pressed()
-    player.update(pressed_keys, dashing)
+    player.update(pressed_keys, dashing, jump)
 
     # screen.fill((0, 0, 0))
     screen.blit(bg, (0, 0))

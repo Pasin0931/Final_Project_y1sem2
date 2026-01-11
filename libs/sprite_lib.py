@@ -41,6 +41,7 @@ class Player(pygame.sprite.Sprite):
         self.velo = self.jump_h
         self.g = 0.3
         self.on_ground = True
+        # self.jumping = False
         # -------------
         
         self.is_dashing = False
@@ -51,11 +52,11 @@ class Player(pygame.sprite.Sprite):
         
         # print(self.rect.x, self.rect.y)
         
-    def update(self, pressed_keys, dashing):
+    def update(self, pressed_keys, dashing, jump):
         # print(self.rect) # debug
         
         # ---------- Jump
-        if (pressed_keys[K_w] or pressed_keys[K_SPACE]) and self.on_ground:
+        if (pressed_keys[K_w] or pressed_keys[K_SPACE]) and self.on_ground and jump == True:
             self.velo = self.jump_h
             self.on_ground = False
         # ---------- Jump

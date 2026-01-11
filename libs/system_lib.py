@@ -7,6 +7,8 @@ class System:
 
         self.screen = pygame.display.set_mode((self.w, self.h), pygame.FULLSCREEN) # pygame.RESIZABLE
         self.screen.fill((r, g, b)) # bg color
+        
+        # ------------
 
     def get_screen(self):
         return self.screen
@@ -19,6 +21,19 @@ class System:
         
     def draw_circle(self, r, g, b, x, y, p):
         pygame.draw.circle(self.screen, (r, g, b), (x, y), p)
+        
+    def draw_button(self, x, y, w, h, text, text_color, size):
+        this_bt = pygame.Rect(x, y, w, h)
+        font = pygame.font.Font("./font/Pixelcastle-Regular.otf", size)
+        to_draw = font.render(text, True, text_color)
+        to_draw.get_rect(center=this_bt.center)
+        self.screen.blit(to_draw, (x, y))
+        
+    def add_text(self, text, text_color, size, x, y):
+        # font = pygame.font.SysFont("arialblack", size)
+        font = pygame.font.Font("./font/Pixelcastle-Regular.otf", size)
+        to_draw = font.render(text, True, text_color)
+        self.screen.blit(to_draw, (x, y))
         
     def get_info(self):
         in_ = pygame.display.Info()
@@ -35,9 +50,10 @@ class System:
         pygame.quit()
         
 class Background:
-    def __init__(self, f_name):
+    def __init__(self, folder, f_name):
+        self.folder = folder
         self.f_name = f_name
         
     def get_bg(self):
-        b_g = pygame.image.load(f"./pictures/stage/{self.f_name}.png").convert()
+        b_g = pygame.image.load(f"./pictures/{self.folder}/{self.f_name}.png").convert()
         return b_g

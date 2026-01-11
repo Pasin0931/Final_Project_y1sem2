@@ -32,7 +32,7 @@ screen = sys.get_screen()
 
 player = Player(sys)
 
-bg = Background("s1").get_bg()
+bg = Background("menu", "image").get_bg()
 
 bg = pygame.transform.scale_by(bg, 1.1) # scale bg image up by 1.1
 # screen.blit(bg, (0, 0))
@@ -52,5 +52,12 @@ while running:
     # screen.fill((0, 0, 0))
     screen.blit(bg, (0, 0))
     screen.blit(player.surf, player.rect)
+    
+    sys.draw_button(80, 200, 500, 500, "DarK Impact", (255, 255, 255), 80)
+    sys.draw_button(150, 350, 500, 500, "Play", (255, 255, 255), 40)
+    sys.draw_button(150, 450, 500, 500, "Summary", (255, 255, 255), 40)
+    sys.draw_button(150, 550, 500, 500, "Quit", (255, 255, 255), 40)
 
     pygame.display.flip()
+    
+pygame.quit()

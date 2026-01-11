@@ -32,6 +32,12 @@ class Selection:
         bg = pygame.transform.scale_by(bg, 1.1)
         
         back_b = Button(12, 710, 190, 60, "BacK", 42)
+        
+        lv1 = Button(290, 410, 70, 70, "l", 50)
+        lv2 = Button(528, 410, 70, 70, "ll", 50)
+        lv3 = Button(765, 410, 70, 70, "lll", 50)
+        lv4 = Button(1000, 410, 70, 70, "lV", 50)
+        lv5 = Button(1235, 410, 70, 70, "V", 50)
 
         running = True
         while running:
@@ -47,6 +53,12 @@ class Selection:
                     running = False
 
             self.screen.blit(bg, (0, 0))
+            
+            lv1.create(self.screen)
+            lv2.create(self.screen)
+            lv3.create(self.screen)
+            lv4.create(self.screen)
+            lv5.create(self.screen)
             
             back_b.create(self.screen)
             

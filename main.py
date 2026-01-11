@@ -1,4 +1,5 @@
 import pygame
+import time
 
 from libs.system_lib import System, Background
 from libs.sprite_lib import Player
@@ -15,7 +16,8 @@ from pygame.locals import (
     K_w,
     K_a,
     K_s,
-    K_d
+    K_d,
+    K_LSHIFT
 )
 
 sys = System(0, 0, 0, 0, 0) # 1280, 720, 0, 0, 0
@@ -38,25 +40,32 @@ bg = pygame.transform.scale_by(bg, 1.1) # scale bg image up by 1.1
 # screen.blit(bg, (0, 0))
 
 running = True
+
 while running:
+    dashing = False
     for event in pygame.event.get():
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 running = False
+            
+            if event.key == K_LSHIFT:
+                dashing = True
+            
         elif event.type == QUIT:
             running = False
-
+            
     pressed_keys = pygame.key.get_pressed()
-    player.update(pressed_keys)
+    player.update(pressed_keys, dashing)
 
     # screen.fill((0, 0, 0))
     screen.blit(bg, (0, 0))
     screen.blit(player.surf, player.rect)
     
-    sys.draw_button(80, 200, 500, 500, "DarK Impact", (255, 255, 255), 80)
-    sys.draw_button(150, 350, 500, 500, "Play", (255, 255, 255), 40)
-    sys.draw_button(150, 450, 500, 500, "Summary", (255, 255, 255), 40)
-    sys.draw_button(150, 550, 500, 500, "Quit", (255, 255, 255), 40)
+    sys.draw_button(80, 200, 100, 100, "DarK Impact", (255, 255, 255), 80)
+    sys.draw_button(150, 330, 100, 100, "Play", (255, 255, 255), 30)
+    sys.draw_button(150, 430, 100, 100, "Control", (255, 255, 255), 30)
+    sys.draw_button(150, 530, 100, 100, "Summary", (255, 255, 255), 30)
+    sys.draw_button(150, 630, 100, 100, "Quit", (255, 255, 255), 30)
 
     pygame.display.flip()
     

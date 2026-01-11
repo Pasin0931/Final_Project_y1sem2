@@ -22,7 +22,7 @@ class System:
     def draw_circle(self, r, g, b, x, y, p):
         pygame.draw.circle(self.screen, (r, g, b), (x, y), p)
         
-    def draw_button(self, x, y, w, h, text, text_color, size):
+    def paragraph(self, x, y, w, h, text, text_color, size):
         this_bt = pygame.Rect(x, y, w, h)
         font = pygame.font.Font("./font/Pixelcastle-Regular.otf", size)
         to_draw = font.render(text, True, text_color)

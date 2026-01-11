@@ -18,6 +18,7 @@ from pygame.locals import (
 
 class Button:
     def __init__(self, x, y, w, h, text, font_size):
+        pygame.font.init()
         self.font_size = font_size
         self.rect = pygame.Rect(x, y, w, h)
         self.text = text

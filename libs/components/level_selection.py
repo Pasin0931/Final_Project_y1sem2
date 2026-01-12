@@ -3,7 +3,7 @@ import time
 
 from libs.system_lib import System, Background
 from libs.components.ui import Button
-from libs.sprite_lib import Player
+from libs.components.levels import Level
 
 from pygame.locals import (
     RLEACCEL,
@@ -48,6 +48,17 @@ class Selection:
                     
                 elif event.type == QUIT:
                     running = False
+                    
+                if lv1.is_clicked(event):
+                    Level(self.sys, self.screen, 1).show()
+                elif lv2.is_clicked(event):
+                    Level(self.sys, self.screen, 2).show()
+                elif lv3.is_clicked(event):
+                    Level(self.sys, self.screen, 3).show()
+                elif lv4.is_clicked(event):
+                    Level(self.sys, self.screen, 4).show()
+                elif lv5.is_clicked(event):
+                    Level(self.sys, self.screen, 5).show()
                 
                 if back_b.is_clicked(event):
                     running = False

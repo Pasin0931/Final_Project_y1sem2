@@ -37,15 +37,16 @@ class Player(pygame.sprite.Sprite):
         self.ground_location = sys.h / 1.27
         
         # -------------jump
-        self.jump_h = 8
+        self.jump_h = 2.5
         self.velo = self.jump_h
-        self.g = 0.3
+        self.g = 0.04
         self.on_ground = True
         # self.jumping = False
         # -------------
         
         self.is_dashing = False
         self.dash_target = 0
+        self.dash_length = 150
         self.dash_speed = 1
         self.facing_L = False
         self.facing_R = True
@@ -61,28 +62,22 @@ class Player(pygame.sprite.Sprite):
             self.on_ground = False
         # ---------- Jump
         
-        # if pressed_keys[K_w]:
-        #     self.rect.move_ip(0, -1) # speed up
         if pressed_keys[K_a]:
             self.facing_L = True
             self.facing_R = False
-            # if pressed_keys[K_LSHIFT]: # running
-            #     self.rect.move_ip(-2.6, 0)
-            self.rect.move_ip(-1.5, 0) # speed left
+            self.rect.move_ip(-1, 0) # speed left
         if pressed_keys[K_d]:
             self.facing_L = False
             self.facing_R = True
-            # if event.key == K_d:
-            #     self.rect.x += 10
-            self.rect.move_ip(1.5, 0) # speed right
+            self.rect.move_ip(1, 0) # speed right
             
         # ---------- dash     
         if dashing and not self.is_dashing:
             self.is_dashing = True
             if self.facing_L:
-                self.dash_target = self.rect.x - 120
+                self.dash_target = self.rect.x - self.dash_length
             else:
-                self.dash_target = self.rect.x + 120     
+                self.dash_target = self.rect.x + self.dash_length     
                   
         if self.is_dashing:
             if self.facing_L:

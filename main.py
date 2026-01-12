@@ -25,6 +25,7 @@ from pygame.locals import (
 
 pygame.init()
 pygame.font.init()
+pygame.mixer.init()
 
 sys = System(0, 0, 0, 0, 0) # 1280, 720, 0, 0, 0
 

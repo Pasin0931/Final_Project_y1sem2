@@ -23,11 +23,13 @@ from pygame.locals import (
 )
 
 class Selection:
-    def __init__(self, sys, screen):
+    def __init__(self, sys, screen, ambient):
         self.sys = sys
         self.screen = screen
+        self.ambient = ambient
     
     def show(self):
+        
         bg = Background("menu", "selection").get_bg()
         bg = pygame.transform.scale_by(bg, 1.1)
         
@@ -50,15 +52,25 @@ class Selection:
                     running = False
                     
                 if lv1.is_clicked(event):
+                    self.ambient.stop()
                     Level(self.sys, self.screen, 1).show()
+                    self.ambient.play()
                 elif lv2.is_clicked(event):
+                    self.ambient.stop()
                     Level(self.sys, self.screen, 2).show()
+                    self.ambient.play()
                 elif lv3.is_clicked(event):
+                    self.ambient.stop()
                     Level(self.sys, self.screen, 3).show()
+                    self.ambient.play()
                 elif lv4.is_clicked(event):
+                    self.ambient.stop()
                     Level(self.sys, self.screen, 4).show()
+                    self.ambient.play()
                 elif lv5.is_clicked(event):
+                    self.ambient.stop()
                     Level(self.sys, self.screen, 5).show()
+                    self.ambient.play()
                 
                 if back_b.is_clicked(event):
                     running = False

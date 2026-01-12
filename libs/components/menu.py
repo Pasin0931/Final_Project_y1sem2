@@ -30,6 +30,13 @@ class main_menu:
         self.status = status
     
     def show(self):
+        sound = pygame.mixer.Sound("./sounds/click.mp3")
+        ambient = pygame.mixer.Sound("./sounds/caelid.mp3")
+        sound.set_volume(1.0)
+        ambient.set_volume(1.0)
+        
+        ambient.play()
+        
         bg = Background("menu", "image").get_bg()
         bg = pygame.transform.scale_by(bg, 1.1) # scale bg image up by 1.1
         # screen.blit(bg, (0, 0))
@@ -49,19 +56,23 @@ class main_menu:
                 
                 if play_b.is_clicked(event):
                     print("play")
+                    sound.play()
                     self.status = "play"
-                    Selection(self.sys, self.screen).show()
+                    Selection(self.sys, self.screen, ambient).show()
                     
                 if control_b.is_clicked(event):
                     print("control")
+                    sound.play()
                     self.status = "control"
                     
                 if summary_b.is_clicked(event):
                     print("summary")
+                    sound.play()
                     self.status = "summary"
                     
                 if quit_b.is_clicked(event):
                     print("quit")
+                    sound.play()
                     self.status = "quit"
                     running = False
                     

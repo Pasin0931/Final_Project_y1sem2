@@ -41,14 +41,18 @@ class main_menu:
         bg = pygame.transform.scale_by(bg, 1.1) # scale bg image up by 1.1
         # screen.blit(bg, (0, 0))
 
-        play_b = Button(150, 330, 100, 60, "Play", 32)
-        control_b = Button(148, 430, 140, 60, "Control", 32)
-        summary_b = Button(140, 530, 190, 60, "Summary", 32)
-        quit_b = Button(150, 630, 100, 60, "Quit", 32)
+        play_b = Button(120, 280, 100, 60, "Play", 32)
+        control_b = Button(118, 365, 140, 60, "Control", 32)
+        summary_b = Button(110, 450, 190, 60, "Summary", 32)
+        quit_b = Button(120, 530, 100, 60, "Quit", 32)
 
         running = True
         while running:
             for event in pygame.event.get():
+                if event.type == QUIT:
+                    running = False
+                    self.status = "quit"
+                    break
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
                         running = False
@@ -82,7 +86,7 @@ class main_menu:
             # screen.fill((0, 0, 0))
             self.screen.blit(bg, (0, 0))
             
-            self.sys.paragraph(80, 200, 100, 100, "DarK Impact", (255, 255, 255), 80)
+            self.sys.paragraph(70, 170, 100, 100, "DarK Impact", (255, 255, 255), 65)
             
             play_b.create(self.screen)
             control_b.create(self.screen)

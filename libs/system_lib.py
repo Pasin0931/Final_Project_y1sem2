@@ -5,7 +5,7 @@ class System:
         self.w = w
         self.h = h
 
-        self.screen = pygame.display.set_mode((self.w, self.h), pygame.FULLSCREEN) # pygame.RESIZABLE
+        self.screen = pygame.display.set_mode((self.w, self.h)) # pygame.RESIZABLE
         self.screen.fill((r, g, b)) # bg color
         
         # ------------
@@ -56,5 +56,5 @@ class Background:
         
     def get_bg(self):
         b_g = pygame.image.load(f"./pictures/{self.folder}/{self.f_name}.png")
-        # b_g = pygame.transform.scale_by(b_g, 1.1) # scale bg image up by 1.1
+        b_g = pygame.transform.scale_by(b_g, 0.819) # scale bg image up by 1.1
         return b_g

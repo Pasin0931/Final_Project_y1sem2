@@ -35,11 +35,11 @@ class Selection:
         
         back_b = Button(12, 710, 190, 60, "BacK", 42)
         
-        lv1 = Button(290, 410, 70, 70, "l", 50)
-        lv2 = Button(528, 410, 70, 70, "ll", 50)
-        lv3 = Button(765, 410, 70, 70, "lll", 50)
-        lv4 = Button(1000, 410, 70, 70, "lV", 50)
-        lv5 = Button(1235, 410, 70, 70, "V", 50)
+        lv1 = Button(290 - 60, 330, 70, 70, "l", 50)
+        lv2 = Button(528 - 102, 330, 70, 70, "ll", 50)
+        lv3 = Button(765 - 145, 330, 70, 70, "lll", 50)
+        lv4 = Button(1000 - 185, 330, 70, 70, "lV", 50)
+        lv5 = Button(1235 - 230, 330, 70, 70, "V", 50)
 
         running = True
         while running:

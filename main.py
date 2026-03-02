@@ -27,7 +27,7 @@ pygame.init()
 pygame.font.init()
 pygame.mixer.init()
 
-sys = System(0, 0, 0, 0, 0) # 1280, 720, 0, 0, 0
+sys = System(1280, 720, 0, 0, 0) # 1280, 720, 0, 0, 0
 
 sys.initialize()
 

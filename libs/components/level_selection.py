@@ -33,7 +33,7 @@ class Selection:
         bg = Background("menu", "selection").get_bg()
         bg = pygame.transform.scale_by(bg, 1.1)
         
-        back_b = Button(12, 710, 190, 60, "BacK", 42)
+        back_b = Button(12, 580, 190, 60, "BacK", 42)
         
         lv1 = Button(290 - 60, 330, 70, 70, "l", 50)
         lv2 = Button(528 - 102, 330, 70, 70, "ll", 50)

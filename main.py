@@ -4,7 +4,6 @@ import time
 from libs.system_lib import System, Background
 from libs.components.ui import Button
 from libs.components.menu import main_menu
-from libs.sprite_lib import Player
 
 from pygame.locals import (
     RLEACCEL,

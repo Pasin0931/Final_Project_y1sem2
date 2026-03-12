@@ -3,7 +3,7 @@ import time
 
 from libs.system_lib import System, Background
 from libs.components.ui import Button
-from libs.sprites.sprite_lib import Player
+from libs.sprites.player import Player
 
 from pygame.locals import (
     RLEACCEL,
@@ -43,6 +43,8 @@ class Level:
         bg = pygame.transform.scale_by(bg, 1.1)
         player = Player(self.sys)
 
+        clock = pygame.time.Clock()
+
         running = True
         while running:
             dashing = False
@@ -67,6 +69,8 @@ class Level:
             
             self.screen.blit(bg, (0, 0))
             self.screen.blit(player.surf, player.rect)
+
+            clock.tick(60)
             
             pygame.display.flip()
             

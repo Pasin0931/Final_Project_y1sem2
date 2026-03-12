@@ -28,19 +28,6 @@ class Button:
         self.text_color = (255, 255, 255)
         
         self.surface = pygame.Surface((w, h), pygame.SRCALPHA)
-
-    # def create(self, screen): # with border filled
-    #     position = pygame.mouse.get_pos()
-         
-    #     if self.rect.collidepoint(position):
-    #         color = self.hover_color
-    #     else:
-    #         color = self.base_color
-    #     pygame.draw.rect(screen, color, self.rect)
-
-    #     text_surf = self.font.render(self.text, True, self.text_color)
-    #     text_rect = text_surf.get_rect(center=self.rect.center)
-    #     screen.blit(text_surf, text_rect)
     
     def create(self, screen):
         position = pygame.mouse.get_pos()

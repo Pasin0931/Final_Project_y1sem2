@@ -1,0 +1,155 @@
+import pygame
+from .sprites_loader import Knight
+
+from pygame.locals import (
+    RLEACCEL,
+    K_UP,
+    K_DOWN,
+    K_LEFT,
+    K_RIGHT,
+    K_ESCAPE,
+    KEYDOWN,
+    QUIT,
+    K_w,
+    K_a,
+    K_s,
+    K_d,
+    K_SPACE,
+    K_LSHIFT
+)
+
+class Player(pygame.sprite.Sprite):
+    def __init__(self, sys):
+        super(Player, self).__init__()
+        self.sys = sys
+
+        self.ground_location = sys.h / 1.3
+
+        # -------------------------------------        
+        self.knight = Knight(0)
+        self.frames = self.knight.get_sprite_set()
+        self.frames = [pygame.transform.scale_by(f, 3) for f in self.frames]
+        self.frame_index = 0
+        self.surf = self.frames[self.frame_index]
+        # ------------------------------------- 
+        
+        self.rect = self.surf.get_rect()
+
+        self.rect.x = sys.w // 2
+        self.rect.y = sys.h // 1.27
+
+        self.on_ground = True
+        self.velo = 0
+        self.jump_cooldown = 0
+        self.is_jumping = False
+
+        self.is_facing_right = True
+        self.is_facing_left = False
+
+        self.is_dashing = False
+        self.dash_end_point = 0
+
+        self.frame_timer = 0
+        self.frame_delay = 5  # frames wait before next sprite frame
+
+    def update(self, pressed_keys, dashing_, jump_):
+        self.velo += 0.5
+        self.rect.y += self.velo
+
+        if pressed_keys[K_d] and not self.is_jumping and not self.is_dashing:
+            self.set_state(1)  # run
+            self.rect.x += 2
+            self.face_right()
+        elif pressed_keys[K_a] and not self.is_jumping and not self.is_dashing:
+            self.set_state(1)  # run
+            self.rect.x -= 2
+            self.face_left()
+        elif not self.is_jumping and not self.is_dashing:
+            self.set_state(0)  # idle
+
+        if jump_:
+            # self.set_state(5)  # death placeholder
+            self.jump()
+
+        if dashing_ and not self.is_dashing:
+            self.is_dashing = True
+            self.set_state(6)  # roll
+            self.check_not_same_bool()
+            if self.is_facing_left:
+                self.dash_end_point = max(0, self.rect.x - 100)
+            else:
+                self.dash_end_point = min(self.sys.w, self.rect.x + 100)
+
+        if self.is_dashing:
+            self.dash(self.dash_end_point)
+
+        if self.jump_cooldown > 0:
+            self.jump_cooldown -= 1
+
+        if self.rect.left <= 0:
+            self.rect.left = 0
+            self.is_dashing = False
+            self.set_state(0)
+        if self.rect.right >= self.sys.w:
+            self.rect.right = self.sys.w
+            self.is_dashing = False
+            self.set_state(0)
+        if self.rect.top <= 0:
+            self.rect.top = 0
+        if self.rect.bottom >= self.ground_location:
+            self.rect.bottom = self.ground_location
+            self.on_ground = True
+            self.is_jumping = False
+
+        self.frame_timer += 1
+        if self.frame_timer >= self.frame_delay:
+            self.frame_timer = 0
+            self.frame_index = (self.frame_index + 1) % len(self.frames)
+            self.surf = self.frames[self.frame_index]
+            if self.is_facing_left:
+                self.surf = pygame.transform.flip(self.surf, True, False)
+
+    def set_state(self, state):
+        if self.knight.knight_state != state:
+            self.knight.knight_state = state
+            self.frames = self.knight.get_sprite_set()
+            self.frames = [pygame.transform.scale_by(f, 3) for f in self.frames]
+            self.frame_index = 0
+
+    def jump(self):
+        if self.on_ground and self.jump_cooldown <= 0:
+            self.velo = -6
+            self.on_ground = False
+            self.jump_cooldown = 30  # frames
+            self.is_jumping = True
+
+    def dash(self, end_point):
+        if self.is_facing_left:
+            if self.rect.x > end_point:
+                self.rect.x -= 2
+            else:
+                self.is_dashing = False
+                self.set_state(0)
+        else:
+            if self.rect.x < end_point:
+                self.rect.x += 2
+            else:
+                self.is_dashing = False
+                self.set_state(0)
+
+    def check_not_same_bool(self):
+        if self.is_facing_left == self.is_facing_right:
+            self.is_facing_right = True
+            self.is_facing_left = False
+
+    def face_left(self):
+        if not self.is_facing_left:
+            self.is_facing_left = True
+            self.is_facing_right = False
+            self.surf = pygame.transform.flip(self.surf, True, False)
+
+    def face_right(self):
+        if not self.is_facing_right:
+            self.is_facing_left = False
+            self.is_facing_right = True
+            self.surf = pygame.transform.flip(self.surf, True, False)

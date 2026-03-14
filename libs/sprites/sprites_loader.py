@@ -1,15 +1,13 @@
 import pygame
     
 class Knight:
-    sprite_set = []
-
     def __init__(self, knight_state):
         self.knight_state = knight_state
+        self.sprite_set = []
         self.load_sprite()
 
-    @classmethod
-    def add_image(cls, file_name):
-        cls.sprite_set.append(file_name)
+    def add_image(self, file_name):
+        self.sprite_set.append(file_name)
 
     def load_sprite(self):
         self.add_image(pygame.image.load("./pictures/player/FreeKnight_v1/Colour2/NoOutline/png120x80/_Attack.png").convert_alpha()) # 480x80
@@ -26,11 +24,11 @@ class Knight:
             return
         sprite = pygame.Surface((w, h))
         sprite.set_colorkey((0, 0, 0))
-        sprite.blit(Knight.sprite_set[index], (0, 0), (x, y, w, h))
+        sprite.blit(self.sprite_set[index], (0, 0), (x, y, w, h))
         return sprite
     
     def get_sprite_set(self):
-        if len(Knight.sprite_set) != 7:
+        if len(self.sprite_set) != 7:
             print("sprite set not filled")
             return
         
@@ -121,15 +119,13 @@ class Knight:
             raise ValueError("State out of range")
         
 class FemaleKnight:
-    sprite_set = []
-
     def __init__(self, knight_state):
         self.knight_state = knight_state
+        self.sprite_set = []
         self.load_sprite()
 
-    @classmethod
-    def add_image(cls, file_name):
-        cls.sprite_set.append(file_name)
+    def add_image(self, file_name):
+        self.sprite_set.append(file_name)
 
     def load_sprite(self):
         self.add_image(pygame.image.load("./pictures/player/Warrior/SpriteSheet/Warrior_Sheet-Effect.png").convert_alpha())
@@ -140,11 +136,11 @@ class FemaleKnight:
             return
         sprite = pygame.Surface((w, h))
         sprite.set_colorkey((0, 0, 0))
-        sprite.blit(FemaleKnight.sprite_set[index], (0, 0), (x, y, w, h))
+        sprite.blit(self.sprite_set[index], (0, 0), (x, y, w, h))
         return sprite
     
     def get_sprite_set(self):
-        if len(FemaleKnight.sprite_set) != 1:
+        if len(self.sprite_set) != 1:
             print("sprite set not filled")
             return
         
@@ -233,6 +229,11 @@ class FemaleKnight:
         elif self.knight_state == 6:
             slide = [self.get_sprite(0,   616, 69, 44, 0),
                      self.get_sprite(69,  616, 69, 44, 0),
+                     self.get_sprite(138, 616, 69, 44, 0),
+                     self.get_sprite(207, 616, 69, 44, 0),
+                     self.get_sprite(276, 616, 69, 44, 0),
+                     self.get_sprite(138, 616, 69, 44, 0),
+                     self.get_sprite(207, 616, 69, 44, 0),
                      self.get_sprite(138, 616, 69, 44, 0),
                      self.get_sprite(207, 616, 69, 44, 0),
                      self.get_sprite(276, 616, 69, 44, 0),

@@ -1,5 +1,6 @@
 import pygame
-from .sprites_loader import Knight
+from .sprites_loader import Knight, FemaleKnight
+from ..stat import player
 
 from pygame.locals import (
     RLEACCEL,
@@ -23,10 +24,19 @@ class Player(pygame.sprite.Sprite):
         super(Player, self).__init__()
         self.sys = sys
 
+        # ------
+        self.health = player["health"]
+        self.power = player["power"]
+        self.critical = player["critical"]
+        self.stamina = player["stamina"]
+        self.level_point = 0
+        # ------
+
         self.ground_location = sys.h / 1.3
 
         # -------------------------------------        
         self.knight = Knight(0)
+        # self.knight = FemaleKnight(0)
         self.frames = self.knight.get_sprite_set()
         self.frames = [pygame.transform.scale_by(f, 3) for f in self.frames]
         self.frame_index = 0
@@ -35,7 +45,7 @@ class Player(pygame.sprite.Sprite):
         
         self.rect = self.surf.get_rect()
 
-        self.rect.x = sys.w // 2
+        self.rect.x = sys.w // 2.6 # spawn point
         self.rect.y = sys.h // 1.27
 
         self.on_ground = True
@@ -89,11 +99,11 @@ class Player(pygame.sprite.Sprite):
         if self.rect.left <= 0:
             self.rect.left = 0
             self.is_dashing = False
-            self.set_state(0)
+            # self.set_state(0)
         if self.rect.right >= self.sys.w:
             self.rect.right = self.sys.w
             self.is_dashing = False
-            self.set_state(0)
+            # self.set_state(0)
         if self.rect.top <= 0:
             self.rect.top = 0
         if self.rect.bottom >= self.ground_location:

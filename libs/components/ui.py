@@ -1,4 +1,5 @@
 import pygame
+from ..stat import player
 from pygame.locals import (
     RLEACCEL,
     K_UP,
@@ -49,3 +50,37 @@ class Button:
             if event.button == 1 and self.rect.collidepoint(event.pos):
                 return True
         return False
+
+class Bar:
+    def __init__(self, screen, x, y, w, h):
+        self.screen = screen
+        self.x = x
+        self.y = y
+        self.w = w
+        self.h = h
+
+        pygame.draw.rect(self.screen, (0, 0, 0), (self.x, self.y, self.w, self.h))
+
+class HealthBar(Bar):
+    def __init__(self, screen, x, y, w, h, health):
+        super().__init__(screen, x, y, w, h)
+        self.health = health
+        self.max_health = self.w
+        self.bar_color = (200, 0, 0)
+
+    def update_health(self):
+        bar_width = (self.health - 4)
+        pygame.draw.rect(self.screen, (0, 0, 0), (self.x, self.y, self.w+4, self.h+4)) # outlier
+        pygame.draw.rect(self.screen, self.bar_color, (self.x+4, self.y+4, bar_width, self.h-4)) # health
+
+class StaminaBar(Bar):
+    def __init__(self, screen, x, y, w, h, stamina):
+        super().__init__(screen, x, y, w, h)
+        self.stamina = stamina
+        self.max_stamina = self.w
+        self.bar_color = (0, 200, 0)
+
+    def update_stamina(self):
+        bar_width = (self.stamina - 4)
+        pygame.draw.rect(self.screen, (0, 0, 0), (self.x, self.y, self.w+4, self.h+4)) # outlier
+        pygame.draw.rect(self.screen, self.bar_color, (self.x+4, self.y+4, bar_width, self.h-4)) # stamina

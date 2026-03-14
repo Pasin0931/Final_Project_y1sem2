@@ -2,8 +2,10 @@ import pygame
 import time
 
 from libs.system_lib import System, Background
-from libs.components.ui import Button
+from libs.components.ui import Button, HealthBar, StaminaBar
 from libs.sprites.player import Player
+
+from ..stat import player as player_default_stat
 
 from pygame.locals import (
     RLEACCEL,
@@ -58,9 +60,14 @@ class Level:
                 if self.ambient == None:
                     self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg5.mp3")).play()
                     self.ambient.set_volume(1.0)
-            
         self.bg = pygame.transform.scale_by(self.bg, 1.1)
-        player = Player(self.sys)
+
+# ----------------------------------------------------------------------------------------------------
+
+        player_ = Player(self.sys)
+
+        healthbar_ = HealthBar(self.screen, 30, 172, player_default_stat['health'], 20, player_.health)
+        staminabar_ = StaminaBar(self.screen, 30, 200, player_default_stat['stamina'], 20, player_.stamina)
 
         clock = pygame.time.Clock()
 
@@ -88,10 +95,13 @@ class Level:
                     running = False
                     
             pressed_keys = pygame.key.get_pressed()
-            player.update(pressed_keys, dashing, jump)
+            player_.update(pressed_keys, dashing, jump)
             
             self.screen.blit(self.bg, (0, 0))
-            self.screen.blit(player.surf, player.rect)
+            self.screen.blit(player_.surf, player_.rect)
+
+            healthbar_.update_health()
+            staminabar_.update_stamina()
 
             clock.tick(60)
             

@@ -1,4 +1,4 @@
-player =          {"health": 100, "power": 2, "critical": 0.05, "stamina": 100}
+player =          {"health": 100, "power": 2, "critical": 0.05, "stamina": 50}
 
 # -------------------------
 

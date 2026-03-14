@@ -58,23 +58,23 @@ class main_menu:
                         # self.sys.stop()
                 
                 if play_b.is_clicked(event):
-                    print("play")
+                    # print("play")
                     sound.play()
                     self.status = "play"
                     Selection(self.sys, self.screen, ambient).show()
                     
                 if control_b.is_clicked(event):
-                    print("control")
+                    # print("control")
                     sound.play()
                     self.status = "control"
                     
                 if summary_b.is_clicked(event):
-                    print("summary")
+                    # print("summary")
                     sound.play()
                     self.status = "summary"
                     
                 if quit_b.is_clicked(event):
-                    print("quit")
+                    # print("quit")
                     sound.play()
                     self.status = "quit"
                     running = False

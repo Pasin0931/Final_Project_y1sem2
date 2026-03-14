@@ -100,8 +100,8 @@ class Level:
             self.screen.blit(self.bg, (0, 0))
             self.screen.blit(player_.surf, player_.rect)
 
-            healthbar_.update_health()
-            staminabar_.update_stamina()
+            healthbar_.update_health(player_.health)
+            staminabar_.update_stamina(player_.stamina)
 
             clock.tick(60)
             

@@ -2,6 +2,11 @@ import pygame
 from .sprites_loader import Knight, FemaleKnight
 from ..stat import player
 
+JUMP_STAMINA_DECREASE = 10
+DASH_STAMINA_DECREASE = 10
+
+FRAME_STAMINA_COOLDOWN = 40
+
 from pygame.locals import (
     RLEACCEL,
     K_UP,
@@ -62,33 +67,61 @@ class Player(pygame.sprite.Sprite):
         self.frame_timer = 0
         self.frame_delay = 5  # frames wait before next sprite frame
 
+        self.walk_sound = pygame.mixer.Sound("./sounds/player/walking_sound.mp3") # sound -----
+        self.walk_sound.set_volume(0.3)
+        self.walk_sound_timer = 0
+        self.walk_sound_delay = 26  # frames between each play
+
+        self.cool_down_before_stamina_regen = 0
+
     def update(self, pressed_keys, dashing_, jump_):
         self.velo += 0.5
         self.rect.y += self.velo
 
         if pressed_keys[K_d] and not self.is_jumping and not self.is_dashing:
-            self.set_state(1)  # run
+            self.set_state(1)
             self.rect.x += 2
             self.face_right()
+            if self.walk_sound_timer <= 0:
+                self.walk_sound.play()
+                self.walk_sound_timer = self.walk_sound_delay
         elif pressed_keys[K_a] and not self.is_jumping and not self.is_dashing:
-            self.set_state(1)  # run
+            self.set_state(1)
             self.rect.x -= 2
             self.face_left()
+            if self.walk_sound_timer <= 0:
+                self.walk_sound.play()
+                self.walk_sound_timer = self.walk_sound_delay
         elif not self.is_jumping and not self.is_dashing:
             self.set_state(0)  # idle
 
         if jump_:
             # self.set_state(5)  # death placeholder
-            self.jump()
+            if self.stamina - JUMP_STAMINA_DECREASE >= 10:
+                self.stamina -= JUMP_STAMINA_DECREASE
+                self.jump()
 
         if dashing_ and not self.is_dashing:
-            self.is_dashing = True
-            self.set_state(6)  # roll
-            self.check_not_same_bool()
-            if self.is_facing_left:
-                self.dash_end_point = max(0, self.rect.x - 100)
-            else:
-                self.dash_end_point = min(self.sys.w, self.rect.x + 100)
+            print(self.stamina)
+            if self.stamina - DASH_STAMINA_DECREASE >= 0:
+                self.is_dashing = True
+                self.set_state(6)  # roll
+                self.check_not_same_bool()
+                self.stamina -= DASH_STAMINA_DECREASE
+                if self.is_facing_left:
+                    self.dash_end_point = max(0, self.rect.x - 100)
+                else:
+                    self.dash_end_point = min(self.sys.w, self.rect.x + 100)
+
+        if self.stamina < player["stamina"]:
+            if not self.is_dashing and not self.is_jumping and self.on_ground:
+                if self.cool_down_before_stamina_regen < FRAME_STAMINA_COOLDOWN:
+                    self.cool_down_before_stamina_regen += 1
+                elif self.cool_down_before_stamina_regen >= FRAME_STAMINA_COOLDOWN:
+                    self.stamina+=2
+                    if self.stamina >= player['stamina']:
+                        self.stamina = player['stamina']
+                        self.cool_down_before_stamina_regen = 0
 
         if self.is_dashing:
             self.dash(self.dash_end_point)
@@ -118,6 +151,9 @@ class Player(pygame.sprite.Sprite):
             self.surf = self.frames[self.frame_index]
             if self.is_facing_left:
                 self.surf = pygame.transform.flip(self.surf, True, False)
+
+        if self.walk_sound_timer > 0: # sound -------------
+            self.walk_sound_timer -= 1
 
     def set_state(self, state):
         if self.knight.knight_state != state:

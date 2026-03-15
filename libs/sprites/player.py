@@ -85,6 +85,9 @@ class Player(pygame.sprite.Sprite):
 
         self.sword_swing = pygame.mixer.Sound("./sounds/player/sword_swing.mp3") # sword sound -----
         self.sword_swing.set_volume(0.6)
+    
+        self.roll_ = pygame.mixer.Sound("./sounds/player/roll.mp3") # sword sound -----
+        self.roll_.set_volume(0.5)
 
         self.cool_down_before_stamina_regen = 0
 
@@ -137,6 +140,7 @@ class Player(pygame.sprite.Sprite):
         if dashing_ and not self.is_dashing and not self.is_attacking and not self.is_jumping and not self.is_comboing:
             # print(self.stamina)
             if self.stamina - DASH_STAMINA_DECREASE >= 0:
+                self.roll_.play()
                 self.is_dashing = True
                 self.set_state(6)  # roll
                 self.check_not_same_bool()

@@ -41,7 +41,7 @@ class main_menu:
         # screen.blit(bg, (0, 0))
 
         play_b = Button(120, 280, 100, 60, "Play", 32)
-        control_b = Button(118, 365, 140, 60, "Control", 32)
+        setting_b = Button(118, 365, 140, 60, "Setting", 32)
         summary_b = Button(110, 450, 190, 60, "Summary", 32)
         quit_b = Button(120, 530, 100, 60, "Quit", 32)
 
@@ -63,10 +63,10 @@ class main_menu:
                     self.status = "play"
                     Selection(self.sys, self.screen, ambient).show()
                     
-                if control_b.is_clicked(event):
+                if setting_b.is_clicked(event):
                     # print("control")
                     sound.play()
-                    self.status = "control"
+                    self.status = "setting"
                     
                 if summary_b.is_clicked(event):
                     # print("summary")
@@ -88,7 +88,7 @@ class main_menu:
             self.sys.paragraph(70, 170, 100, 100, "DarK Impact", (255, 255, 255), 65)
             
             play_b.create(self.screen)
-            control_b.create(self.screen)
+            setting_b.create(self.screen)
             summary_b.create(self.screen)
             quit_b.create(self.screen)
 

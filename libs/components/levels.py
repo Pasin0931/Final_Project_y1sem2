@@ -39,27 +39,27 @@ class Level:
             if self.current_lv == 1:
                 self.bg = Background("stage", "s1").get_bg()
                 if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg1.mp3")).play()
+                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg1.mp3")).play(loops=-1)
                     self.ambient.set_volume(1.0)
             elif self.current_lv == 2:
                 self.bg = Background("stage", "s2").get_bg()
                 if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg2.mp3")).play()
+                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg2.mp3")).play(loops=-1)
                     self.ambient.set_volume(1.0)
             elif self.current_lv == 3:
                 self.bg = Background("stage", "s3").get_bg()
                 if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg3.mp3")).play()
+                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg3.mp3")).play(loops=-1)
                     self.ambient.set_volume(1.0)
             elif self.current_lv == 4:
                 self.bg = Background("stage", "s4").get_bg()
                 if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg4.mp3")).play()
+                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg4.mp3")).play(loops=-1)
                     self.ambient.set_volume(1.0)
             elif self.current_lv == 5:
                 self.bg = Background("stage", "s5").get_bg()
                 if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg5.mp3")).play()
+                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg5.mp3")).play(loops=-1)
                     self.ambient.set_volume(1.0)
         self.bg = pygame.transform.scale_by(self.bg, 1.1)
 
@@ -105,12 +105,14 @@ class Level:
                     running = False
                     
             pressed_keys = pygame.key.get_pressed()
+            # pressed_mouse = pygame.mouse.get_pressed()
             player_.update(pressed_keys, dashing, jump, attack_click, combo_click)
             
             self.screen.blit(self.bg, (0, 0))
             self.screen.blit(player_.surf, player_.rect)
 
             pygame.draw.rect(self.screen, (255, 0, 0), player_.hitbox, 5) # hitbox debugging
+            pygame.draw.rect(self.screen, (255, 0, 0), player_.attack_box, 5) # attack hitbox debugging
 
             healthbar_.update_health(player_.health)
             staminabar_.update_stamina(player_.stamina)

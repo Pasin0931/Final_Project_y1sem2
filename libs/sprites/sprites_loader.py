@@ -1,4 +1,5 @@
 import pygame
+import random
     
 class Knight:
     def __init__(self, knight_state):
@@ -75,7 +76,7 @@ class Knight:
             return attack2
  
         elif self.knight_state == 4:
-            combo = [self.get_sprite(0,    0, 120, 80, 2),
+            combo_a = [self.get_sprite(0,    0, 120, 80, 2),
                      self.get_sprite(120,  0, 120, 80, 2),
                      self.get_sprite(240,  0, 120, 80, 2),
                      self.get_sprite(360,  0, 120, 80, 2),
@@ -85,7 +86,17 @@ class Knight:
                      self.get_sprite(840,  0, 120, 80, 2),
                      self.get_sprite(960,  0, 120, 80, 2),
                      self.get_sprite(1080, 0, 120, 80, 2)]
-            return combo
+            combo_b = [self.get_sprite(480,  0, 120, 80, 2),
+                     self.get_sprite(600,  0, 120, 80, 2),
+                     self.get_sprite(720,  0, 120, 80, 2),
+                     self.get_sprite(840,  0, 120, 80, 2),
+                     self.get_sprite(960,  0, 120, 80, 2),
+                     self.get_sprite(1080, 0, 120, 80, 2),
+                     self.get_sprite(0,    0, 120, 80, 2),
+                     self.get_sprite(120,  0, 120, 80, 2),
+                     self.get_sprite(240,  0, 120, 80, 2),
+                     self.get_sprite(360,  0, 120, 80, 2),]
+            return random.choice([combo_a, combo_b])
  
         elif self.knight_state == 5:
             death = [self.get_sprite(0,    0, 120, 80, 4),

@@ -83,16 +83,22 @@ class Player(pygame.sprite.Sprite):
         self.walk_sound_timer = 0
         self.walk_sound_delay = 26  # frames between each play
 
+        self.sword_swing = pygame.mixer.Sound("./sounds/player/sword_swing.mp3") # sword sound -----
+        self.sword_swing.set_volume(0.6)
+
         self.cool_down_before_stamina_regen = 0
 
         self.hitbox = pygame.Rect(self.rect.x, self.rect.y, 60, 115)
-        self.hitbox.x = self.rect.x + 1000
+        self.hitbox.x = self.rect.x
 
         self.is_attacking = False
         self.is_comboing = False
         self.frame_attack = 0
         self.frame_combo = 0
+
         self.attack_box = pygame.Rect(0, 0, 0, 0)
+
+        self.sound_tmp = None
 
     def update(self, pressed_keys, dashing_, jump_, attack_, combo_):
         self.velo += 0.5
@@ -149,6 +155,7 @@ class Player(pygame.sprite.Sprite):
                 self.check_not_same_bool()
                 self.stamina -= ATTACK_STAMINA_DECREASE
                 self.cool_down_before_stamina_regen = 0
+                self.sword_swing.play()
         # ---------- Combo
         if combo_ and not self.is_comboing and not self.is_dashing and not self.is_jumping and not self.is_attacking:
             if self.stamina - ATTACK2_STAMINA_DECREASE >= 0:
@@ -265,10 +272,35 @@ class Player(pygame.sprite.Sprite):
         if self.frame_index >= len(self.frames) - 1:
             self.is_attacking = False
             self.frame_attack = 0
+            self.attack_box = pygame.Rect(0, 0, 0, 0)
             self.set_state(0)
+
+        if self.is_attacking:
+            if self.is_facing_right:
+                self.attack_box = pygame.Rect(self.hitbox.right, self.hitbox.y, 140, 115)
+            else:
+                self.attack_box = pygame.Rect(self.hitbox.left - 140, self.hitbox.y, 140, 115)
 
     def combo(self):
         if self.frame_index >= len(self.frames) - 1:
             self.is_comboing = False
             self.frame_combo = 0
+            self.attack_box = pygame.Rect(0, 0, 0, 0)
+            self.sound_tmp = None
             self.set_state(0)
+
+        if self.is_comboing and self.frame_index in [1,2,3,6,7,8]:
+            if self.frame_index == 1 and self.sound_tmp == None:
+                self.sound_tmp = 1
+                self.sword_swing.play()
+            elif self.frame_index == 6 and self.sound_tmp == 1:
+                self.sword_swing.play()
+                self.sound_tmp = 6
+
+            if self.is_facing_right:
+                self.attack_box = pygame.Rect(self.hitbox.right, self.hitbox.y, 120, 115)
+            else:
+                self.attack_box = pygame.Rect(self.hitbox.left - 120, self.hitbox.y, 120, 115) # 123678
+        else:
+            self.attack_box = pygame.Rect(0, 0, 0, 0)
+        # print(self.frame_index)

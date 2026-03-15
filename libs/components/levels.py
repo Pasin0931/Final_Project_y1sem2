@@ -22,6 +22,7 @@ from pygame.locals import (
     K_d,
     K_LSHIFT,
     K_SPACE,
+    MOUSEBUTTONDOWN
 )
 
 class Level:
@@ -75,6 +76,8 @@ class Level:
         while running:
             dashing = False
             jump = False
+            attack_click = False
+            combo_click = False
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
@@ -88,6 +91,13 @@ class Level:
                     elif event.key == K_LSHIFT:
                         # print("dashing")
                         dashing = True
+
+                elif event.type == MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        attack_click = True
+                    else:
+                        combo_click = True
+                    # print(attack_click, combo_click)
                         
                 elif event.type == QUIT:
                     self.ambient.stop()
@@ -95,7 +105,7 @@ class Level:
                     running = False
                     
             pressed_keys = pygame.key.get_pressed()
-            player_.update(pressed_keys, dashing, jump)
+            player_.update(pressed_keys, dashing, jump, attack_click, combo_click)
             
             self.screen.blit(self.bg, (0, 0))
             self.screen.blit(player_.surf, player_.rect)

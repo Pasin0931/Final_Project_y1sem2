@@ -1,15 +1,20 @@
 import pygame
 from .sprites_loader import Knight, FemaleKnight
 from ..stat import player
+import random
+import time
 
 JUMP_STAMINA_DECREASE = 10
 DASH_STAMINA_DECREASE = 17
+ATTACK_STAMINA_DECREASE = 10
 
 DASH_SPEED = 3.15
 
 STAMINA_REGEN = 1
 
 FRAME_STAMINA_COOLDOWN = 40
+
+FRAME_ATTACK1_TO_ANIMATE = 20
 
 from pygame.locals import (
     RLEACCEL,
@@ -44,8 +49,8 @@ class Player(pygame.sprite.Sprite):
         self.ground_location = sys.h / 1.3
 
         # -------------------------------------        
-        # self.knight = Knight(0)
-        self.knight = FemaleKnight(0)
+        self.knight = Knight(0)
+        # self.knight = FemaleKnight(0)
         self.frames = self.knight.get_sprite_set()
         self.frames = [pygame.transform.scale_by(f, 3) for f in self.frames]
         self.frame_index = 0
@@ -81,27 +86,36 @@ class Player(pygame.sprite.Sprite):
         self.hitbox = pygame.Rect(self.rect.x, self.rect.y, 60, 115)
         self.hitbox.x = self.rect.x + 1000
 
+        self.is_attacking = False
+        self.is_comboing = False
+        self.frame_attack = 0
         self.attack_box = pygame.Rect(0, 0, 0, 0)
 
-    def update(self, pressed_keys, dashing_, jump_):
+    def update(self, pressed_keys, dashing_, jump_, attack_, combo_):
         self.velo += 0.5
         self.rect.y += self.velo
 
         if pressed_keys[K_d] and not self.is_jumping and not self.is_dashing:
-            self.set_state(1)
-            self.rect.x += 2
+            if self.is_attacking:
+                self.rect.x += 0.5
+            else:
+                self.set_state(1)
+                self.rect.x += 2
             self.face_right()
             if self.walk_sound_timer <= 0:
                 self.walk_sound.play()
                 self.walk_sound_timer = self.walk_sound_delay
         elif pressed_keys[K_a] and not self.is_jumping and not self.is_dashing:
-            self.set_state(1)
-            self.rect.x -= 2
+            if self.is_attacking:
+                self.rect.x -= 0.5
+            else:
+                self.set_state(1)
+                self.rect.x -= 2
             self.face_left()
             if self.walk_sound_timer <= 0:
                 self.walk_sound.play()
                 self.walk_sound_timer = self.walk_sound_delay
-        elif not self.is_jumping and not self.is_dashing:
+        elif not self.is_jumping and not self.is_dashing and not self.is_attacking:
             self.set_state(0)  # idle
 
         if jump_:
@@ -110,8 +124,9 @@ class Player(pygame.sprite.Sprite):
         if self.health <= 0:
             self.set_state(5)
 
-        if dashing_ and not self.is_dashing:
-            print(self.stamina)
+        # --------- Dodge
+        if dashing_ and not self.is_dashing and not self.is_attacking and not self.is_jumping:
+            # print(self.stamina)
             if self.stamina - DASH_STAMINA_DECREASE >= 0:
                 self.is_dashing = True
                 self.set_state(6)  # roll
@@ -122,9 +137,19 @@ class Player(pygame.sprite.Sprite):
                     self.dash_end_point = max(0, self.rect.x - 170)
                 else:
                     self.dash_end_point = min(self.sys.w, self.rect.x + 170)
+       # ---------- attack
+        if attack_ and not self.is_attacking and not self.is_dashing and not self.is_jumping:
+            if self.stamina - ATTACK_STAMINA_DECREASE >= 0:
+                self.is_attacking = True
+                ran_attack_anim = random.randint(2,3)
+                self.set_state(ran_attack_anim)
+                self.check_not_same_bool()
+                self.stamina -= ATTACK_STAMINA_DECREASE
+                self.cool_down_before_stamina_regen = 0
+        # ----------
 
         if self.stamina < player["stamina"]:
-            if not self.is_dashing and not self.is_jumping and self.on_ground:
+            if not self.is_dashing and not self.is_jumping and self.on_ground and not self.is_attacking:
                 if self.cool_down_before_stamina_regen < FRAME_STAMINA_COOLDOWN:
                     self.cool_down_before_stamina_regen += 1
                 elif self.cool_down_before_stamina_regen >= FRAME_STAMINA_COOLDOWN:
@@ -135,6 +160,9 @@ class Player(pygame.sprite.Sprite):
 
         if self.is_dashing:
             self.dash(self.dash_end_point)
+
+        if self.is_attacking:
+            self.attack()
 
         if self.jump_cooldown > 0:
             self.jump_cooldown -= 1
@@ -218,3 +246,10 @@ class Player(pygame.sprite.Sprite):
             self.is_facing_left = False
             self.is_facing_right = True
             self.surf = pygame.transform.flip(self.surf, True, False)
+
+    def attack(self):
+        self.frame_attack += 1
+        if self.frame_attack >= FRAME_ATTACK1_TO_ANIMATE:
+            self.is_attacking = False
+            self.frame_attack = 0
+            self.set_state(0)

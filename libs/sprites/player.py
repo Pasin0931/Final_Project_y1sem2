@@ -44,8 +44,8 @@ class Player(pygame.sprite.Sprite):
         self.ground_location = sys.h / 1.3
 
         # -------------------------------------        
-        self.knight = Knight(0)
-        # self.knight = FemaleKnight(0)
+        # self.knight = Knight(0)
+        self.knight = FemaleKnight(0)
         self.frames = self.knight.get_sprite_set()
         self.frames = [pygame.transform.scale_by(f, 3) for f in self.frames]
         self.frame_index = 0
@@ -78,6 +78,11 @@ class Player(pygame.sprite.Sprite):
 
         self.cool_down_before_stamina_regen = 0
 
+        self.hitbox = pygame.Rect(self.rect.x, self.rect.y, 60, 115)
+        self.hitbox.x = self.rect.x + 1000
+
+        self.attack_box = pygame.Rect(0, 0, 0, 0)
+
     def update(self, pressed_keys, dashing_, jump_):
         self.velo += 0.5
         self.rect.y += self.velo
@@ -100,8 +105,10 @@ class Player(pygame.sprite.Sprite):
             self.set_state(0)  # idle
 
         if jump_:
-            # self.set_state(5)  # death placeholder
             self.jump()
+
+        if self.health <= 0:
+            self.set_state(5)
 
         if dashing_ and not self.is_dashing:
             print(self.stamina)
@@ -157,6 +164,12 @@ class Player(pygame.sprite.Sprite):
 
         if self.walk_sound_timer > 0: # sound -------------
             self.walk_sound_timer -= 1
+
+        self.hitbox.midbottom = self.rect.midbottom
+        if self.is_facing_right:
+            self.hitbox.x -= 14
+        else:
+            self.hitbox.x += 14
 
     def set_state(self, state):
         if self.knight.knight_state != state:

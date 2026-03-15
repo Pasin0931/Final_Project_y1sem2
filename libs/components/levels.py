@@ -100,6 +100,8 @@ class Level:
             self.screen.blit(self.bg, (0, 0))
             self.screen.blit(player_.surf, player_.rect)
 
+            pygame.draw.rect(self.screen, (255, 0, 0), player_.hitbox, 5) # hitbox debugging
+
             healthbar_.update_health(player_.health)
             staminabar_.update_stamina(player_.stamina)
 

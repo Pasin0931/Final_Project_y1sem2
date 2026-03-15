@@ -3,7 +3,11 @@ from .sprites_loader import Knight, FemaleKnight
 from ..stat import player
 
 JUMP_STAMINA_DECREASE = 10
-DASH_STAMINA_DECREASE = 10
+DASH_STAMINA_DECREASE = 17
+
+DASH_SPEED = 3.15
+
+STAMINA_REGEN = 1
 
 FRAME_STAMINA_COOLDOWN = 40
 
@@ -97,9 +101,7 @@ class Player(pygame.sprite.Sprite):
 
         if jump_:
             # self.set_state(5)  # death placeholder
-            if self.stamina - JUMP_STAMINA_DECREASE >= 10:
-                self.stamina -= JUMP_STAMINA_DECREASE
-                self.jump()
+            self.jump()
 
         if dashing_ and not self.is_dashing:
             print(self.stamina)
@@ -108,17 +110,18 @@ class Player(pygame.sprite.Sprite):
                 self.set_state(6)  # roll
                 self.check_not_same_bool()
                 self.stamina -= DASH_STAMINA_DECREASE
+                self.cool_down_before_stamina_regen = 0
                 if self.is_facing_left:
-                    self.dash_end_point = max(0, self.rect.x - 100)
+                    self.dash_end_point = max(0, self.rect.x - 170)
                 else:
-                    self.dash_end_point = min(self.sys.w, self.rect.x + 100)
+                    self.dash_end_point = min(self.sys.w, self.rect.x + 170)
 
         if self.stamina < player["stamina"]:
             if not self.is_dashing and not self.is_jumping and self.on_ground:
                 if self.cool_down_before_stamina_regen < FRAME_STAMINA_COOLDOWN:
                     self.cool_down_before_stamina_regen += 1
                 elif self.cool_down_before_stamina_regen >= FRAME_STAMINA_COOLDOWN:
-                    self.stamina+=2
+                    self.stamina+=STAMINA_REGEN
                     if self.stamina >= player['stamina']:
                         self.stamina = player['stamina']
                         self.cool_down_before_stamina_regen = 0
@@ -164,21 +167,24 @@ class Player(pygame.sprite.Sprite):
 
     def jump(self):
         if self.on_ground and self.jump_cooldown <= 0:
-            self.velo = -6
-            self.on_ground = False
-            self.jump_cooldown = 30  # frames
-            self.is_jumping = True
+            if self.stamina - JUMP_STAMINA_DECREASE >= 10:
+                self.stamina -= JUMP_STAMINA_DECREASE
+                self.cool_down_before_stamina_regen = 0
+                self.velo = -6
+                self.on_ground = False
+                self.jump_cooldown = 30 # frames
+                self.is_jumping = True
 
     def dash(self, end_point):
         if self.is_facing_left:
             if self.rect.x > end_point:
-                self.rect.x -= 2
+                self.rect.x -= DASH_SPEED
             else:
                 self.is_dashing = False
                 self.set_state(0)
         else:
             if self.rect.x < end_point:
-                self.rect.x += 2
+                self.rect.x += DASH_SPEED
             else:
                 self.is_dashing = False
                 self.set_state(0)

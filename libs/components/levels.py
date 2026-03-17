@@ -38,6 +38,9 @@ class Level:
 
         self.enemy_to_spawn_l = []
         self.enemy_to_spawn_r = []
+
+        self.hit_sound = pygame.mixer.Sound(("./sounds/player/flesh_swing.mp3"))
+        self.hit_sound.set_volume(0.4)
     
     def show(self):
         self.level_selected()
@@ -88,22 +91,24 @@ class Level:
             
             
             self.screen.blit(self.bg, (0, 0))
-            self.screen.blit(player_.surf, player_.rect) # test
+            self.screen.blit(player_.surf, player_.rect)
+
             for i in [self.enemy_to_spawn_l, self.enemy_to_spawn_r]:
                 for j in i:
-                    j.update(player_.hitbox.x)
-            for i in [self.enemy_to_spawn_l, self.enemy_to_spawn_r]:
-                for j in i:
+                    j.update(player_.hitbox.x, player_.is_dead)
                     self.screen.blit(j.surf, j.rect)
 
-            pygame.draw.rect(self.screen, (255, 0, 0), player_.hitbox, 5) # hitbox debugging
-            pygame.draw.rect(self.screen, (255, 0, 0), player_.attack_box, 5) # attack hitbox debugging
-            for i in [self.enemy_to_spawn_l, self.enemy_to_spawn_r]:
-                for j in i:
-                    pygame.draw.rect(self.screen, (255, 0, 0), j.hitbox, 5)
+            if not player_.is_dead:
+                pygame.draw.rect(self.screen, (255, 0, 0), player_.hitbox, 5) # hitbox debugging
+                pygame.draw.rect(self.screen, (255, 0, 0), player_.attack_box, 5) # attack hitbox debugging
 
+                for i in [self.enemy_to_spawn_l, self.enemy_to_spawn_r]:
+                    for j in i:
+                        pygame.draw.rect(self.screen, (255, 0, 0), j.hitbox, 5)
+                        pygame.draw.rect(self.screen, (0, 0 ,255), j.attack_box, 5) # enemy attack box debugging
 
             self.check_attack_collide_enemy(player_)
+            self.check_enemy_attack_collide_player(player_)
             self.enemy_to_spawn_l = [i for i in self.enemy_to_spawn_l if i.health > 0]
             self.enemy_to_spawn_r = [i for i in self.enemy_to_spawn_r if i.health > 0]
 
@@ -151,9 +156,9 @@ class Level:
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
                     if spawn_dir == 0:
-                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, random.randint(1,2)))
+                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, 1))
                     else:
-                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, random.randint(1,2)))
+                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, 1))
             
             elif self.current_lv == 2:
                 random_enemy = random.randint(10, 15)
@@ -161,9 +166,9 @@ class Level:
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
                     if spawn_dir == 0:
-                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, random.randint(1,2)))
+                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, 1))
                     else:
-                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, random.randint(1,2)))
+                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, 1))
 
             elif self.current_lv == 3:
                 random_enemy = random.randint(15, 20)
@@ -171,9 +176,9 @@ class Level:
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
                     if spawn_dir == 0:
-                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, random.randint(1,2)))
+                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, 1))
                     else:
-                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, random.randint(1,2)))
+                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, 1))
 
             elif self.current_lv == 4:
                 random_enemy = random.randint(20, 25)
@@ -181,9 +186,9 @@ class Level:
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
                     if spawn_dir == 0:
-                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, random.randint(1,2)))
+                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, 1))
                     else:
-                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, random.randint(1,2)))
+                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, 1))
 
             elif self.current_lv == 5:
                 random_enemy = random.randint(25, 30)
@@ -191,9 +196,9 @@ class Level:
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
                     if spawn_dir == 0:
-                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, random.randint(1,2)))
+                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, 1))
                     else:
-                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, random.randint(1,2)))
+                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, 1))
 
         except ValueError:
             print("Error occur while gennerating stage enemy -----------")
@@ -204,6 +209,7 @@ class Level:
                 if player_.attack_box.colliderect(j.hitbox) and not j.is_hitted:
                     j.is_hitted = True
                     j.health -= (player_.power + self.apply_critical(player_)) # decrease health --------------------
+                    self.hit_sound.play()
                     print(j.health)
                 elif not player_.attack_box.colliderect(j.hitbox):
                     j.is_hitted = False
@@ -212,6 +218,7 @@ class Level:
         if player_.is_comboing:
             ran_ = random.random()
             if ran_ <= player_.critical+0.2:
+                print("CRITICALLL")
                 return player_.power
             else:
                 return 0    
@@ -221,3 +228,22 @@ class Level:
                 return player_.power
             else:
                 return 0
+            
+    def apply_critical_enemy(self, enemy_) -> float:
+            ran_ = random.random()
+            if ran_ <= enemy_.critical_chance+0.2:
+                # print("CRITICALLL")
+                return enemy_.power
+            else:
+                return 0    
+            
+    def check_enemy_attack_collide_player(self, player_):
+        for i in [self.enemy_to_spawn_l, self.enemy_to_spawn_r]:
+            for j in i:
+                if j.attack_box.colliderect(player_.hitbox):
+                    if not player_.is_dashing:
+                        player_.health -= (j.power + self.apply_critical_enemy(j)) # decrease health player --------------------
+                        self.hit_sound.play()
+                        # print(player_.health)
+                elif not player_.attack_box.colliderect(j.hitbox):
+                    pass

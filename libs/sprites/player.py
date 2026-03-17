@@ -103,126 +103,143 @@ class Player(pygame.sprite.Sprite):
 
         self.sound_tmp = None
 
+        self.is_dead = False
+        self.play_dead_anim = False
+
     def update(self, pressed_keys, dashing_, jump_, attack_, combo_):
-        self.velo += 0.5
-        self.rect.y += self.velo
+        if not self.is_dead:
+            self.velo += 0.5
+            self.rect.y += self.velo
 
-        if pressed_keys[K_d] and not self.is_jumping and not self.is_dashing:
-            if self.is_attacking or self.is_comboing:
-                self.rect.x += 1
-            else:
-                self.set_state(1)
-                self.rect.x += 2
-            self.face_right()
-            if self.walk_sound_timer <= 0:
-                self.walk_sound.play()
-                self.walk_sound_timer = self.walk_sound_delay
-        elif pressed_keys[K_a] and not self.is_jumping and not self.is_dashing:
-            if self.is_attacking or self.is_comboing:
-                self.rect.x -= 1
-            else:
-                self.set_state(1)
-                self.rect.x -= 2
-            self.face_left()
-            if self.walk_sound_timer <= 0:
-                self.walk_sound.play()
-                self.walk_sound_timer = self.walk_sound_delay
-        elif not self.is_jumping and not self.is_dashing and not self.is_attacking and not self.is_comboing:
-            self.set_state(0)  # idle
-
-        if jump_:
-            self.jump()
-
-        if self.health <= 0:
-            self.set_state(5)
-
-        # --------- Dodge
-        if dashing_ and not self.is_dashing and not self.is_attacking and not self.is_jumping and not self.is_comboing:
-            # print(self.stamina)
-            if self.stamina - DASH_STAMINA_DECREASE >= 0:
-                self.roll_.play()
-                self.is_dashing = True
-                self.set_state(6)  # roll
-                self.check_not_same_bool()
-                self.stamina -= DASH_STAMINA_DECREASE
-                self.cool_down_before_stamina_regen = 0
-                if self.is_facing_left:
-                    self.dash_end_point = max(0, self.rect.x - 170)
+            if pressed_keys[K_d] and not self.is_jumping and not self.is_dashing:
+                if self.is_attacking or self.is_comboing:
+                    self.rect.x += 1
                 else:
-                    self.dash_end_point = min(self.sys.w, self.rect.x + 170)
-        # ---------- attack
-        if attack_ and not self.is_attacking and not self.is_dashing and not self.is_jumping and not self.is_comboing:
-            if self.stamina - ATTACK_STAMINA_DECREASE >= 0:
-                self.is_attacking = True
-                ran_attack_anim = random.randint(2,3)
-                self.set_state(ran_attack_anim)
-                self.check_not_same_bool()
-                self.stamina -= ATTACK_STAMINA_DECREASE
-                self.cool_down_before_stamina_regen = 0
-                self.sword_swing.play()
-        # ---------- Combo
-        if combo_ and not self.is_comboing and not self.is_dashing and not self.is_jumping and not self.is_attacking:
-            if self.stamina - ATTACK2_STAMINA_DECREASE >= 0:
-                self.is_comboing = True
-                self.set_state(4)
-                self.check_not_same_bool()
-                self.stamina -= ATTACK2_STAMINA_DECREASE
-                self.cool_down_before_stamina_regen = 0
-        # ----------
+                    self.set_state(1)
+                    self.rect.x += 2
+                self.face_right()
+                if self.walk_sound_timer <= 0:
+                    self.walk_sound.play()
+                    self.walk_sound_timer = self.walk_sound_delay
+            elif pressed_keys[K_a] and not self.is_jumping and not self.is_dashing:
+                if self.is_attacking or self.is_comboing:
+                    self.rect.x -= 1
+                else:
+                    self.set_state(1)
+                    self.rect.x -= 2
+                self.face_left()
+                if self.walk_sound_timer <= 0:
+                    self.walk_sound.play()
+                    self.walk_sound_timer = self.walk_sound_delay
+            elif not self.is_jumping and not self.is_dashing and not self.is_attacking and not self.is_comboing:
+                self.set_state(0)  # idle
 
-        if self.stamina < player["stamina"]:
-            if not self.is_dashing and not self.is_jumping and self.on_ground and not self.is_attacking and not self.is_comboing:
-                if self.cool_down_before_stamina_regen < FRAME_STAMINA_COOLDOWN:
-                    self.cool_down_before_stamina_regen += 1
-                elif self.cool_down_before_stamina_regen >= FRAME_STAMINA_COOLDOWN:
-                    self.stamina+=STAMINA_REGEN
-                    if self.stamina >= player['stamina']:
-                        self.stamina = player['stamina']
-                        self.cool_down_before_stamina_regen = 0
+            if jump_:
+                self.jump()
 
-        if self.is_dashing:
-            self.dash(self.dash_end_point)
+            if self.health <= 0:
+                self.is_dead = True
 
-        if self.is_attacking:
-            self.attack()
-        
-        if self.is_comboing:
-            self.combo()
+            # --------- Dodge
+            if dashing_ and not self.is_dashing and not self.is_attacking and not self.is_jumping and not self.is_comboing:
+                # print(self.stamina)
+                if self.stamina - DASH_STAMINA_DECREASE >= 0:
+                    self.roll_.play()
+                    self.is_dashing = True
+                    self.set_state(6)  # roll
+                    self.check_not_same_bool()
+                    self.stamina -= DASH_STAMINA_DECREASE
+                    self.cool_down_before_stamina_regen = 0
+                    if self.is_facing_left:
+                        self.dash_end_point = max(0, self.rect.x - 170)
+                    else:
+                        self.dash_end_point = min(self.sys.w, self.rect.x + 170)
+            # ---------- attack
+            if attack_ and not self.is_attacking and not self.is_dashing and not self.is_jumping and not self.is_comboing:
+                if self.stamina - ATTACK_STAMINA_DECREASE >= 0:
+                    self.is_attacking = True
+                    ran_attack_anim = random.randint(2,3)
+                    self.set_state(ran_attack_anim)
+                    self.check_not_same_bool()
+                    self.stamina -= ATTACK_STAMINA_DECREASE
+                    self.cool_down_before_stamina_regen = 0
+                    self.sword_swing.play()
+            # ---------- Combo
+            if combo_ and not self.is_comboing and not self.is_dashing and not self.is_jumping and not self.is_attacking:
+                if self.stamina - ATTACK2_STAMINA_DECREASE >= 0:
+                    self.is_comboing = True
+                    self.set_state(4)
+                    self.check_not_same_bool()
+                    self.stamina -= ATTACK2_STAMINA_DECREASE
+                    self.cool_down_before_stamina_regen = 0
+            # ----------
 
-        if self.jump_cooldown > 0:
-            self.jump_cooldown -= 1
+            if self.stamina < player["stamina"]:
+                if not self.is_dashing and not self.is_jumping and self.on_ground and not self.is_attacking and not self.is_comboing:
+                    if self.cool_down_before_stamina_regen < FRAME_STAMINA_COOLDOWN:
+                        self.cool_down_before_stamina_regen += 1
+                    elif self.cool_down_before_stamina_regen >= FRAME_STAMINA_COOLDOWN:
+                        self.stamina+=STAMINA_REGEN
+                        if self.stamina >= player['stamina']:
+                            self.stamina = player['stamina']
+                            self.cool_down_before_stamina_regen = 0
 
-        if self.rect.left <= 0:
-            self.rect.left = 0
-            self.is_dashing = False
-            # self.set_state(0)
-        if self.rect.right >= self.sys.w:
-            self.rect.right = self.sys.w
-            self.is_dashing = False
-            # self.set_state(0)
-        if self.rect.top <= 0:
-            self.rect.top = 0
-        if self.rect.bottom >= self.ground_location:
-            self.rect.bottom = self.ground_location
-            self.on_ground = True
-            self.is_jumping = False
+            if self.is_dashing:
+                self.dash(self.dash_end_point)
 
-        self.frame_timer += 1 # FRAME PROGRESSIONNNNNNNNNN
-        if self.frame_timer >= self.frame_delay:
-            self.frame_timer = 0
-            self.frame_index = (self.frame_index + 1) % len(self.frames)
-            self.surf = self.frames[self.frame_index]
-            if self.is_facing_left:
-                self.surf = pygame.transform.flip(self.surf, True, False)
+            if self.is_attacking:
+                self.attack()
+            
+            if self.is_comboing:
+                self.combo()
 
-        if self.walk_sound_timer > 0: # sound -------------
-            self.walk_sound_timer -= 1
+            if self.jump_cooldown > 0:
+                self.jump_cooldown -= 1
 
-        self.hitbox.midbottom = self.rect.midbottom
-        if self.is_facing_right:
-            self.hitbox.x -= 14
+            if self.rect.left <= 0:
+                self.rect.left = 0
+                self.is_dashing = False
+                # self.set_state(0)
+            if self.rect.right >= self.sys.w:
+                self.rect.right = self.sys.w
+                self.is_dashing = False
+                # self.set_state(0)
+            if self.rect.top <= 0:
+                self.rect.top = 0
+            if self.rect.bottom >= self.ground_location:
+                self.rect.bottom = self.ground_location
+                self.on_ground = True
+                self.is_jumping = False
+
+            self.frame_timer += 1 # FRAME PROGRESSIONNNNNNNNNN
+            if self.frame_timer >= self.frame_delay:
+                self.frame_timer = 0
+                self.frame_index = (self.frame_index + 1) % len(self.frames)
+                self.surf = self.frames[self.frame_index]
+                if self.is_facing_left:
+                    self.surf = pygame.transform.flip(self.surf, True, False)
+
+            if self.walk_sound_timer > 0: # sound -------------
+                self.walk_sound_timer -= 1
+
+            self.hitbox.midbottom = self.rect.midbottom
+            if self.is_facing_right:
+                self.hitbox.x -= 14
+            else:
+                self.hitbox.x += 14
         else:
-            self.hitbox.x += 14
+            if not self.play_dead_anim:
+                self.set_state(5)
+                self.frame_timer += 1 # FRAME PROGRESSIONNNNNNNNNN
+                if self.frame_timer >= self.frame_delay:
+                    self.frame_timer = 0
+                    self.frame_index = (self.frame_index + 1) % len(self.frames)
+                    self.surf = self.frames[self.frame_index]
+                    print(self.frame_index, len(self.frames))
+                    if self.is_facing_left:
+                        self.surf = pygame.transform.flip(self.surf, True, False)
+                    if self.frame_index == 9:
+                        self.play_dead_anim = True
 
     def set_state(self, state):
         if self.knight.knight_state != state:

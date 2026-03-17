@@ -7,8 +7,8 @@ class Enemy(pygame.sprite.Sprite):
         self.sys = sys
         self.spawn_x = spawn_x
 
-        self.health = 30
-        self.power = 30
+        self.health = 8
+        self.power = 1
         self.critical_chance = 0.01
 
         self.is_alive = True
@@ -23,18 +23,36 @@ class Enemy(pygame.sprite.Sprite):
         # self.ground_location = sys.h / 1.3
 
         self.speed = speed
+        
+        self.is_attacking = False
 
         self.hitbox = pygame.Rect(self.rect.x, self.rect.y, 50, 50)
         self.attack_box = pygame.Rect(0, 0, 0, 0)
 
-    def update(self, player_pos_center):
+    def update(self, player_pos_center, player_is_dead):
         if not self.is_dead():
             if self.rect.centerx < player_pos_center-50:
-                self.rect.x += self.speed
+                if not player_is_dead:
+                    self.rect.x += self.speed
+                self.attack_box = pygame.Rect(0, 0, 0, 0)
             elif self.rect.centerx > player_pos_center+110:
-                self.rect.x -= self.speed
+                if not player_is_dead:
+                    self.rect.x -= self.speed
+                self.attack_box = pygame.Rect(0, 0, 0, 0)
+            else:
+                self.attack(player_pos_center)
 
             self.hitbox = pygame.Rect(self.rect.x, self.rect.y, 50, 50) # update hitbox
+
+    def attack(self, player_pos):
+        if player_pos > self.rect.x + 30:
+            # print("attack")
+            self.attack_box = pygame.Rect(self.hitbox.left, self.hitbox.y, 140, 50)
+        elif player_pos < self.rect.x - 60:
+            # print("attack")
+            self.attack_box = pygame.Rect(self.hitbox.right-140, self.hitbox.y, 140, 50)
+        else:
+            self.attack_box = pygame.Rect(0, 0, 0, 0)
 
     def is_dead(self):
         if self.health < 0:

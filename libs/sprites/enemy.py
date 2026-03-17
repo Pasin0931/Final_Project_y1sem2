@@ -1,4 +1,5 @@
 import pygame
+import time
 from ..stat import skeleton, goblin, mushroom, flying_eye
 
 class Enemy(pygame.sprite.Sprite):
@@ -6,6 +7,7 @@ class Enemy(pygame.sprite.Sprite):
         super(Enemy, self).__init__()
         self.sys = sys
         self.spawn_x = spawn_x
+        self.speed = speed
 
         self.health = 8
         self.power = 1
@@ -21,36 +23,43 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.x = self.spawn_x
         self.rect.y = sys.h // 1.3 - self.rect.height
         # self.ground_location = sys.h / 1.3
-
-        self.speed = speed
         
         self.is_attacking = False
 
         self.hitbox = pygame.Rect(self.rect.x, self.rect.y, 50, 50)
         self.attack_box = pygame.Rect(0, 0, 0, 0)
 
+        self.attack_timer = 0
+        self.attack_delay = 120  # frames
+
     def update(self, player_pos_center, player_is_dead):
         if not self.is_dead():
-            if self.rect.centerx < player_pos_center-50:
-                if not player_is_dead:
-                    self.rect.x += self.speed
-                self.attack_box = pygame.Rect(0, 0, 0, 0)
-            elif self.rect.centerx > player_pos_center+110:
-                if not player_is_dead:
-                    self.rect.x -= self.speed
-                self.attack_box = pygame.Rect(0, 0, 0, 0)
+            if self.attack_timer > 0: # stop
+                self.attack_timer -= 1
             else:
-                self.attack(player_pos_center)
+                if self.rect.centerx < player_pos_center-50:
+                    if not player_is_dead:
+                        self.rect.x += self.speed
+                    self.attack_box = pygame.Rect(0, 0, 0, 0)
+                elif self.rect.centerx > player_pos_center+110:
+                    if not player_is_dead:
+                        self.rect.x -= self.speed
+                    self.attack_box = pygame.Rect(0, 0, 0, 0)
+                else:
+                    self.attack(player_pos_center)
 
-            self.hitbox = pygame.Rect(self.rect.x, self.rect.y, 50, 50) # update hitbox
+                self.hitbox = pygame.Rect(self.rect.x, self.rect.y, 50, 50) # update hitbox
 
     def attack(self, player_pos):
+        self.attack_timer = self.attack_delay  # add this
         if player_pos > self.rect.x + 30:
             # print("attack")
             self.attack_box = pygame.Rect(self.hitbox.left, self.hitbox.y, 140, 50)
+            self.rect.x += 0
         elif player_pos < self.rect.x - 60:
             # print("attack")
             self.attack_box = pygame.Rect(self.hitbox.right-140, self.hitbox.y, 140, 50)
+            self.rect.x += 0
         else:
             self.attack_box = pygame.Rect(0, 0, 0, 0)
 
@@ -61,10 +70,14 @@ class Enemy(pygame.sprite.Sprite):
         return False
 
 class SkeletonEnemy(Enemy):
-    def __init__(self, sys):
-        super().__init__(sys)
+    def __init__(self, sys, spawn_x, speed):
+        super().__init__(sys, spawn_x, speed)
 
-    def update(self, player_pos, is_attacking_1, is_attacking2):
+        self.health = skeleton['health']
+        self.power = skeleton['power']
+        self.critical_chance = skeleton['critical']
+
+    def update(self, player_pos, is_dead):
         pass
 
 # class GoblinEnemy(Enemy):

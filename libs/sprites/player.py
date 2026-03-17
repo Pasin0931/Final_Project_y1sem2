@@ -235,7 +235,7 @@ class Player(pygame.sprite.Sprite):
                     self.frame_timer = 0
                     self.frame_index = (self.frame_index + 1) % len(self.frames)
                     self.surf = self.frames[self.frame_index]
-                    print(self.frame_index, len(self.frames))
+                    # print(self.frame_index, len(self.frames))
                     if self.is_facing_left:
                         self.surf = pygame.transform.flip(self.surf, True, False)
                     if self.frame_index == 9:
@@ -261,7 +261,7 @@ class Player(pygame.sprite.Sprite):
     def dash(self, end_point):
         if self.is_facing_left:
             if self.rect.x > end_point:
-                self.rect.x -= DASH_SPEED
+                self.rect.x -= DASH_SPEED - 1
             else:
                 self.is_dashing = False
                 self.set_state(0)

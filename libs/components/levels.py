@@ -98,14 +98,7 @@ class Level:
                     j.update(player_.hitbox.x, player_.is_dead)
                     self.screen.blit(j.surf, j.rect)
 
-            if not player_.is_dead:
-                pygame.draw.rect(self.screen, (255, 0, 0), player_.hitbox, 5) # hitbox debugging
-                pygame.draw.rect(self.screen, (255, 0, 0), player_.attack_box, 5) # attack hitbox debugging
-
-                for i in [self.enemy_to_spawn_l, self.enemy_to_spawn_r]:
-                    for j in i:
-                        pygame.draw.rect(self.screen, (255, 0, 0), j.hitbox, 5)
-                        pygame.draw.rect(self.screen, (0, 0 ,255), j.attack_box, 5) # enemy attack box debugging
+            self.show_hitboxes(player_) # hitboxes display
 
             self.check_attack_collide_enemy(player_)
             self.check_enemy_attack_collide_player(player_)
@@ -152,7 +145,7 @@ class Level:
         try:
             if self.current_lv == 1:
                 random_enemy = random.randint(1, 4) # 5, 10
-                print(random_enemy)
+                # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
                     if spawn_dir == 0:
@@ -162,7 +155,7 @@ class Level:
             
             elif self.current_lv == 2:
                 random_enemy = random.randint(10, 15)
-                print(random_enemy)
+                # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
                     if spawn_dir == 0:
@@ -172,7 +165,7 @@ class Level:
 
             elif self.current_lv == 3:
                 random_enemy = random.randint(15, 20)
-                print(random_enemy)
+                # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
                     if spawn_dir == 0:
@@ -182,7 +175,7 @@ class Level:
 
             elif self.current_lv == 4:
                 random_enemy = random.randint(20, 25)
-                print(random_enemy)
+                # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
                     if spawn_dir == 0:
@@ -192,7 +185,7 @@ class Level:
 
             elif self.current_lv == 5:
                 random_enemy = random.randint(25, 30)
-                print(random_enemy)
+                # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
                     if spawn_dir == 0:
@@ -210,7 +203,7 @@ class Level:
                     j.is_hitted = True
                     j.health -= (player_.power + self.apply_critical(player_)) # decrease health --------------------
                     self.hit_sound.play()
-                    print(j.health)
+                    # print(j.health)
                 elif not player_.attack_box.colliderect(j.hitbox):
                     j.is_hitted = False
 
@@ -243,7 +236,16 @@ class Level:
                 if j.attack_box.colliderect(player_.hitbox):
                     if not player_.is_dashing:
                         player_.health -= (j.power + self.apply_critical_enemy(j)) # decrease health player --------------------
-                        self.hit_sound.play()
                         # print(player_.health)
                 elif not player_.attack_box.colliderect(j.hitbox):
                     pass
+
+    def show_hitboxes(self, player_):
+        if not player_.is_dead:
+            pygame.draw.rect(self.screen, (255, 0, 0), player_.hitbox, 5) # hitbox debugging
+            pygame.draw.rect(self.screen, (255, 0, 0), player_.attack_box, 5) # attack hitbox debugging
+
+            for i in [self.enemy_to_spawn_l, self.enemy_to_spawn_r]:
+                for j in i:
+                    pygame.draw.rect(self.screen, (255, 0, 0), j.hitbox, 5) # enemy hitbox debugging
+                    pygame.draw.rect(self.screen, (0, 0 ,255), j.attack_box, 5) # enemy attack box debugging

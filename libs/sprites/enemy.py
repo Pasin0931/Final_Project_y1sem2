@@ -13,7 +13,7 @@ class Enemy(pygame.sprite.Sprite):
         self.speed = speed
 
         self.health = 8
-        self.power = 1
+        self.power = 10
         self.critical_chance = 0.01
 
         self.is_alive = True

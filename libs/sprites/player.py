@@ -106,6 +106,8 @@ class Player(pygame.sprite.Sprite):
         self.is_dead = False
         self.play_dead_anim = False
 
+        self.collide_with_enemy_attack = False
+
     def update(self, pressed_keys, dashing_, jump_, attack_, combo_):
         if not self.is_dead:
             self.velo += 0.5

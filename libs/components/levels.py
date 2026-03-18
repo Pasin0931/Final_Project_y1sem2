@@ -149,9 +149,9 @@ class Level:
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
                     if spawn_dir == 0:
-                        self.enemy_to_spawn_l.append(FlyingEyeEnemy(self.sys, -40, 1))
+                        self.enemy_to_spawn_l.append(SkeletonEnemy(self.sys, self.sys.w-40, 1))
                     else:
-                        self.enemy_to_spawn_r.append(FlyingEyeEnemy(self.sys, self.sys.w+40, 1))
+                        self.enemy_to_spawn_r.append(SkeletonEnemy(self.sys, self.sys.w+40, 1))
             
             elif self.current_lv == 2:
                 random_enemy = random.randint(10, 15)
@@ -210,7 +210,7 @@ class Level:
     def apply_critical(self, player_) -> float:
         if player_.is_comboing:
             ran_ = random.random()
-            if ran_ <= player_.critical+0.2:
+            if ran_ <= player_.critical+0.4:
                 print("CRITICALLL")
                 return player_.power
             else:
@@ -231,14 +231,18 @@ class Level:
                 return 0    
             
     def check_enemy_attack_collide_player(self, player_):
+        collided = False
         for i in [self.enemy_to_spawn_l, self.enemy_to_spawn_r]:
             for j in i:
-                if j.attack_box.colliderect(player_.hitbox):
-                    if not player_.is_dashing:
+                if j.attack_box.colliderect(player_.hitbox) and not player_.is_dashing:
+                    collided = True
+                    if player_.collide_with_enemy_attack == False:
                         player_.health -= (j.power + self.apply_critical_enemy(j)) # decrease health player --------------------
                         # print(player_.health)
-                elif not player_.attack_box.colliderect(j.hitbox):
-                    pass
+                        player_.collide_with_enemy_attack = True
+                        print("player hurt")
+        if not collided:
+            player_.collide_with_enemy_attack = False
 
     def show_hitboxes(self, player_):
         if not player_.is_dead:

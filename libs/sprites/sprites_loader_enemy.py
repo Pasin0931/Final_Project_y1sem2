@@ -11,10 +11,10 @@ class Skeleton:
 
     def load_sprite(self):
         self.add_image(pygame.image.load("./pictures/enemy/monsters/Skeleton/Attack.png").convert_alpha())
-        self.add_image(pygame.image.load("./pictures/enemy/monsters/monsters/Skeleton/Death.png").convert_alpha())
-        self.add_image(pygame.image.load("./pictures/enemy/monsters/monsters/Skeleton/Idle.png").convert_alpha())
-        self.add_image(pygame.image.load("./pictures/enemy/monsters/monsters/Skeleton/TakeHit.png").convert_alpha())
-        self.add_image(pygame.image.load("./pictures/enemy/monsters/monsters/Skeleton/Walk.png").convert_alpha())
+        self.add_image(pygame.image.load("./pictures/enemy/monsters/Skeleton/Death.png").convert_alpha())
+        self.add_image(pygame.image.load("./pictures/enemy/monsters/Skeleton/Idle.png").convert_alpha())
+        self.add_image(pygame.image.load("./pictures/enemy/monsters/Skeleton/TakeHit.png").convert_alpha())
+        self.add_image(pygame.image.load("./pictures/enemy/monsters/Skeleton/Walk.png").convert_alpha())
 
     def get_sprite(self, x, y, w, h, index):
         if index not in [0, 1, 2, 3, 4]:

@@ -5,7 +5,7 @@ import random
 from libs.system_lib import System, Background
 from libs.components.ui import Button, HealthBar, StaminaBar
 from libs.sprites.player import Player
-from libs.sprites.enemy import Enemy
+from libs.sprites.enemy import Enemy, SkeletonEnemy, GoblinEnemy, MushroomEnemy, BigMushroomEnemy, FlyingEyeEnemy
 
 from ..stat import player as player_default_stat
 
@@ -95,7 +95,7 @@ class Level:
 
             for i in [self.enemy_to_spawn_l, self.enemy_to_spawn_r]:
                 for j in i:
-                    j.update(player_.hitbox.x, player_.is_dead)
+                    j.update(player_.hitbox.centerx, player_.is_dead)
                     self.screen.blit(j.surf, j.rect)
 
             self.show_hitboxes(player_) # hitboxes display
@@ -149,9 +149,9 @@ class Level:
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
                     if spawn_dir == 0:
-                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, 1))
+                        self.enemy_to_spawn_l.append(FlyingEyeEnemy(self.sys, -40, 1))
                     else:
-                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, 1))
+                        self.enemy_to_spawn_r.append(FlyingEyeEnemy(self.sys, self.sys.w+40, 1))
             
             elif self.current_lv == 2:
                 random_enemy = random.randint(10, 15)

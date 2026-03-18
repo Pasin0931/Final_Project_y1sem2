@@ -98,7 +98,7 @@ class Level:
                     j.update(player_.hitbox.centerx, player_.is_dead)
                     self.screen.blit(j.surf, j.rect)
 
-            self.show_hitboxes(player_) # hitboxes display
+            # self.show_hitboxes(player_) # hitboxes display
 
             self.check_attack_collide_enemy(player_)
             self.check_enemy_attack_collide_player(player_)
@@ -149,7 +149,7 @@ class Level:
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
                     if spawn_dir == 0:
-                        self.enemy_to_spawn_l.append(SkeletonEnemy(self.sys, self.sys.w-40, 1))
+                        self.enemy_to_spawn_l.append(SkeletonEnemy(self.sys, -310, 1))
                     else:
                         self.enemy_to_spawn_r.append(SkeletonEnemy(self.sys, self.sys.w+40, 1))
             

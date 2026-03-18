@@ -1,4 +1,4 @@
-player =          {"health": 100, "power": 2, "critical": 0.05, "stamina": 50}
+player =          {"health": 50, "power": 2, "critical": 0.05, "stamina": 50}
 
 # knight_class = {"health": 100, "power": 2, "critical": 0.05, "stamina": 50}
 # warrior_class = {"health": 50, "power": 5, "critical": 0.20, "stamina": 35}

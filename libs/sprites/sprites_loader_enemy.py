@@ -45,20 +45,46 @@ class Skeleton:
             return walk
  
         elif self.enemy_state == 2:
-            attack1 = [self.get_sprite(0, 0, 150, 100, 0),
+            attack1 = [
+                       self.get_sprite(0,   0, 150, 100, 2),
+                       self.get_sprite(0, 0, 150, 100, 0),
                        self.get_sprite(150, 0, 150, 100, 0),
                        self.get_sprite(300, 0, 150, 100, 0),
                        self.get_sprite(450, 0, 150, 100, 0),
                        self.get_sprite(600,   0, 150, 100, 0),
                        self.get_sprite(750,  0, 150, 100, 0),
                        self.get_sprite(900, 0, 150, 100, 0),
-                       self.get_sprite(1050, 0, 150, 100, 0),]
+                       self.get_sprite(1050, 0, 150, 100, 0),
+
+                       self.get_sprite(0,   0, 150, 100, 2),
+                       self.get_sprite(150,  0, 150, 100, 2),
+                       self.get_sprite(300, 0, 150, 100, 2),
+                       self.get_sprite(450, 0, 150, 100, 2)]
             return attack1
  
         elif self.enemy_state == 3:
             death = [self.get_sprite(0,   0, 150, 100, 1),
                     self.get_sprite(150,  0, 150, 100, 1),
                     self.get_sprite(300, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
+                    self.get_sprite(450, 0, 150, 100, 1),
                     self.get_sprite(450, 0, 150, 100, 1)]
             return death
  

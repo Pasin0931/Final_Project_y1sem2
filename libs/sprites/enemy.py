@@ -38,6 +38,9 @@ class Enemy(pygame.sprite.Sprite):
         self.is_facing_right = True
         self.is_facing_left = False
 
+        self.complete_dead_animation = False
+        self.play_attack_animation = False
+
     def update(self, player_pos_center, player_is_dead):
         if not self.is_dead():
             if self.attack_timer > 0: # stop
@@ -55,6 +58,8 @@ class Enemy(pygame.sprite.Sprite):
                     self.attack(player_pos_center)
 
                 self.hitbox = pygame.Rect(self.rect.x, self.rect.y, 50, 50) # update hitbox
+        else:
+            self.complete_dead_animation = True
 
     def attack(self, player_pos):
         self.attack_timer = self.attack_delay  # add this
@@ -70,9 +75,9 @@ class Enemy(pygame.sprite.Sprite):
             self.attack_box = pygame.Rect(0, 0, 0, 0)
 
     def is_dead(self):
-        if self.health < 0:
-            self.health = 0
+        if self.health <= 0:
             self.is_alive = False
+            return True
         return False
     
     def face_left(self):
@@ -125,11 +130,11 @@ class SkeletonEnemy(Enemy):
 
         self.rect.y = sys.h // 2.2
 
-        self.frame_delay = 8
+        self.frame_delay = 6
         self.frame_timer = 0
 
     def update(self, player_pos_center, player_is_dead):
-        if not self.is_dead() and not player_is_dead:
+        if self.health > 0 and not player_is_dead:
             self.frame_progression()
 
             if self.attack_timer > 0: # stop
@@ -152,17 +157,30 @@ class SkeletonEnemy(Enemy):
                 
                 self.hitbox = pygame.Rect(self.rect.x+140, self.rect.y+95, 75, 115) # update hitbox
 
+        elif self.health <= 0:
+            # print("dead")
+            self.set_state(3)
+            self.frame_progression()
+            if self.frame_index == len(self.frames) - 1:
+                self.complete_dead_animation = True
+
     def attack(self, player_pos):
-        # print(self.frame_index)
         self.set_state(2)
-        
-        if self.frame_index == 6:
+        if self.frame_index in [6,7,8]:
             if player_pos > self.hitbox.centerx:
                 # print("attack")
+                if self.is_facing_left:
+                    self.is_facing_left = False
+                    self.is_facing_right = True
+                    self.surf = pygame.transform.flip(self.surf, True, False)
                 self.attack_box = pygame.Rect(self.hitbox.left, self.hitbox.y, 170, 110)
                 self.rect.x += 0
             elif player_pos < self.hitbox.centerx:
                 # print("attack")
+                if self.is_facing_right:
+                    self.is_facing_right = False
+                    self.is_facing_left = True
+                    self.surf = pygame.transform.flip(self.surf, True, False)
                 self.attack_box = pygame.Rect(self.hitbox.left-95, self.hitbox.y, 170, 110)
                 self.rect.x += 0
         else:
@@ -277,7 +295,7 @@ class MushroomEnemy(Enemy):
         else:
             self.attack_box = pygame.Rect(0, 0, 0, 0)
 
-class BigMushroomEnemy(Enemy):
+class BigMushroomEnemy(MushroomEnemy):
     def __init__(self, sys, spawn_x, speed):
         super().__init__(sys, spawn_x, speed)
 

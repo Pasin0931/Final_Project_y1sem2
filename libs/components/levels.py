@@ -98,15 +98,18 @@ class Level:
                     j.update(player_.hitbox.centerx, player_.is_dead)
                     self.screen.blit(j.surf, j.rect)
 
-            # self.show_hitboxes(player_) # hitboxes display
+            self.show_hitboxes(player_) # hitboxes display
 
             self.check_attack_collide_enemy(player_)
             self.check_enemy_attack_collide_player(player_)
-            self.enemy_to_spawn_l = [i for i in self.enemy_to_spawn_l if i.health > 0]
-            self.enemy_to_spawn_r = [i for i in self.enemy_to_spawn_r if i.health > 0]
+
+            self.enemy_to_spawn_l = [i for i in self.enemy_to_spawn_l if not i.complete_dead_animation]
+            self.enemy_to_spawn_r = [i for i in self.enemy_to_spawn_r if not i.complete_dead_animation]
 
             healthbar_.update_health(player_.health)
             staminabar_.update_stamina(player_.stamina)
+
+            # print(player_.health)
 
             clock.tick(60)
             
@@ -240,7 +243,7 @@ class Level:
                         player_.health -= (j.power + self.apply_critical_enemy(j)) # decrease health player --------------------
                         # print(player_.health)
                         player_.collide_with_enemy_attack = True
-                        print("player hurt")
+                        # print("player hurt")
         if not collided:
             player_.collide_with_enemy_attack = False
 

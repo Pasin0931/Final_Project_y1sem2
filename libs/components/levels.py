@@ -152,9 +152,9 @@ class Level:
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
                     if spawn_dir == 0:
-                        self.enemy_to_spawn_l.append(SkeletonEnemy(self.sys, -310, 1))
+                        self.enemy_to_spawn_l.append(BigMushroomEnemy(self.sys, -310, 1))
                     else:
-                        self.enemy_to_spawn_r.append(SkeletonEnemy(self.sys, self.sys.w+40, 1))
+                        self.enemy_to_spawn_r.append(BigMushroomEnemy(self.sys, self.sys.w+40, 1))
             
             elif self.current_lv == 2:
                 random_enemy = random.randint(10, 15)
@@ -214,7 +214,7 @@ class Level:
         if player_.is_comboing:
             ran_ = random.random()
             if ran_ <= player_.critical+0.4:
-                print("CRITICALLL")
+                print("PLAYER CRITICALLL")
                 return player_.power
             else:
                 return 0    
@@ -228,7 +228,7 @@ class Level:
     def apply_critical_enemy(self, enemy_) -> float:
             ran_ = random.random()
             if ran_ <= enemy_.critical_chance+0.2:
-                # print("CRITICALLL")
+                print("ENEMY CRITICALLL")
                 return enemy_.power
             else:
                 return 0    

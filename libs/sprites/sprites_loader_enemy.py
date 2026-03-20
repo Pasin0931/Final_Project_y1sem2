@@ -1,4 +1,5 @@
 import pygame
+import random
 
 class Skeleton:
     def __init__(self, enemy_state):
@@ -66,26 +67,9 @@ class Skeleton:
             death = [self.get_sprite(0,   0, 150, 100, 1),
                     self.get_sprite(150,  0, 150, 100, 1),
                     self.get_sprite(300, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1),
-                    self.get_sprite(450, 0, 150, 100, 1)]
+                    self.get_sprite(450, 0, 150, 100, 1),]
+            laying = [self.get_sprite(450, 0, 150, 100, 1) for i in range(70)]
+            death += laying
             return death
  
         elif self.enemy_state == 4:
@@ -139,18 +123,33 @@ class Goblin:
             walk = [self.get_sprite(0,   0, 150, 100, 4),
                     self.get_sprite(150,  0, 150, 100, 4),
                     self.get_sprite(300, 0, 150, 100, 4),
-                    self.get_sprite(450, 0, 150, 100, 4)]
+                    self.get_sprite(450, 0, 150, 100, 4),
+                    self.get_sprite(600,   0, 150, 100, 4),
+                    self.get_sprite(750,  0, 150, 100, 4),
+                    self.get_sprite(900, 0, 150, 100, 4),
+                    self.get_sprite(1050, 0, 150, 100, 4)]
             return walk
  
         elif self.enemy_state == 2:
-            attack1 = [self.get_sprite(0, 0, 150, 100, 0),
+            random_ch = random.random()
+            attack1 = [self.get_sprite(0,   0, 150, 100, 2),
+                       self.get_sprite(150,  0, 150, 100, 2),
+                       self.get_sprite(300, 0, 150, 100, 2),
+                       self.get_sprite(450, 0, 150, 100, 2),
+
+                       self.get_sprite(0, 0, 150, 100, 0),
                        self.get_sprite(150, 0, 150, 100, 0),
                        self.get_sprite(300, 0, 150, 100, 0),
                        self.get_sprite(450, 0, 150, 100, 0),
                        self.get_sprite(600,   0, 150, 100, 0),
                        self.get_sprite(750,  0, 150, 100, 0),
                        self.get_sprite(900, 0, 150, 100, 0),
-                       self.get_sprite(1050, 0, 150, 100, 0),]
+                       self.get_sprite(1050, 0, 150, 100, 0),
+                       
+                       self.get_sprite(0,   0, 150, 100, 2),
+                       self.get_sprite(150,  0, 150, 100, 2),
+                       self.get_sprite(300, 0, 150, 100, 2),
+                       self.get_sprite(450, 0, 150, 100, 2),]
             return attack1
  
         elif self.enemy_state == 3:
@@ -158,6 +157,8 @@ class Goblin:
                     self.get_sprite(150,  0, 150, 100, 1),
                     self.get_sprite(300, 0, 150, 100, 1),
                     self.get_sprite(450, 0, 150, 100, 1)]
+            laying = [self.get_sprite(450, 0, 150, 100, 1) for i in range(70)]
+            death += laying
             return death
  
         elif self.enemy_state == 4:
@@ -226,7 +227,12 @@ class Mushroom:
                        self.get_sprite(600,   0, 150, 100, 0),
                        self.get_sprite(750,  0, 150, 100, 0),
                        self.get_sprite(900, 0, 150, 100, 0),
-                       self.get_sprite(1050, 0, 150, 100, 0)]
+                       self.get_sprite(1050, 0, 150, 100, 0),
+                       
+                       self.get_sprite(0,   0, 150, 100, 2),
+                       self.get_sprite(150,  0, 150, 100, 2),
+                       self.get_sprite(300, 0, 150, 100, 2),
+                       self.get_sprite(450, 0, 150, 100, 2)]
             return attack1
  
         elif self.enemy_state == 3:
@@ -234,6 +240,8 @@ class Mushroom:
                     self.get_sprite(150,  0, 150, 100, 1),
                     self.get_sprite(300, 0, 150, 100, 1),
                     self.get_sprite(450, 0, 150, 100, 1)]
+            laying = [self.get_sprite(450, 0, 150, 100, 1) for i in range(70)]
+            death += laying
             return death
  
         elif self.enemy_state == 4:
@@ -301,7 +309,16 @@ class FlyingEye:
                        self.get_sprite(600,   0, 150, 100, 0),
                        self.get_sprite(750,  0, 150, 100, 0),
                        self.get_sprite(900, 0, 150, 100, 0),
-                       self.get_sprite(1050, 0, 150, 100, 0)]
+                       self.get_sprite(1050, 0, 150, 100, 0),
+                       
+                       self.get_sprite(0, 0, 150, 100, 2),
+                       self.get_sprite(150, 0, 150, 100, 2),
+                       self.get_sprite(300, 0, 150, 100, 2),
+                       self.get_sprite(450, 0, 150, 100, 2),
+                       self.get_sprite(600,   0, 150, 100, 2),
+                       self.get_sprite(750,  0, 150, 100, 2),
+                       self.get_sprite(900, 0, 150, 100, 2),
+                       self.get_sprite(1050, 0, 150, 100, 2)]
             return attack1
  
         elif self.enemy_state == 3:
@@ -309,6 +326,8 @@ class FlyingEye:
                     self.get_sprite(150,  0, 150, 100, 1),
                     self.get_sprite(300, 0, 150, 100, 1),
                     self.get_sprite(450, 0, 150, 100, 1)]
+            laying = [self.get_sprite(450, 0, 150, 100, 1) for i in range(70)]
+            death += laying
             return death
  
         else:

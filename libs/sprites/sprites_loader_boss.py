@@ -1,15 +1,13 @@
 import pygame
 
 class Minotaur:
-    sprite_set = []
-
     def __init__(self, enemy_state):
         self.enemy_state = enemy_state
+        self.sprite_set = []
         self.load_sprite()
 
-    @classmethod
-    def add_image(cls, file_name):
-        cls.sprite_set.append(file_name)
+    def add_image(self, file_name):
+        self.sprite_set.append(file_name)
 
     def load_sprite(self):
         self.add_image(pygame.image.load("./pictures/enemy/bosses/minotaur/Sprites/without_outline/ATTACK1.png").convert_alpha())
@@ -24,11 +22,11 @@ class Minotaur:
             return
         sprite = pygame.Surface((w, h))
         sprite.set_colorkey((0, 0, 0))
-        sprite.blit(Minotaur.sprite_set[index], (0, 0), (x, y, w, h))
+        sprite.blit(self.sprite_set[index], (0, 0), (x, y, w, h))
         return sprite
     
     def get_sprite_set(self):
-        if len(Minotaur.sprite_set) != 5:
+        if len(self.sprite_set) != 5:
             print("sprite set not filled")
             return
         

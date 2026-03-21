@@ -6,8 +6,9 @@ from libs.system_lib import System, Background
 from libs.components.ui import Button, HealthBar, StaminaBar
 from libs.sprites.player import Player
 from libs.sprites.enemy import Enemy, SkeletonEnemy, GoblinEnemy, MushroomEnemy, BigMushroomEnemy, FlyingEyeEnemy
+from libs.sprites.boss import MinotaurEnemy
 
-from ..stat import player as player_default_stat
+from ..stat import player as player_default_stat, lv1_sts, lv2_sts, lv3_sts, lv4_sts, lv5_sts
 
 from pygame.locals import (
     RLEACCEL,
@@ -39,8 +40,13 @@ class Level:
         self.enemy_to_spawn_l = []
         self.enemy_to_spawn_r = []
 
+        self.level_boss = None
+
         self.hit_sound = pygame.mixer.Sound(("./sounds/player/flesh_swing.mp3"))
         self.hit_sound.set_volume(0.4)
+
+        self.spw_mul_l = 0
+        self.spw_mul_r = 0
     
     def show(self):
         self.level_selected()
@@ -147,55 +153,132 @@ class Level:
     def gennerate_enemy(self):
         try:
             if self.current_lv == 1:
-                random_enemy = random.randint(1, 4) # 5, 10
+                random_enemy = random.randint(8, 9)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
+                    this_enemy = random.choice(lv1_sts['enemy'])
                     if spawn_dir == 0:
-                        self.enemy_to_spawn_l.append(BigMushroomEnemy(self.sys, -310, 1))
+                        pos_ = -300 + self.spw_mul_l
                     else:
-                        self.enemy_to_spawn_r.append(BigMushroomEnemy(self.sys, self.sys.w+40, 1))
+                        pos_ = self.sys.w+120 + self.spw_mul_r
+
+                    if this_enemy == "skeleton":
+                        self.enemy_to_spawn_l.append(SkeletonEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "goblin":
+                        self.enemy_to_spawn_l.append(GoblinEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "mushroom":
+                        self.enemy_to_spawn_l.append(MushroomEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "big_mushroom":
+                        self.enemy_to_spawn_l.append(BigMushroomEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "flying_eye":
+                        self.enemy_to_spawn_l.append(FlyingEyeEnemy(self.sys, pos_, 1))
+
+                    self.spw_mul_l -= 300
+                    self.spw_mul_r += 300
             
             elif self.current_lv == 2:
-                random_enemy = random.randint(10, 15)
+                random_enemy = random.randint(1, 3)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
+                    this_enemy = random.choice(lv2_sts['enemy'])
                     if spawn_dir == 0:
-                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, 1))
+                        pos_ = -300 + self.spw_mul_l
                     else:
-                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, 1))
+                        pos_ = self.sys.w+120 + self.spw_mul_r
+
+                    if this_enemy == "skeleton":
+                        self.enemy_to_spawn_l.append(SkeletonEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "goblin":
+                        self.enemy_to_spawn_l.append(GoblinEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "mushroom":
+                        self.enemy_to_spawn_l.append(MushroomEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "big_mushroom":
+                        self.enemy_to_spawn_l.append(BigMushroomEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "flying_eye":
+                        self.enemy_to_spawn_l.append(FlyingEyeEnemy(self.sys, pos_, 1))
+                    
+                    self.spw_mul_l -= 300
+                    self.spw_mul_r += 300
 
             elif self.current_lv == 3:
-                random_enemy = random.randint(15, 20)
+                random_enemy = random.randint(1, 3)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
+                    this_enemy = random.choice(lv3_sts['enemy'])
                     if spawn_dir == 0:
-                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, 1))
+                        pos_ = -300 + self.spw_mul_l
                     else:
-                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, 1))
+                        pos_ = self.sys.w+120 + self.spw_mul_r
+
+                    if this_enemy == "skeleton":
+                        self.enemy_to_spawn_l.append(SkeletonEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "goblin":
+                        self.enemy_to_spawn_l.append(GoblinEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "mushroom":
+                        self.enemy_to_spawn_l.append(MushroomEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "big_mushroom":
+                        self.enemy_to_spawn_l.append(BigMushroomEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "flying_eye":
+                        self.enemy_to_spawn_l.append(FlyingEyeEnemy(self.sys, pos_, 1))
+
+                    self.spw_mul_l -= 300
+                    self.spw_mul_r += 300
 
             elif self.current_lv == 4:
-                random_enemy = random.randint(20, 25)
+                random_enemy = random.randint(1, 3)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
+                    this_enemy = random.choice(lv4_sts['enemy'])
                     if spawn_dir == 0:
-                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, 1))
+                        pos_ = -300 + self.spw_mul_l
                     else:
-                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, 1))
+                        pos_ = self.sys.w+120 + self.spw_mul_r
+
+                    if this_enemy == "skeleton":
+                        self.enemy_to_spawn_l.append(SkeletonEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "goblin":
+                        self.enemy_to_spawn_l.append(GoblinEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "mushroom":
+                        self.enemy_to_spawn_l.append(MushroomEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "big_mushroom":
+                        self.enemy_to_spawn_l.append(BigMushroomEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "flying_eye":
+                        self.enemy_to_spawn_l.append(FlyingEyeEnemy(self.sys, pos_, 1))
+
+                    self.spw_mul_l -= 300
+                    self.spw_mul_r += 300
 
             elif self.current_lv == 5:
-                random_enemy = random.randint(25, 30)
+                random_enemy = random.randint(1, 3)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
+                    this_enemy = random.choice(lv5_sts['enemy'])
                     if spawn_dir == 0:
-                        self.enemy_to_spawn_l.append(Enemy(self.sys, -40, 1))
+                        pos_ = -300 + self.spw_mul_l
                     else:
-                        self.enemy_to_spawn_r.append(Enemy(self.sys, self.sys.w+40, 1))
+                        pos_ = self.sys.w+120 + self.spw_mul_r
 
+                    if this_enemy == "skeleton":
+                        self.enemy_to_spawn_l.append(SkeletonEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "goblin":
+                        self.enemy_to_spawn_l.append(GoblinEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "mushroom":
+                        self.enemy_to_spawn_l.append(MushroomEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "big_mushroom":
+                        self.enemy_to_spawn_l.append(BigMushroomEnemy(self.sys, pos_, 1))
+                    elif this_enemy == "flying_eye":
+                        self.enemy_to_spawn_l.append(FlyingEyeEnemy(self.sys, pos_, 1))
+
+                    self.spw_mul_l -= 300
+                    self.spw_mul_r += 300
+
+            self.spw_mul_l = 0
+            self.spw_mul_r = 0
         except ValueError:
             print("Error occur while gennerating stage enemy -----------")
 

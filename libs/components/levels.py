@@ -47,6 +47,8 @@ class Level:
 
         self.spw_mul_l = 0
         self.spw_mul_r = 0
+
+        self.enemies_hit_player = set()
     
     def show(self):
         self.level_selected()
@@ -317,18 +319,15 @@ class Level:
                 return 0    
             
     def check_enemy_attack_collide_player(self, player_):
-        collided = False
+        currently_colliding = set()
         for i in [self.enemy_to_spawn_l, self.enemy_to_spawn_r]:
             for j in i:
                 if j.attack_box.colliderect(player_.hitbox) and not player_.is_dashing:
-                    collided = True
-                    if player_.collide_with_enemy_attack == False:
-                        player_.health -= (j.power + self.apply_critical_enemy(j)) # decrease health player --------------------
-                        # print(player_.health)
-                        player_.collide_with_enemy_attack = True
-                        # print("player hurt")
-        if not collided:
-            player_.collide_with_enemy_attack = False
+                    currently_colliding.add(id(j))
+                    if id(j) not in self.enemies_hit_player:
+                        player_.health -= (j.power + self.apply_critical_enemy(j))
+                        self.enemies_hit_player.add(id(j))
+        self.enemies_hit_player = self.enemies_hit_player & currently_colliding # remain the colliding rect, remove old
 
     def show_hitboxes(self, player_):
         if not player_.is_dead:

@@ -35,17 +35,17 @@ class BossNameGennerator:
         if boss.lower() == "minotaur":
             random_name = random.choice(cls.mino)
             random_title = random.choice(cls.title)
-            return f"{random_name} - {random_title}"
+            return f"{random_name}, {random_title}"
 
         elif boss.lower() == "golem":
             random_name = random.choice(cls.golem)
             random_title = random.choice(cls.title)
-            return f"{random_name} - {random_title}"
+            return f"{random_name}, {random_title}"
 
         elif boss.lower() == "widow":
             random_name = random.choice(cls.widow)
             random_title = random.choice(cls.title)
-            return f"{random_name} — {random_title}"
+            return f"{random_name}, {random_title}"
         
     def test_names(self):
         for i in range(10):

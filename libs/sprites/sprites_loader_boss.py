@@ -1,4 +1,5 @@
 import pygame
+import random
 
 class Minotaur:
     def __init__(self, enemy_state):
@@ -36,7 +37,20 @@ class Minotaur:
                     self.get_sprite(256,  0, 128, 115, 0),
                     self.get_sprite(384,  0, 128, 115, 0),
                     self.get_sprite(512,  0, 128, 115, 0),
-                    self.get_sprite(640,  0, 128, 115, 0)]
+                    self.get_sprite(640,  0, 128, 115, 0),
+                    
+                    self.get_sprite(0, 0, 128, 115, 3),
+                    self.get_sprite(128,  0, 128, 115, 3),
+                    self.get_sprite(256,  0, 128, 115, 3),
+                    self.get_sprite(384,  0, 128, 115, 3),
+                    self.get_sprite(512,  0, 128, 115, 3),
+                    self.get_sprite(640,  0, 128, 115, 3),
+                    self.get_sprite(0, 0, 128, 115, 3),
+                    self.get_sprite(128,  0, 128, 115, 3),
+                    self.get_sprite(256,  0, 128, 115, 3),
+                    self.get_sprite(384,  0, 128, 115, 3),
+                    self.get_sprite(512,  0, 128, 115, 3),
+                    self.get_sprite(640,  0, 128, 115, 3)]
             return attack1
  
         elif self.enemy_state == 1:
@@ -46,8 +60,46 @@ class Minotaur:
                     self.get_sprite(384,  0, 128, 115, 1),
                     self.get_sprite(512,  0, 128, 115, 1),
                     self.get_sprite(640,  0, 128, 115, 1),
-                    self.get_sprite(768,  0, 128, 115, 1)]
+                    self.get_sprite(768,  0, 128, 115, 1),
+                    
+                    self.get_sprite(0, 0, 128, 115, 3),
+                    self.get_sprite(128,  0, 128, 115, 3),
+                    self.get_sprite(256,  0, 128, 115, 3),
+                    self.get_sprite(384,  0, 128, 115, 3),
+                    self.get_sprite(512,  0, 128, 115, 3),
+                    self.get_sprite(640,  0, 128, 115, 3),
+                    self.get_sprite(0, 0, 128, 115, 3),
+                    self.get_sprite(128,  0, 128, 115, 3),
+                    self.get_sprite(256,  0, 128, 115, 3),
+                    self.get_sprite(384,  0, 128, 115, 3),
+                    self.get_sprite(512,  0, 128, 115, 3),
+                    self.get_sprite(640,  0, 128, 115, 3)]
             return attack2
+        
+        elif self.enemy_state == 5:
+            combo_boss = []
+            attack1 = [self.get_sprite(0, 0, 128, 115, 0),
+                    self.get_sprite(128,  0, 128, 115, 0),
+                    self.get_sprite(256,  0, 128, 115, 0),
+                    self.get_sprite(384,  0, 128, 115, 0),
+                    self.get_sprite(512,  0, 128, 115, 0),
+                    self.get_sprite(640,  0, 128, 115, 0)]
+            attack2 = [self.get_sprite(0, 0, 128, 115, 1),
+                    self.get_sprite(128,  0, 128, 115, 1),
+                    self.get_sprite(256,  0, 128, 115, 1),
+                    self.get_sprite(384,  0, 128, 115, 1),
+                    self.get_sprite(512,  0, 128, 115, 1),
+                    self.get_sprite(640,  0, 128, 115, 1),
+                    self.get_sprite(768,  0, 128, 115, 1),]
+            idle = [self.get_sprite(0, 0, 128, 115, 3),
+                    self.get_sprite(128,  0, 128, 115, 3),
+                    self.get_sprite(256,  0, 128, 115, 3),
+                    self.get_sprite(384,  0, 128, 115, 3),
+                    self.get_sprite(512,  0, 128, 115, 3),
+                    self.get_sprite(640,  0, 128, 115, 3)]
+            combo_boss += ((attack1 + attack2) * 4)
+            combo_boss += (idle * 5)
+            return combo_boss
  
         elif self.enemy_state == 2:
             death = [self.get_sprite(0, 0, 128, 115, 2),
@@ -56,6 +108,8 @@ class Minotaur:
                     self.get_sprite(384,  0, 128, 115, 2),
                     self.get_sprite(512,  0, 128, 115, 2),
                     self.get_sprite(640,  0, 128, 115, 2)]
+            laying = [self.get_sprite(640,  0, 128, 115, 2) for i in range(70)]
+            death += laying
             return death
  
         elif self.enemy_state == 3:

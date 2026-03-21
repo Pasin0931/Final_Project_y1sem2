@@ -73,6 +73,19 @@ class HealthBar(Bar):
         pygame.draw.rect(self.screen, (0, 0, 0), (self.x, self.y, self.w+4, self.h+4)) # outlier
         pygame.draw.rect(self.screen, self.bar_color, (self.x+4, self.y+4, bar_width, self.h-4)) # health
 
+class BossHealthBar(HealthBar):
+    def __init__(self, screen, x, y, w, h, health):
+        super().__init__(screen, x, y, w, h, health)
+        self.max_health = health
+
+    def update_health(self, curr_health):
+        bar_width = (curr_health / self.max_health) * (self.w - 4)
+        bar_width = max(0, bar_width)
+        pygame.draw.rect(self.screen, (30, 30, 30), (self.x, self.y, self.w+4, self.h+4)) # outlier
+        pygame.draw.rect(self.screen, (180, 0, 0), (self.x+4, self.y+4, bar_width, self.h-4)) # health
+        # print(f"outline: x->{self.x}   w->{self.w+4}")
+        # print(f"health:  x->{self.x+4} w->{bar_width}")
+
 class StaminaBar(Bar):
     def __init__(self, screen, x, y, w, h, stamina):
         super().__init__(screen, x, y, w, h)

@@ -22,7 +22,7 @@ lv1_sts = {
     "enemy": ["skeleton", "skeleton",
               "goblin"],
     "boss":  [
-              "widow"]
+              "minotaur"]
 }
 
 lv2_sts = {

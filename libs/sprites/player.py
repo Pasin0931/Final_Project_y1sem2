@@ -278,13 +278,13 @@ class Player(pygame.sprite.Sprite):
             self.is_facing_left = False
 
     def face_left(self):
-        if not self.is_facing_left:
+        if not self.is_facing_left and not self.is_attacking and not self.is_comboing:
             self.is_facing_left = True
             self.is_facing_right = False
             self.surf = pygame.transform.flip(self.surf, True, False)
 
     def face_right(self):
-        if not self.is_facing_right:
+        if not self.is_facing_right and not self.is_attacking and not self.is_comboing:
             self.is_facing_left = False
             self.is_facing_right = True
             self.surf = pygame.transform.flip(self.surf, True, False)

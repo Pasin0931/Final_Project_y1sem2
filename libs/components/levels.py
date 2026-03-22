@@ -10,7 +10,7 @@ from libs.sprites.boss import MinotaurEnemy, GolemEnemy, TarnishedWidowEnemy
 
 from ..stat import player as player_default_stat, lv1_sts, lv2_sts, lv3_sts, lv4_sts, lv5_sts, minotaur, stone_golem, tarnished_widow
 
-MULTT = 600
+MULTT = 500
 
 from pygame.locals import (
     RLEACCEL,

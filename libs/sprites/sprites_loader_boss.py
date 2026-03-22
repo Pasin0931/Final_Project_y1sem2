@@ -136,15 +136,13 @@ class Minotaur:
             raise ValueError("State out of range")
 
 class Golem:
-    sprite_set = []
-
     def __init__(self, enemy_state):
         self.enemy_state = enemy_state
+        self.sprite_set = []
         self.load_sprite()
 
-    @classmethod
-    def add_image(cls, file_name):
-        cls.sprite_set.append(file_name)
+    def add_image(self, file_name):
+        self.sprite_set.append(file_name)
 
     def load_sprite(self):
         self.add_image(pygame.image.load("./pictures/enemy/bosses/stone_golem/Sprites/without_outline/ATTACK.png").convert_alpha())
@@ -158,11 +156,11 @@ class Golem:
             return
         sprite = pygame.Surface((w, h))
         sprite.set_colorkey((0, 0, 0))
-        sprite.blit(Golem.sprite_set[index], (0, 0), (x, y, w, h))
+        sprite.blit(self.sprite_set[index], (0, 0), (x, y, w, h))
         return sprite
     
     def get_sprite_set(self):
-        if len(Golem.sprite_set) != 4:
+        if len(self.sprite_set) != 4:
             print("sprite set not filled")
             return
         
@@ -179,7 +177,14 @@ class Golem:
                     self.get_sprite(220*9,  0, 220, 85, 0),
                     self.get_sprite(220*10,  0, 220, 85, 0), # -
                     self.get_sprite(220*9,  0, 220, 85, 0),
-                    self.get_sprite(220,  0, 220, 85, 0)]
+                    self.get_sprite(220,  0, 220, 85, 0),
+                    
+                    self.get_sprite(0, 0, 220, 85, 2),
+                    self.get_sprite(220,  0, 220, 85, 2),
+                    self.get_sprite(220*2,  0, 220, 85, 2),
+                    self.get_sprite(220*3,  0, 220, 85, 2),
+                    self.get_sprite(220*4,  0, 220, 85, 2),
+                    self.get_sprite(220*5,  0, 220, 85, 2)]
             return attack1
  
         elif self.enemy_state == 1:
@@ -202,7 +207,14 @@ class Golem:
                     self.get_sprite(220*16,  0, 220, 85, 0),
                     self.get_sprite(220*17,  0, 220, 85, 0),
                     self.get_sprite(220*18,  0, 220, 85, 0),
-                    self.get_sprite(220*19,  0, 220, 85, 0),]
+                    self.get_sprite(220*19,  0, 220, 85, 0),
+
+                    self.get_sprite(0, 0, 220, 85, 2),
+                    self.get_sprite(220,  0, 220, 85, 2),
+                    self.get_sprite(220*2,  0, 220, 85, 2),
+                    self.get_sprite(220*3,  0, 220, 85, 2),
+                    self.get_sprite(220*4,  0, 220, 85, 2),
+                    self.get_sprite(220*5,  0, 220, 85, 2)]
             return attack2
  
         elif self.enemy_state == 2:
@@ -211,7 +223,13 @@ class Golem:
                     self.get_sprite(220*2,  0, 220, 85, 1),
                     self.get_sprite(220*3,  0, 220, 85, 1),
                     self.get_sprite(220*4,  0, 220, 85, 1),
-                    self.get_sprite(220*5,  0, 220, 85, 1)]
+                    self.get_sprite(220*5,  0, 220, 85, 1),
+                    self.get_sprite(220*6,  0, 220, 85, 1),
+                    self.get_sprite(220*7,  0, 220, 85, 1),
+                    self.get_sprite(220*8,  0, 220, 85, 1),
+                    self.get_sprite(220*9,  0, 220, 85, 1),]
+            laying = [self.get_sprite(220*9,  0, 220, 85, 1) for i in range(70)]
+            death += laying
             return death
  
         elif self.enemy_state == 3:
@@ -238,15 +256,13 @@ class Golem:
             raise ValueError("State out of range")
         
 class TarnishedWidow: #180.11 - 90
-    sprite_set = []
-
     def __init__(self, enemy_state):
         self.enemy_state = enemy_state
+        self.sprite_set = []
         self.load_sprite()
 
-    @classmethod
-    def add_image(cls, file_name):
-        cls.sprite_set.append(file_name)
+    def add_image(self, file_name):
+        self.sprite_set.append(file_name)
 
     def load_sprite(self):
         self.add_image(pygame.image.load("./pictures/enemy/bosses/tarnished_widow/sheet.png").convert_alpha())
@@ -257,11 +273,11 @@ class TarnishedWidow: #180.11 - 90
             return
         sprite = pygame.Surface((w, h))
         sprite = pygame.Surface((w, h), pygame.SRCALPHA)
-        sprite.blit(TarnishedWidow.sprite_set[index], (0, 0), (x, y, w, h))
+        sprite.blit(self.sprite_set[index], (0, 0), (x, y, w, h))
         return sprite
     
     def get_sprite_set(self):
-        if len(TarnishedWidow.sprite_set) != 1:
+        if len(self.sprite_set) != 1:
             print("sprite set not filled")
             return
         

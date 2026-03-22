@@ -106,10 +106,10 @@ class GolemEnemy(Enemy):
 
         self.boss_class = "stone_golem"
 
-        self.health = minotaur['health']
-        self.power = minotaur['power']
-        # self.power = 0
-        self.critical_chance = minotaur['critical']
+        self.health = stone_golem['health']
+        # self.power = stone_golem['power']
+        self.power = 0
+        self.critical_chance = stone_golem['critical']
 
         # -------------------------------------        
         self.enemy = Golem(3)
@@ -117,44 +117,58 @@ class GolemEnemy(Enemy):
         self.frames = [pygame.transform.scale_by(f, 3) for f in self.frames]
         self.frame_index = 0
         self.surf = self.frames[self.frame_index]
+
+        self.is_facing_left = True
+        self.is_facing_right = False
+        self.surf = pygame.transform.flip(self.surf, True, False)
         # ------------------------------------- 
 
         self.hitbox = pygame.Rect(self.rect.x+210, self.rect.y+210, 75, 120)
         self.attack_box = pygame.Rect(0, 0, 0, 0)
 
-        self.rect.y = sys.h // 2.8 - self.rect.height
+        self.rect.y = sys.h // 2.05 - self.rect.height
 
-        self.speed = 0.8
+        self.speed = 1
 
-        self.boss_name = BossNameGennerator('./libs/listofnames.csv').random_name("golem")
+        self.boss_name = BossNameGennerator('./libs/listofnames.csv').random_name("minotaur")
         print(self.boss_name)
 
     def update(self, player_pos_center, player_is_dead):
         if self.health > 0 and not player_is_dead:
             self.frame_progression()
 
-            if self.attack_timer > 0: # stop
-                self.attack_timer -= 1
+            if self.hitbox.centerx < player_pos_center-158:
+                if not player_is_dead and not self.is_attacking:
+                    self.rect.x += self.speed
+                    self.set_state(4)
+                    self.face_left()
+                self.attack_box = pygame.Rect(0, 0, 0, 0)
+            elif self.hitbox.centerx > player_pos_center+158:
+                if not player_is_dead and not self.is_attacking:
+                    self.rect.x -= self.speed
+                    self.set_state(4)
+                    self.face_right()
+                self.attack_box = pygame.Rect(0, 0, 0, 0)
             else:
-                if self.hitbox.centerx < player_pos_center-140:
-                    if not player_is_dead:
-                        self.rect.x += self.speed
-                        self.set_state(4)
-                        self.face_right()
-                    self.attack_box = pygame.Rect(0, 0, 0, 0)
-                elif self.hitbox.centerx > player_pos_center+140:
-                    if not player_is_dead:
-                        self.rect.x -= self.speed
-                        self.set_state(4)
-                        self.face_left()    
-                    self.attack_box = pygame.Rect(0, 0, 0, 0)
+                if self.ch_attack_pos == None:
+                    self.ch_attack_pos = random.choice([0, 1])
+                if self.ch_attack_pos == 0:
+                    self.power = stone_golem['power']
                 else:
-                    self.attack_w_frames_boss(player_pos_center, [3, 4, 5], 0, 200, 100, 125)
-                
-                if self.is_facing_right:
-                    self.hitbox = pygame.Rect(self.rect.x+100, self.rect.y+210, 75, 120) # update hitbox
+                    self.power = stone_golem['power'] * 2
+                self.is_attacking = True
+
+            if self.is_attacking:
+                # print(self.ch_attack_pos, "-----")
+                if self.ch_attack_pos == 0:
+                    self.attack_w_frames_boss_golem(player_pos_center, [10, 11], self.ch_attack_pos, 210, 100, 70)
                 else:
-                    self.hitbox = pygame.Rect(self.rect.x+210, self.rect.y+210, 75, 120) # update hitbox
+                    self.attack_w_frames_boss_golem(player_pos_center, [11], self.ch_attack_pos, 210, 100, 170)
+
+            if self.is_facing_right:
+                self.hitbox = pygame.Rect(self.rect.x+260, self.rect.y+70, 140, 180) # update hitbox
+            else:
+                self.hitbox = pygame.Rect(self.rect.x+260, self.rect.y+70, 140, 180) # update hitbox
 
         elif self.health <= 0:
             # print("dead")
@@ -169,20 +183,6 @@ class GolemEnemy(Enemy):
             self.frames = self.enemy.get_sprite_set()
             self.frames = [pygame.transform.scale_by(f, 3) for f in self.frames]
             self.frame_index = 0
-
-    def face_left(self):
-        if not self.is_facing_left:
-            self.is_facing_left = True
-            self.is_facing_right = False
-            self.surf = pygame.transform.flip(self.surf, True, False)
-            self.rect.x -= 70
-
-    def face_right(self):
-        if not self.is_facing_right:
-            self.is_facing_left = False
-            self.is_facing_right = True
-            self.surf = pygame.transform.flip(self.surf, True, False)
-            self.rect.x += 70
 
 class TarnishedWidowEnemy(Enemy):
     def __init__(self, sys, spawn_x, speed):

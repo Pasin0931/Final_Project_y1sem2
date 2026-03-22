@@ -153,6 +153,9 @@ class Level:
                     i.update(player_.hitbox.centerx, player_.is_dead) # BOSSSSSS
                     self.screen.blit(i.surf, i.rect)
 
+                    for rect in i.landing_box:
+                        pygame.draw.rect(self.screen, (255, 50, 0), rect) # for warning incomming jump attack
+
                 self.check_attack_collide_boss(player_)
                 self.check_boss_attack_collide_player(player_)
 
@@ -166,7 +169,7 @@ class Level:
                 self.show_result(player_, False)
                 running = False
 
-            self.show_hitboxes(player_) # hitboxes display
+            # self.show_hitboxes(player_) # hitboxes display -------------------------------- !!!!!!!!!!!
             healthbar_.update_health(player_.health)
             staminabar_.update_stamina(player_.stamina)
             # print(player_.health)

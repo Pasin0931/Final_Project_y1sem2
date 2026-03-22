@@ -48,6 +48,8 @@ class Enemy(pygame.sprite.Sprite):
 
         self.kill_counted = False
 
+        self.landing_box = [pygame.Rect(0, 0, 0, 0), pygame.Rect(0, 0, 0, 0)]
+
     def update(self, player_pos_center, player_is_dead):
         if not self.is_dead():
             if self.attack_timer > 0: # stop
@@ -139,8 +141,8 @@ class Enemy(pygame.sprite.Sprite):
         else:
             self.attack_box = pygame.Rect(0, 0, 0, 0)
 
-        if self.frame_index == attack_frame_[-1]:
-            print("attack end")
+        if self.frame_index == len(self.frames) - 1:
+            # print("attack end")
             self.is_attacking = False
 
     def attack_w_frames_boss(self, player_pos, attack_frame_, state_, w_at, h_at, offset_):
@@ -217,6 +219,13 @@ class Enemy(pygame.sprite.Sprite):
         # print(self.frame_index)
 
         if state_ == 2:
+            if self.frame_index in [7, 8, 9]:
+                self.landing_box = [
+                    pygame.Rect(player_pos-5, self.rect.y+70, 10, 50),  # line
+                    pygame.Rect(player_pos-5, self.rect.y+130, 10, 10)  # dot
+                ]
+            else:
+                self.landing_box = [pygame.Rect(0, 0, 0, 0), pygame.Rect(0, 0, 0, 0)]
             if self.frame_index in attack_frame_:
                 self.attack_box = pygame.Rect(self.hitbox.left-50, self.hitbox.y+100, 270, 100)
             else:

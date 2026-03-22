@@ -21,7 +21,7 @@ tarnished_widow = {"health": 10, "power": 20,  "critical": 0.08}
 lv1_sts = {
     "enemy": ["skeleton", "skeleton",
               "goblin"],
-    "boss":  [
+    "boss":  ["minotaur", "minotaur", "minotaur",
               "golem"]
 }
 
@@ -48,8 +48,8 @@ lv4_sts = {
               "mushroom", "mushroom", "mushroom",
               "big_mushroom", "big_mushroom",
               "flying_eye", "flying_eye"],
-    "boss":  ["golem", "golem", "golem",
-              "widow", "widow", "widow"]
+    "boss":  ["golem",
+              "widow"]
 }
 
 lv5_sts = {

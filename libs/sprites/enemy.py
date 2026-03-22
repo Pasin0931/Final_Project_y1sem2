@@ -210,6 +210,51 @@ class Enemy(pygame.sprite.Sprite):
             self.is_attacking = False
             self.ch_attack_pos = None
 
+    def attack_w_frames_boss_widow(self, player_pos, attack_frame_, state_, w_at, h_at, offset_):
+        self.set_state(state_)
+        # print(self.frame_index)
+
+        if state_ == 2:
+            if self.frame_index in attack_frame_:
+                self.attack_box = pygame.Rect(self.hitbox.left-50, self.hitbox.y+100, 270, 100)
+            else:
+                self.attack_box = pygame.Rect(0, 0, 0, 0)
+        # -----------------------------------
+
+        if self.frame_index in attack_frame_:
+            if player_pos > self.hitbox.centerx:
+                # print("attack")
+                if self.is_facing_left:
+                    self.is_facing_left = False
+                    self.is_facing_right = True
+                    self.surf = pygame.transform.flip(self.surf, True, False)
+                if state_ == 0:
+                    self.attack_box = pygame.Rect(self.hitbox.left, self.hitbox.y + 80, w_at, h_at)
+                elif state_ == 1:
+                    self.attack_box = pygame.Rect(self.hitbox.left, self.hitbox.y + 130, 350, 20)
+                self.rect.x += 0
+            elif player_pos < self.hitbox.centerx:
+                # print("attack")
+                if self.is_facing_right:
+                    self.is_facing_right = False
+                    self.is_facing_left = True
+                    self.surf = pygame.transform.flip(self.surf, True, False)
+                if state_ == 0:
+                    self.attack_box = pygame.Rect(self.hitbox.left-offset_, self.hitbox.y + 80, w_at, h_at)
+                elif state_ == 1:
+                    self.attack_box = pygame.Rect(self.hitbox.left-offset_, self.hitbox.y + 130, 350, 20)
+                self.rect.x += 0
+        else:
+            self.attack_box = pygame.Rect(0, 0, 0, 0)
+
+        if self.frame_index == len(self.frames) - 1:
+            # print("attack end")
+            self.is_attacking = False
+            self.ch_attack_pos = None
+            self.random_phase = 0
+            self.random_phase_rolled = False
+            self.is_doing_special_attack = False
+
 class SkeletonEnemy(Enemy):
     def __init__(self, sys, spawn_x, speed):
         super().__init__(sys, spawn_x, speed)

@@ -299,7 +299,17 @@ class TarnishedWidow: #180.11 - 90
                     self.get_sprite(188*14,  180, 188, 90, 0),
                     self.get_sprite(188*15,  180, 188, 90, 0),
                     self.get_sprite(188*16,  180, 188, 90, 0),
-                    self.get_sprite(188*17,  180, 188, 90, 0)] # 18
+                    self.get_sprite(188*17,  180, 188, 90, 0),
+                    
+                    self.get_sprite(0, 0, 188, 90, 0),
+                    self.get_sprite(188,  0, 188, 90, 0),
+                    self.get_sprite(188*2,  0, 188, 90, 0),
+                    self.get_sprite(188*3,  0, 188, 90, 0),
+                    self.get_sprite(188*4,  0, 188, 90, 0),
+                    self.get_sprite(188*5,  0, 188, 90, 0),
+                    self.get_sprite(188*6,  0, 188, 90, 0),
+                    self.get_sprite(188*7,  0, 188, 90, 0),
+                    self.get_sprite(188*8,  0, 188, 90, 0)] # 18
             return attack1
  
         elif self.enemy_state == 1:
@@ -318,7 +328,17 @@ class TarnishedWidow: #180.11 - 90
                     self.get_sprite(188*12,  270, 188, 90, 0),
                     self.get_sprite(188*13,  270, 188, 90, 0),
                     self.get_sprite(188*14,  270, 188, 90, 0),
-                    self.get_sprite(188*15,  270, 188, 90, 0)] # 16
+                    self.get_sprite(188*15,  270, 188, 90, 0),
+                    
+                    self.get_sprite(0, 0, 188, 90, 0),
+                    self.get_sprite(188,  0, 188, 90, 0),
+                    self.get_sprite(188*2,  0, 188, 90, 0),
+                    self.get_sprite(188*3,  0, 188, 90, 0),
+                    self.get_sprite(188*4,  0, 188, 90, 0),
+                    self.get_sprite(188*5,  0, 188, 90, 0),
+                    self.get_sprite(188*6,  0, 188, 90, 0),
+                    self.get_sprite(188*7,  0, 188, 90, 0),
+                    self.get_sprite(188*8,  0, 188, 90, 0)] # 16
             return attack2
         
         elif self.enemy_state == 2:
@@ -376,7 +396,13 @@ class TarnishedWidow: #180.11 - 90
                     self.get_sprite(188*5,  630, 188, 90, 0),
                     self.get_sprite(188*6,  630, 188, 90, 0),
                     self.get_sprite(188*7,  630, 188, 90, 0),
-                    self.get_sprite(188*8,  630, 188, 90, 0)]
+                    self.get_sprite(188*8,  630, 188, 90, 0),
+                    self.get_sprite(188*9,  630, 188, 90, 0),
+                    self.get_sprite(188*10,  630, 188, 90, 0),
+                    self.get_sprite(188*11,  630, 188, 90, 0),
+                    self.get_sprite(188*12,  630, 188, 90, 0),]
+            laying = [self.get_sprite(188*13,  630, 188, 90, 0) for i in range(70)]
+            death += laying
             return death
  
         elif self.enemy_state == 5:

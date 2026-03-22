@@ -298,9 +298,9 @@ class Player(pygame.sprite.Sprite):
 
         if self.is_attacking:
             if self.is_facing_right:
-                self.attack_box = pygame.Rect(self.hitbox.right, self.hitbox.y, 140, 115)
+                self.attack_box = pygame.Rect(self.hitbox.right, self.hitbox.y, 92, 115)
             else:
-                self.attack_box = pygame.Rect(self.hitbox.left - 140, self.hitbox.y, 140, 115)
+                self.attack_box = pygame.Rect(self.hitbox.left - 92, self.hitbox.y, 92, 115)
 
     def combo(self):
         if self.frame_index >= len(self.frames) - 1:

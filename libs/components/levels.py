@@ -120,7 +120,6 @@ class Level:
             player_.update(pressed_keys, dashing, jump, attack_click, combo_click)
             
             self.screen.blit(self.bg, (0, 0))
-            self.screen.blit(player_.surf, player_.rect)
 
             if len(self.enemy_to_spawn_l) + len(self.enemy_to_spawn_r) > 0:
                 for i in [self.enemy_to_spawn_l, self.enemy_to_spawn_r]:
@@ -140,7 +139,7 @@ class Level:
                 # print("boss")
 
                 for i in self.level_boss:
-                    i.update(player_.hitbox.centerx, player_.is_dead)
+                    i.update(player_.hitbox.centerx, player_.is_dead) # BOSSSSSS
                     self.screen.blit(i.surf, i.rect)
 
                 self.check_attack_collide_boss(player_)
@@ -156,6 +155,8 @@ class Level:
             healthbar_.update_health(player_.health)
             staminabar_.update_stamina(player_.stamina)
             # print(player_.health)
+
+            self.screen.blit(player_.surf, player_.rect)
 
             clock.tick(60)
             
@@ -338,7 +339,7 @@ class Level:
                 spawn_dir = random.randint(0, 1) # 0 left 1 right
                 this_boss = random.choice(lv1_sts['boss'])
                 if spawn_dir == 0:
-                    pos_ = -300
+                    pos_ = -360
                 else:
                     pos_ = self.sys.w+120
 
@@ -353,7 +354,7 @@ class Level:
                 spawn_dir = random.randint(0, 1) # 0 left 1 right
                 this_boss = random.choice(lv2_sts['boss'])
                 if spawn_dir == 0:
-                    pos_ = -300
+                    pos_ = -360
                 else:
                     pos_ = self.sys.w+120
 
@@ -368,7 +369,7 @@ class Level:
                 spawn_dir = random.randint(0, 1) # 0 left 1 right
                 this_boss = random.choice(lv3_sts['boss'])
                 if spawn_dir == 0:
-                    pos_ = -300
+                    pos_ = -360
                 else:
                     pos_ = self.sys.w+120
 
@@ -383,7 +384,7 @@ class Level:
                 spawn_dir = random.randint(0, 1) # 0 left 1 right
                 this_boss = random.choice(lv4_sts['boss'])
                 if spawn_dir == 0:
-                    pos_ = -300
+                    pos_ = -360
                 else:
                     pos_ = self.sys.w+120
 
@@ -398,7 +399,7 @@ class Level:
                 spawn_dir = random.randint(0, 1) # 0 left 1 right
                 this_boss = random.choice(lv5_sts['boss'])
                 if spawn_dir == 0:
-                    pos_ = -300
+                    pos_ = -360
                 else:
                     pos_ = self.sys.w+120
 

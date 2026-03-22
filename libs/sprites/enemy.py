@@ -46,6 +46,8 @@ class Enemy(pygame.sprite.Sprite):
         self.frame_delay = 6
         self.frame_timer = 0
 
+        self.kill_counted = False
+
     def update(self, player_pos_center, player_is_dead):
         if not self.is_dead():
             if self.attack_timer > 0: # stop
@@ -305,7 +307,7 @@ class SkeletonEnemy(Enemy):
                 self.hitbox = pygame.Rect(self.rect.x+130, self.rect.y+135, 75, 90) # update hitbox
 
         elif self.health <= 0:
-            # print("dead")
+            print("dead")
             self.set_state(3)
             self.frame_progression()
             if self.frame_index == len(self.frames) - 1:
@@ -362,7 +364,7 @@ class GoblinEnemy(Enemy):
                 self.hitbox = pygame.Rect(self.rect.x+130, self.rect.y+135, 75, 90) # update hitbox
 
         elif self.health <= 0:
-            # print("dead")
+            print("dead")
             self.set_state(3)
             self.frame_progression()
             if self.frame_index == len(self.frames) - 1:
@@ -419,7 +421,7 @@ class MushroomEnemy(Enemy):
                 self.hitbox = pygame.Rect(self.rect.x+130, self.rect.y+135, 75, 90) # update hitbox
 
         elif self.health <= 0:
-            # print("dead")
+            print("dead")
             self.set_state(3)
             self.frame_progression()
             if self.frame_index == len(self.frames) - 1:
@@ -476,7 +478,7 @@ class BigMushroomEnemy(MushroomEnemy):
                 self.hitbox = pygame.Rect(self.rect.x+210, self.rect.y+210, 75, 120) # update hitbox
 
         elif self.health <= 0:
-            # print("dead")
+            print("dead")
             self.set_state(3)
             self.frame_progression()
             if self.frame_index == len(self.frames) - 1:
@@ -540,7 +542,7 @@ class FlyingEyeEnemy(Enemy):
                 self.hitbox = pygame.Rect(self.rect.x+130, self.rect.y+135, 75, 90) # update hitbox
 
         elif self.health <= 0:
-            # print("dead")
+            print("dead")
             self.set_state(3)
             self.frame_progression()
             if self.rect.y <= 330:

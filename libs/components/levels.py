@@ -93,9 +93,11 @@ class Level:
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
-                        self.ambient.stop()
-                        self.ambient = None
-                        running = False
+                        result = self.pause(player_)
+                        if result == "quit":
+                            self.ambient.stop()
+                            self.ambient = None
+                            running = False
                         
                     if event.key == K_SPACE or event.key == K_w:
                         # print("jumping")
@@ -112,10 +114,12 @@ class Level:
                     # print(attack_click, combo_click)
                         
                 elif event.type == QUIT:
-                    self.ambient.stop()
-                    self.ambient = None
-                    running = False
-                    
+                    result = self.pause(player_)
+                    if result == "quit":
+                        self.ambient.stop()
+                        self.ambient = None
+                        running = False
+
             pressed_keys = pygame.key.get_pressed()
             player_.update(pressed_keys, dashing, jump, attack_click, combo_click)
             
@@ -126,6 +130,9 @@ class Level:
                     for j in i:
                         j.update(player_.hitbox.centerx, player_.is_dead)
                         self.screen.blit(j.surf, j.rect)
+                        if j.health <= 0 and not j.kill_counted:
+                            j.kill_counted = True
+                            self.enemy_killed += 1
 
                 self.check_attack_collide_enemy(player_)
                 self.check_enemy_attack_collide_player(player_)
@@ -156,6 +163,7 @@ class Level:
             staminabar_.update_stamina(player_.stamina)
             # print(player_.health)
 
+            # self.sys.paragraph_normal(320, 200, 100, 100, f"{len(self.enemy_to_spawn_l)+len(self.enemy_to_spawn_r)}/{self.total_enemy}", (255, 255, 255), 60)
             self.screen.blit(player_.surf, player_.rect)
 
             clock.tick(60)
@@ -529,3 +537,46 @@ class Level:
                 for i in self.level_boss:
                     pygame.draw.rect(self.screen, (255, 0, 0), i.hitbox, 5) # boss hitbox debugging
                     pygame.draw.rect(self.screen, (0, 0 ,255), i.attack_box, 5) # boss attack box debugging
+
+    def pause(self, player_):
+        cover = pygame.Surface((self.sys.w, self.sys.h), pygame.SRCALPHA)
+        cover.fill((0, 0, 0, 120))
+
+        pause_surf = pygame.Surface((700, 200), pygame.SRCALPHA)  # wider box
+        pause_surf.fill((0, 0, 0, 180))
+        pause_x = self.sys.w // 2 - 350
+        pause_y = self.sys.h // 2 - 100
+
+        resume_bt = Button(pause_x + 150, pause_y + 40, 200, 50, "Resume", 24)
+        quit_bt = Button(pause_x + 150, pause_y + 100, 200, 50, "Quit", 24)
+
+        # font = pygame.font.Font("./font/Pixelcastle-Regular.otf", 20)
+        font = pygame.font.Font(None, 20)
+
+        paused = True
+        while paused:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return "quit"
+                if event.type == KEYDOWN:
+                    if event.key == K_ESCAPE:
+                        paused = False
+                if resume_bt.is_clicked(event):
+                    paused = False
+                if quit_bt.is_clicked(event):
+                    return "quit"
+
+            self.screen.blit(cover, (0, 0))
+            self.screen.blit(pause_surf, (pause_x, pause_y))
+            resume_bt.create(self.screen)
+            quit_bt.create(self.screen)
+
+            stats_x = pause_x + 390
+            ememy_killed_surf = font.render(f"Enemies Killed : {self.enemy_killed}", True, (255, 255, 255))
+            points_earned_surf = font.render(f"Points Earned  : {self.point_earned}", True, (255, 255, 255))
+            self.screen.blit(ememy_killed_surf, (stats_x, pause_y + 65))
+            self.screen.blit(points_earned_surf, (stats_x, pause_y + 110))
+
+            pygame.display.flip()
+
+        return "resume"

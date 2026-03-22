@@ -28,6 +28,13 @@ class System:
         to_draw = font.render(text, True, text_color)
         to_draw.get_rect(center=this_bt.center)
         self.screen.blit(to_draw, (x, y))
+
+    def paragraph_normal(self, x, y, w, h, text, text_color, size):
+        this_bt = pygame.Rect(x, y, w, h)
+        font = pygame.font.Font(None, size)
+        to_draw = font.render(text, True, text_color)
+        to_draw.get_rect(center=this_bt.center)
+        self.screen.blit(to_draw, (x, y))
         
     def add_text(self, text, text_color, size, x, y):
         # font = pygame.font.SysFont("arialblack", size)

@@ -238,7 +238,7 @@ class Player(pygame.sprite.Sprite):
                     # print(self.frame_index, len(self.frames))
                     if self.is_facing_left:
                         self.surf = pygame.transform.flip(self.surf, True, False)
-                    if self.frame_index == 9:
+                    if self.frame_index == len(self.frames) - 1:
                         self.play_dead_anim = True
 
     def set_state(self, state):

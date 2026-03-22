@@ -122,6 +122,10 @@ class Level:
 
             pressed_keys = pygame.key.get_pressed()
             player_.update(pressed_keys, dashing, jump, attack_click, combo_click)
+
+            if player_.is_dead and player_.play_dead_anim:
+                self.show_result(player_, True)
+                running = False
             
             self.screen.blit(self.bg, (0, 0))
 
@@ -157,6 +161,10 @@ class Level:
                 for i in self.level_boss:
                     self.sys.paragraph(320, 625, 100, 100, f"{i.boss_name}", (255, 255, 255), 20)
                     boss_healthbar_.update_health(i.health)
+
+            if self.pass_round[0] and len(self.level_boss) == 0:
+                self.show_result(player_, False)
+                running = False
 
             self.show_hitboxes(player_) # hitboxes display
             healthbar_.update_health(player_.health)
@@ -347,7 +355,7 @@ class Level:
                 spawn_dir = random.randint(0, 1) # 0 left 1 right
                 this_boss = random.choice(lv1_sts['boss'])
                 if spawn_dir == 0:
-                    pos_ = -360
+                    pos_ = -460
                 else:
                     pos_ = self.sys.w+120
 
@@ -362,7 +370,7 @@ class Level:
                 spawn_dir = random.randint(0, 1) # 0 left 1 right
                 this_boss = random.choice(lv2_sts['boss'])
                 if spawn_dir == 0:
-                    pos_ = -360
+                    pos_ = -460
                 else:
                     pos_ = self.sys.w+120
 
@@ -377,7 +385,7 @@ class Level:
                 spawn_dir = random.randint(0, 1) # 0 left 1 right
                 this_boss = random.choice(lv3_sts['boss'])
                 if spawn_dir == 0:
-                    pos_ = -360
+                    pos_ = -460
                 else:
                     pos_ = self.sys.w+120
 
@@ -392,7 +400,7 @@ class Level:
                 spawn_dir = random.randint(0, 1) # 0 left 1 right
                 this_boss = random.choice(lv4_sts['boss'])
                 if spawn_dir == 0:
-                    pos_ = -360
+                    pos_ = -460
                 else:
                     pos_ = self.sys.w+120
 
@@ -407,7 +415,7 @@ class Level:
                 spawn_dir = random.randint(0, 1) # 0 left 1 right
                 this_boss = random.choice(lv5_sts['boss'])
                 if spawn_dir == 0:
-                    pos_ = -360
+                    pos_ = -460
                 else:
                     pos_ = self.sys.w+120
 
@@ -578,5 +586,47 @@ class Level:
             self.screen.blit(points_earned_surf, (stats_x, pause_y + 110))
 
             pygame.display.flip()
-
         return "resume"
+    
+    def show_result(self, player_, is_defeated):
+        cover = pygame.Surface((self.sys.w, self.sys.h), pygame.SRCALPHA)
+        cover.fill((0, 0, 0, 200))
+
+        result_surf = pygame.Surface((600, 300), pygame.SRCALPHA)
+        result_surf.fill((0, 0, 0, 220))
+        result_x = self.sys.w // 2 - 300
+        result_y = self.sys.h // 2 - 150
+
+        continue_bt = Button(result_x + 200, result_y + 250, 200, 50, "Continue", 24)
+        font = pygame.font.Font(None, 30)
+        font_title = pygame.font.Font(None, 45)
+
+        showing = True
+        while showing:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return "quit"
+                if continue_bt.is_clicked(event):
+                    return "continue"
+
+            self.screen.blit(cover, (0, 0))
+            self.screen.blit(result_surf, (result_x, result_y))
+
+            if is_defeated == False:
+                title = font_title.render("Stage Clear !", True, (255, 220, 50))
+                self.screen.blit(title, (result_x + 205, result_y + 30))
+            else:
+                title = font_title.render("Level Failed !", True, (200, 0, 0))
+                self.screen.blit(title, (result_x + 205, result_y + 30))
+
+            killed = font.render(f"Enemies Killed : {self.enemy_killed}", True, (255, 255, 255))
+            points = font.render(f"Points Earned  : {self.point_earned}", True, (255, 255, 255))
+            health = font.render(f"Health Remaining : {max(0, player_.health)}", True, (255, 255, 255))
+
+            self.screen.blit(killed, (result_x + 600 // 2 - killed.get_width() // 2, result_y + 110))
+            self.screen.blit(points, (result_x + 600 // 2 - points.get_width() // 2, result_y + 150))
+            self.screen.blit(health, (result_x + 600 // 2 - health.get_width() // 2, result_y + 190))
+
+            continue_bt.create(self.screen)
+            pygame.display.flip()
+        return "continue"

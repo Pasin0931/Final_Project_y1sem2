@@ -109,6 +109,8 @@ class Knight:
                      self.get_sprite(840,  0, 120, 80, 4),
                      self.get_sprite(960,  0, 120, 80, 4),
                      self.get_sprite(1080, 0, 120, 80, 4)]
+            laying = [self.get_sprite(1080, 0, 120, 80, 4) for i in range(20)]
+            death+=laying
             return death
  
         elif self.knight_state == 6:

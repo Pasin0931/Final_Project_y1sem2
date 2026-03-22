@@ -307,7 +307,7 @@ class SkeletonEnemy(Enemy):
                 self.hitbox = pygame.Rect(self.rect.x+130, self.rect.y+135, 75, 90) # update hitbox
 
         elif self.health <= 0:
-            print("dead")
+            # print("dead")
             self.set_state(3)
             self.frame_progression()
             if self.frame_index == len(self.frames) - 1:
@@ -364,7 +364,7 @@ class GoblinEnemy(Enemy):
                 self.hitbox = pygame.Rect(self.rect.x+130, self.rect.y+135, 75, 90) # update hitbox
 
         elif self.health <= 0:
-            print("dead")
+            # print("dead")
             self.set_state(3)
             self.frame_progression()
             if self.frame_index == len(self.frames) - 1:
@@ -421,7 +421,7 @@ class MushroomEnemy(Enemy):
                 self.hitbox = pygame.Rect(self.rect.x+130, self.rect.y+135, 75, 90) # update hitbox
 
         elif self.health <= 0:
-            print("dead")
+            # print("dead")
             self.set_state(3)
             self.frame_progression()
             if self.frame_index == len(self.frames) - 1:
@@ -478,7 +478,7 @@ class BigMushroomEnemy(MushroomEnemy):
                 self.hitbox = pygame.Rect(self.rect.x+210, self.rect.y+210, 75, 120) # update hitbox
 
         elif self.health <= 0:
-            print("dead")
+            # print("dead")
             self.set_state(3)
             self.frame_progression()
             if self.frame_index == len(self.frames) - 1:
@@ -542,7 +542,7 @@ class FlyingEyeEnemy(Enemy):
                 self.hitbox = pygame.Rect(self.rect.x+130, self.rect.y+135, 75, 90) # update hitbox
 
         elif self.health <= 0:
-            print("dead")
+            # print("dead")
             self.set_state(3)
             self.frame_progression()
             if self.rect.y <= 330:

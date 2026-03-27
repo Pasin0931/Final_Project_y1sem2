@@ -227,12 +227,16 @@ class Mushroom:
                        self.get_sprite(600,   0, 150, 100, 0),
                        self.get_sprite(750,  0, 150, 100, 0),
                        self.get_sprite(900, 0, 150, 100, 0),
-                       self.get_sprite(1050, 0, 150, 100, 0),
-                       
-                       self.get_sprite(0,   0, 150, 100, 2),
+                       self.get_sprite(1050, 0, 150, 100, 0)]
+            
+            idle_ =   [self.get_sprite(0,   0, 150, 100, 2),
                        self.get_sprite(150,  0, 150, 100, 2),
                        self.get_sprite(300, 0, 150, 100, 2),
                        self.get_sprite(450, 0, 150, 100, 2)]
+            
+            idle_ *= 6
+            attack1 += idle_
+            
             return attack1
  
         elif self.enemy_state == 3:

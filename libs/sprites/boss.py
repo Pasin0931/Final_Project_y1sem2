@@ -236,7 +236,10 @@ class TarnishedWidowEnemy(Enemy):
                 # print(self.random_phase_rolled, self.is_attacking)
                 if not self.random_phase_rolled and not self.is_attacking:
                     self.rect.x+=0
-                    self.random_phase = random.choice(([0] * 1) + [2, 3])
+                    self.random_phase = random.choice(([0] * 25) + [2, 3])
+
+                    print(f"phase -> {self.random_phase}")
+
                     if self.health >= (tarnished_widow['health'] / 2):
                         if self.random_phase == 3:
                             self.random_phase = 2
@@ -294,7 +297,7 @@ class TarnishedWidowEnemy(Enemy):
                 else:
                     self.attack_w_frames_boss_widow(player_pos_center, [], self.random_phase, 220, 100, 80)
                     if self.frame_index == 3:
-                        self.health += 0.1
+                        self.health += 0.8 # widow regen ----------------------------------
 
             if self.is_facing_right:
                 self.hitbox = pygame.Rect(self.rect.x+210, self.rect.y+70, 140, 200) # update hitbox

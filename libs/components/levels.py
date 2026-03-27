@@ -8,9 +8,9 @@ from libs.sprites.player import Player
 from libs.sprites.enemy import Enemy, SkeletonEnemy, GoblinEnemy, MushroomEnemy, BigMushroomEnemy, FlyingEyeEnemy
 from libs.sprites.boss import MinotaurEnemy, GolemEnemy, TarnishedWidowEnemy
 
-from ..stat import player as player_default_stat, lv1_sts, lv2_sts, lv3_sts, lv4_sts, lv5_sts, minotaur, stone_golem, tarnished_widow
+from ..stat import player, lv1_sts, lv2_sts, lv3_sts, lv4_sts, lv5_sts, minotaur, stone_golem, tarnished_widow
 
-MULTT = 500
+MULTT = 440
 
 from pygame.locals import (
     RLEACCEL,
@@ -27,7 +27,9 @@ from pygame.locals import (
     K_d,
     K_LSHIFT,
     K_SPACE,
-    MOUSEBUTTONDOWN
+    MOUSEBUTTONDOWN,
+    K_r,
+    K_f,
 )
 
 class Level:
@@ -65,8 +67,8 @@ class Level:
 
         player_ = Player(self.sys)
 
-        healthbar_ = HealthBar(self.screen, 30, 172, player_default_stat['health'], 20, player_.health)
-        staminabar_ = StaminaBar(self.screen, 30, 200, player_default_stat['stamina'], 20, player_.stamina)
+        healthbar_ = HealthBar(self.screen, 30, 172, player['health'], 20, player_.health)
+        staminabar_ = StaminaBar(self.screen, 30, 200, player['stamina'], 20, player_.stamina)
 
         self.gennerate_enemy()
         self.gennerate_boss()
@@ -105,6 +107,10 @@ class Level:
                     elif event.key == K_LSHIFT:
                         # print("dashing")
                         dashing = True
+                    elif event.key == K_r:
+                        attack_click = True
+                    elif event.key == K_f:
+                        combo_click = True
 
                 elif event.type == MOUSEBUTTONDOWN:
                     if event.button == 1:
@@ -213,7 +219,7 @@ class Level:
     def gennerate_enemy(self):
         try:
             if self.current_lv == 1:
-                random_enemy = random.randint(0, 0)
+                random_enemy = random.randint(7, 8)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
@@ -240,7 +246,7 @@ class Level:
                     self.spw_mul_r += MULTT
             
             elif self.current_lv == 2:
-                random_enemy = random.randint(1, 3)
+                random_enemy = random.randint(7, 8)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
@@ -267,7 +273,7 @@ class Level:
                     self.spw_mul_r += MULTT
 
             elif self.current_lv == 3:
-                random_enemy = random.randint(1, 3)
+                random_enemy = random.randint(7, 8)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
@@ -294,7 +300,7 @@ class Level:
                     self.spw_mul_r += MULTT
 
             elif self.current_lv == 4:
-                random_enemy = random.randint(1, 3)
+                random_enemy = random.randint(1, 2)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
@@ -321,7 +327,7 @@ class Level:
                     self.spw_mul_r += MULTT
 
             elif self.current_lv == 5:
-                random_enemy = random.randint(1, 3)
+                random_enemy = random.randint(7, 8)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
@@ -624,7 +630,7 @@ class Level:
 
             killed = font.render(f"Enemies Killed : {self.enemy_killed}", True, (255, 255, 255))
             points = font.render(f"Points Earned  : {self.point_earned}", True, (255, 255, 255))
-            health = font.render(f"Health Remaining : {max(0, player_.health)}", True, (255, 255, 255))
+            health = font.render(f"Health Remaining : {max(0, player_.health)} / {player['health']}", True, (255, 255, 255))
 
             self.screen.blit(killed, (result_x + 600 // 2 - killed.get_width() // 2, result_y + 110))
             self.screen.blit(points, (result_x + 600 // 2 - points.get_width() // 2, result_y + 150))
@@ -633,3 +639,6 @@ class Level:
             continue_bt.create(self.screen)
             pygame.display.flip()
         return "continue"
+    
+    def clear_session_enemies(self):
+        pass

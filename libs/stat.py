@@ -1,4 +1,4 @@
-player =          {"health": 50, "power": 2, "critical": 0.05, "stamina": 80}
+player =          {"health": 70, "power": 4, "critical": 0.05, "stamina": 100}
 
 # knight_class = {"health": 100, "power": 2, "critical": 0.05, "stamina": 50}
 # warrior_class = {"health": 50, "power": 5, "critical": 0.20, "stamina": 35}
@@ -14,14 +14,14 @@ flying_eye =      {"health": 20,  "power": 7,  "critical": 0.04}
 # -------------------------
 
 minotaur =        {"health": 50, "power": 10,  "critical": 0.05}
-stone_golem =     {"health": 1, "power": 20,  "critical": 0.03}
-tarnished_widow = {"health": 10, "power": 20,  "critical": 0.08}
+stone_golem =     {"health": 70, "power": 20,  "critical": 0.03}
+tarnished_widow = {"health": 50, "power": 20,  "critical": 0.08}
 
 
 lv1_sts = {
     "enemy": ["skeleton", "skeleton",
               "goblin"],
-    "boss":  ["minotaur", "minotaur", "minotaur",
+    "boss": ["minotaur", "minotaur"
               "golem"]
 }
 

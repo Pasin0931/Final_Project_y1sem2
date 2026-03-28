@@ -1,6 +1,5 @@
 import csv
 import random
-import multiprocessing
 
 class BossNameGennerator:
     mino = []

@@ -131,7 +131,7 @@ class Upgrade:
                 print('Insufficient Points')
         elif name == 'power':
             if self.points >= 10:
-                self.power += 1
+                self.power += 0.5
                 self.points -= 10
                 self.sts_operator.update(self.health, self.power, self.critical, self.stamina, self.stamina_regen, self.points)
                 self.in_sufficient_points = False
@@ -140,7 +140,7 @@ class Upgrade:
                 print('Insufficient Points')
         elif name == 'critical':
             if self.points >= 10:
-                self.critical += 0.5
+                self.critical += 0.1
                 self.points -= 10
                 self.sts_operator.update(self.health, self.power, self.critical, self.stamina, self.stamina_regen, self.points)
                 self.in_sufficient_points = False

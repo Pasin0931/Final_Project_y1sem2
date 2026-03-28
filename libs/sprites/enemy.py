@@ -274,6 +274,7 @@ class SkeletonEnemy(Enemy):
         self.power = skeleton['power']
         # self.power = 0
         self.critical_chance = skeleton['critical']
+        self.point = skeleton['point']
 
         # -------------------------------------        
         self.enemy = Skeleton(0)
@@ -331,6 +332,7 @@ class GoblinEnemy(Enemy):
         self.power = goblin['power']
         # self.power = 0
         self.critical_chance = goblin['critical']
+        self.point = goblin['point']
 
         # -------------------------------------        
         self.enemy = Goblin(0)
@@ -388,6 +390,7 @@ class MushroomEnemy(Enemy):
         self.power = mushroom['power']
         # self.power = 0
         self.critical_chance = mushroom['critical']
+        self.point = mushroom['point']
 
         # -------------------------------------        
         self.enemy = Mushroom(0)
@@ -445,6 +448,7 @@ class BigMushroomEnemy(MushroomEnemy):
         self.power = big_mushroom['power']
         # self.power = 0
         self.critical_chance = big_mushroom['critical']
+        self.point = big_mushroom['point']
 
         # -------------------------------------        
         self.enemy = Mushroom(0)
@@ -509,6 +513,7 @@ class FlyingEyeEnemy(Enemy):
         self.power = flying_eye['power']
         # self.power = 0
         self.critical_chance = flying_eye['critical']
+        self.point = flying_eye['point']
 
         # -------------------------------------        
         self.enemy = FlyingEye(0)

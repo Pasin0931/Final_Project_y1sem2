@@ -19,6 +19,7 @@ class MinotaurEnemy(Enemy):
         self.power = minotaur['power']
         # self.power = 0
         self.critical_chance = minotaur['critical']
+        self.point = minotaur['point']
 
         # -------------------------------------        
         self.enemy = Minotaur(3)
@@ -34,6 +35,8 @@ class MinotaurEnemy(Enemy):
         self.rect.y = sys.h // 2.8 - self.rect.height
 
         self.speed = 1
+
+        self.kill_counted = False
 
         self.boss_name = BossNameGennerator('./libs/listofnames.csv').random_name("minotaur")
         # print(self.boss_name)
@@ -110,6 +113,7 @@ class GolemEnemy(Enemy):
         # self.power = stone_golem['power']
         self.power = 0
         self.critical_chance = stone_golem['critical']
+        self.point = stone_golem['point']
 
         # -------------------------------------        
         self.enemy = Golem(3)
@@ -194,6 +198,7 @@ class TarnishedWidowEnemy(Enemy):
         self.power = tarnished_widow['power']
         # self.power = 0
         self.critical_chance = tarnished_widow['critical']
+        self.point = tarnished_widow['point']
 
         # -------------------------------------        
         self.enemy = TarnishedWidow(6)

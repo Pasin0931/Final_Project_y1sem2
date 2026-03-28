@@ -8,7 +8,8 @@ from libs.sprites.player import Player
 from libs.sprites.enemy import Enemy, SkeletonEnemy, GoblinEnemy, MushroomEnemy, BigMushroomEnemy, FlyingEyeEnemy
 from libs.sprites.boss import MinotaurEnemy, GolemEnemy, TarnishedWidowEnemy
 
-from ..db.statisticDb import gameDB
+from ..db.statisticDb import GameDB
+from ..db.playerDb import PlayerStats
 
 from ..stat import player, lv1_sts, lv2_sts, lv3_sts, lv4_sts, lv5_sts, minotaur, stone_golem, tarnished_widow
 
@@ -66,6 +67,9 @@ class Level:
         self.damage_received = 0
         self.enemy_killed = 0
         self.point_earned = 0
+
+        self.sts_operator = PlayerStats()
+        self.stage_operator = GameDB()
 
         self.gennerate_enemy()
         if len(self.level_boss) == 0:
@@ -146,7 +150,8 @@ class Level:
 
             if player_.is_dead and player_.play_dead_anim:
                 self.show_result(player_, True)
-                
+                player['accumulative_points'] += self.point_earned
+                self.sts_operator.update(player['health'], player['power'], player['critical'], player['stamina'], player['stamina_regen'], player['accumulative_points'])
                 running = False
             
             self.screen.blit(self.bg, (0, 0))
@@ -159,6 +164,7 @@ class Level:
                         if j.health <= 0 and not j.kill_counted:
                             j.kill_counted = True
                             self.enemy_killed += 1
+                            self.point_earned += j.point
 
                 self.check_attack_collide_enemy(player_)
                 self.check_enemy_attack_collide_player(player_)
@@ -187,8 +193,15 @@ class Level:
                     self.sys.paragraph(320, 625, 100, 100, f"{i.boss_name}", (255, 255, 255), 20)
                     boss_healthbar_.update_health(i.health)
 
+                for i in self.level_boss:
+                    if i.health <= 0 and not i.kill_counted:
+                        i.kill_counted = True
+                        self.point_earned += i.point
+
             if self.pass_round[0] and len(self.level_boss) == 0:
                 self.show_result(player_, False)
+                player['accumulative_points'] += self.point_earned
+                self.sts_operator.update(player['health'], player['power'], player['critical'], player['stamina'], player['stamina_regen'], player['accumulative_points'])
                 running = False
 
             # self.show_hitboxes(player_) # hitboxes display -------------------------------- !!!!!!!!!!!

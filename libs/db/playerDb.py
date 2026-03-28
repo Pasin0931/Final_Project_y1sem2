@@ -1,7 +1,7 @@
 import sqlite3
-from .statisticDb import gameDB
+from .statisticDb import GameDB
 
-class PlayerStats(gameDB):
+class PlayerStats(GameDB):
     def __init__(self):
         self.con = sqlite3.connect("libs/db/histories.db")
         self.cur = self.con.cursor()

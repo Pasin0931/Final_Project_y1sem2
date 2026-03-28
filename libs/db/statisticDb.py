@@ -1,6 +1,6 @@
 import sqlite3
 
-class gameDB:
+class GameDB:
     def __init__(self):
         self.con = sqlite3.connect("libs/db/histories.db")
         self.cur = self.con.cursor()

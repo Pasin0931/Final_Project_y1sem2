@@ -2,7 +2,8 @@ import pygame
 from .sprites_loader import Knight, FemaleKnight
 from ..stat import player
 import random
-import time
+
+from ..db.playerDb import PlayerStats
 
 JUMP_STAMINA_DECREASE = 25
 DASH_STAMINA_DECREASE = 25
@@ -11,7 +12,7 @@ ATTACK2_STAMINA_DECREASE = 50
 
 DASH_SPEED = 3.15
 
-STAMINA_REGEN = 1
+STAMINA_REGEN = player['stamina_regen']
 
 FRAME_STAMINA_COOLDOWN = 40
 
@@ -34,6 +35,9 @@ from pygame.locals import (
     K_SPACE,
     K_LSHIFT
 )
+
+# player_db = PlayerStats(['health', 'power', 'critical', 'stamina', 'stamina_regen', 'accumulative_points'], 'player_table')
+# print(player_db.get_last_row())
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, sys):

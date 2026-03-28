@@ -8,6 +8,8 @@ from libs.sprites.player import Player
 from libs.sprites.enemy import Enemy, SkeletonEnemy, GoblinEnemy, MushroomEnemy, BigMushroomEnemy, FlyingEyeEnemy
 from libs.sprites.boss import MinotaurEnemy, GolemEnemy, TarnishedWidowEnemy
 
+from ..db.statisticDb import gameDB
+
 from ..stat import player, lv1_sts, lv2_sts, lv3_sts, lv4_sts, lv5_sts, minotaur, stone_golem, tarnished_widow
 
 MULTT = 440
@@ -31,6 +33,9 @@ from pygame.locals import (
     K_r,
     K_f,
 )
+
+# this_db = gameDB(['a', 'b', 'c'], 'test')
+# this_db.insert_data('a', 1, 1)
 
 class Level:
     def __init__(self, sys, screen, current_lv):
@@ -61,6 +66,13 @@ class Level:
         self.damage_received = 0
         self.enemy_killed = 0
         self.point_earned = 0
+
+        self.gennerate_enemy()
+        if len(self.level_boss) == 0:
+            self.gennerate_boss()
+            print(self.level_boss, 'BOSS GENNERATED')
+
+        print(f"IN LEVEL - {self.current_lv}")
     
     def show(self):
         self.level_selected()
@@ -70,8 +82,11 @@ class Level:
         healthbar_ = HealthBar(self.screen, 30, 172, player['health'], 20, player_.health)
         staminabar_ = StaminaBar(self.screen, 30, 200, player['stamina'], 20, player_.stamina)
 
-        self.gennerate_enemy()
-        self.gennerate_boss()
+        # self.gennerate_enemy()
+        # if len(self.level_boss) == 0:
+        #     self.gennerate_boss()
+        #     print(self.level_boss, 'BOSS SPAWNED')
+
         self.total_enemy = len(self.enemy_to_spawn_l) + len(self.enemy_to_spawn_r)
         # print(f"Total enemy -> {self.total_enemy}")
         
@@ -131,6 +146,7 @@ class Level:
 
             if player_.is_dead and player_.play_dead_anim:
                 self.show_result(player_, True)
+                
                 running = False
             
             self.screen.blit(self.bg, (0, 0))
@@ -368,6 +384,8 @@ class Level:
                 else:
                     pos_ = self.sys.w+120
 
+                print(this_boss)
+
                 if this_boss == "minotaur":
                     self.level_boss.append(MinotaurEnemy(self.sys, pos_, 1))
                 elif this_boss == "golem":
@@ -436,7 +454,7 @@ class Level:
                     self.level_boss.append(TarnishedWidowEnemy(self.sys, pos_, 1))
 
         except ValueError:
-            print("Error occur while gennerating stage enemy -----------")
+            print("Error occur while gennerating stage booss -----------")
 
     def level_selected(self):
         if self.bg == None:
@@ -492,7 +510,7 @@ class Level:
         if player_.is_comboing:
             ran_ = random.random()
             if ran_ <= player_.critical+0.4:
-                print("PLAYER CRITICALLL")
+                # print("PLAYER CRITICALLL")
                 return player_.power
             else:
                 return 0    
@@ -506,7 +524,7 @@ class Level:
     def apply_critical_enemy(self, enemy_) -> float:
             ran_ = random.random()
             if ran_ <= enemy_.critical_chance+0.2:
-                print("ENEMY CRITICALLL")
+                # print("ENEMY CRITICALLL")
                 return enemy_.power
             else:
                 return 0    
@@ -639,6 +657,3 @@ class Level:
             continue_bt.create(self.screen)
             pygame.display.flip()
         return "continue"
-    
-    def clear_session_enemies(self):
-        pass

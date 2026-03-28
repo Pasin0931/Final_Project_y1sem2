@@ -1,4 +1,4 @@
-player =          {"health": 70, "power": 4, "critical": 0.05, "stamina": 100}
+player =          {"health": 70, "power": 4, "critical": 0.05, "stamina": 100, "stamina_regen": 1, "accumulative_points": 0}
 
 # knight_class = {"health": 100, "power": 2, "critical": 0.05, "stamina": 50}
 # warrior_class = {"health": 50, "power": 5, "critical": 0.20, "stamina": 35}
@@ -21,7 +21,7 @@ tarnished_widow = {"health": 50, "power": 20,  "critical": 0.08}
 lv1_sts = {
     "enemy": ["skeleton", "skeleton",
               "goblin"],
-    "boss": ["minotaur", "minotaur"
+    "boss": ["minotaur", "minotaur",
               "golem"]
 }
 

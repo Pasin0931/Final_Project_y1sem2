@@ -2,18 +2,20 @@ import sqlite3
 
 class gameDB:
     def __init__(self, columns, table_name):
-        self.con = sqlite3.connect("tutorial.db")
+        self.con = sqlite3.connect("libs/db/histories.db")
         self.cur = self.con.cursor()
 
         self.columns = columns
         self.table_name = table_name
 
         self.cur.execute(f"CREATE TABLE if not exists {self.table_name}(id INTEGER PRIMARY KEY, {self.columns[0]}, {self.columns[1]}, {self.columns[2]})")
+
+        print('Database initialized . . .')
     
-    def insert_data(self, title, year, rating):
-        res = self.cur.execute(f"""INSERT INTO {self.table_name} ({self.columns[0]}, {self.columns[1]}, {self.columns[2]}) VALUES ('{title}', {int(year)}, {float(rating)})""")
+    def update(self, a, b, c):
+        res = self.cur.execute(f"""INSERT INTO {self.table_name} ({self.columns[0]}, {self.columns[1]}, {self.columns[2]}) VALUES ('{a}', {int(b)}, {float(c)})""")
         self.con.commit()
-        print(f"({title}, {year}, {rating}) -> Data inserted into {self.table_name}")
+        print(f"({a}, {b}, {c}) -> Data inserted into {self.table_name}")
 
     def remove_cell(self, column_ , to_delete):
         try:
@@ -42,6 +44,11 @@ class gameDB:
         res = self.cur.execute(f"""SELECT * FROM {self.table_name} WHERE id = {id_}""")
         this_ = res.fetchall()
         return this_
+    
+    def get_last_row(self):
+        res = self.cur.execute(f"""SELECT * FROM {self.table_name} ORDER BY id DESC LIMIT 1""")
+        this_ = res.fetchall()
+        return this_
 
     def clean_db(self):
         try:
@@ -50,3 +57,5 @@ class gameDB:
             print(f"Database cleare -> {self.get_data()}")
         except sqlite3.OperationalError:
             print("Error while cleaning database")
+
+            

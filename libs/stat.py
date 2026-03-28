@@ -1,4 +1,9 @@
-player =          {"health": 70, "power": 4, "critical": 0.05, "stamina": 100, "stamina_regen": 1, "accumulative_points": 0}
+from .db.playerDb import PlayerStats
+
+tmp_ = PlayerStats(['health', 'power', 'critical', 'stamina', 'stamina_regen', 'accumulative_points'], 'player_statistic')
+sts_ = tmp_.get_last_row()[0]
+
+player =          {"health": sts_[1], "power": sts_[2], "critical": sts_[3], "stamina": sts_[4], "stamina_regen": sts_[5], "accumulative_points": sts_[6]}
 
 # knight_class = {"health": 100, "power": 2, "critical": 0.05, "stamina": 50}
 # warrior_class = {"health": 50, "power": 5, "critical": 0.20, "stamina": 35}

@@ -8,13 +8,21 @@ class PlayerStats(gameDB):
 
         super().__init__(columns, table_name)
 
-        self.cur.execute(f"CREATE TABLE if not exists {self.table_name}(id INTEGER PRIMARY KEY, {self.columns[0]} INTEGER, {self.columns[1]} INTEGER, {self.columns[2]} REAL, {self.columns[3]} INTEGER, {self.columns[4]} INTEGER, {self.columns[5]} INTEGER)")
+        self.cur.execute(f"""INSERT OR IGNORE INTO {self.table_name} (id, {self.columns[0]}, {self.columns[1]}, {self.columns[2]}, {self.columns[3]}, {self.columns[4]}, {self.columns[5]})
+                             VALUES (1, 70, 4, 0.05, 100, 1, 0)
+                        """)
+        self.con.commit()
 
-        print('Player stats database initialized . . .')
+        print('Player statistic database initialized . . .')
     
     def update(self, a, b, c, d, e, f):
-        res = self.cur.execute(f"""INSERT INTO {self.table_name} ({self.columns[0]}, {self.columns[1]}, {self.columns[2]}, {self.columns[3]}, {self.columns[4]}, {self.columns[5]}) VALUES ({a}, {b}, {c}, {d}, {e}, {f})""")
+        res = self.cur.execute(f"""INSERT INTO {self.table_name} ({self.columns[0]}, {self.columns[1]}, {self.columns[2]}, {self.columns[3]}, {self.columns[4]}, {self.columns[5]})
+                                   VALUES ({a}, {b}, {c}, {d}, {e}, {f})""")
         self.con.commit()
         print(f"({a}, {b}, {c}, {d}, {e}, {f}) -> Data inserted into {self.table_name}")
 
-            
+    # def create_initial_initial(self):
+
+# a = PlayerStats(['health', 'power', 'critical', 'stamina', 'stamina_regen', 'accumulative_points'], 'player_statistic')
+# a.update(10, 10, 10, 10, 10, 10)
+# print(a.get_last_row())

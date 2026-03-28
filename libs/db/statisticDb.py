@@ -8,9 +8,9 @@ class gameDB:
         self.columns = columns
         self.table_name = table_name
 
-        self.cur.execute(f"CREATE TABLE if not exists {self.table_name}(id INTEGER PRIMARY KEY, {self.columns[0]}, {self.columns[1]}, {self.columns[2]})")
+        self.initialize_tables()
 
-        print('Database initialized . . .')
+        print('Statistic database initialized . . .')
     
     def update(self, a, b, c):
         res = self.cur.execute(f"""INSERT INTO {self.table_name} ({self.columns[0]}, {self.columns[1]}, {self.columns[2]}) VALUES ('{a}', {int(b)}, {float(c)})""")
@@ -58,4 +58,9 @@ class gameDB:
         except sqlite3.OperationalError:
             print("Error while cleaning database")
 
-            
+    def initialize_tables(self):
+        a = ['a', 'b', 'c']
+        b = ['health', 'power', 'critical', 'stamina', 'stamina_regen', 'accumulative_points']
+
+        self.cur.execute(f"CREATE TABLE if not exists game_statistic (id INTEGER PRIMARY KEY, {a[0]}, {a[1]}, {a[2]})")
+        self.cur.execute(f"CREATE TABLE if not exists player_statistic (id INTEGER PRIMARY KEY, {b[0]}, {b[1]}, {b[2]}, {b[3]}, {b[4]}, {b[5]})")

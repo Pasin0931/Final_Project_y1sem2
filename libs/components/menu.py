@@ -4,6 +4,8 @@ import time
 from libs.system_lib import System, Background
 from libs.components.ui import Button
 from libs.components.level_selection import Selection
+from libs.components.upgrade import Upgrade
+from libs.components.summary import Summary
 
 from pygame.locals import (
     RLEACCEL,
@@ -64,14 +66,16 @@ class main_menu:
                     Selection(self.sys, self.screen, ambient).show()
                     
                 if upgrade_b.is_clicked(event):
-                    # print("control")
+                    # print("upgrade")
                     sound.play()
                     self.status = "Upgrade"
+                    Upgrade(self.sys, self.screen).show()
                     
                 if summary_b.is_clicked(event):
                     # print("summary")
                     sound.play()
                     self.status = "summary"
+                    Summary(self.sys, self.screen).show()
                     
                 if quit_b.is_clicked(event):
                     # print("quit")

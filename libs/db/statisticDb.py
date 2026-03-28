@@ -1,16 +1,14 @@
 import sqlite3
 
 class gameDB:
-    def __init__(self, columns, table_name):
+    def __init__(self):
         self.con = sqlite3.connect("libs/db/histories.db")
         self.cur = self.con.cursor()
 
-        self.columns = columns
-        self.table_name = table_name
+        self.columns = 'game_statistic'
+        self.table_name = ['a', 'b', 'c']
 
         self.initialize_tables()
-
-        print('Statistic database initialized . . .')
     
     def update(self, a, b, c):
         res = self.cur.execute(f"""INSERT INTO {self.table_name} ({self.columns[0]}, {self.columns[1]}, {self.columns[2]}) VALUES ('{a}', {int(b)}, {float(c)})""")
@@ -64,3 +62,6 @@ class gameDB:
 
         self.cur.execute(f"CREATE TABLE if not exists game_statistic (id INTEGER PRIMARY KEY, {a[0]}, {a[1]}, {a[2]})")
         self.cur.execute(f"CREATE TABLE if not exists player_statistic (id INTEGER PRIMARY KEY, {b[0]}, {b[1]}, {b[2]}, {b[3]}, {b[4]}, {b[5]})")
+
+        # print('Statistic database initialized . . .')
+        # print('Player statistic database initialized . . .')

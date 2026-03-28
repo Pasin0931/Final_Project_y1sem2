@@ -1,7 +1,7 @@
 from .db.playerDb import PlayerStats
 
-tmp_ = PlayerStats(['health', 'power', 'critical', 'stamina', 'stamina_regen', 'accumulative_points'], 'player_statistic')
-sts_ = tmp_.get_last_row()[0]
+tmp_ = PlayerStats()
+sts_ = tmp_.get_current_stat()
 
 player =          {"health": sts_[1], "power": sts_[2], "critical": sts_[3], "stamina": sts_[4], "stamina_regen": sts_[5], "accumulative_points": sts_[6]}
 

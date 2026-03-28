@@ -22,11 +22,9 @@ class PlayerStats(gameDB):
         self.con.commit()
         print(f"({a}, {b}, {c}, {d}, {e}, {f}) -> Data inserted into {self.table_name}")
 
-    def update_point(self, point):
-        res = self.cur.execute(f"""INSERT INTO {self.table_name} ({point})
-                                   VALUES ({point})""")
-        self.con.commit()
-        print(f"({point}) -> Point added")
+    def get_points(self):
+        tmp_ = self.get_current_stat()[-1]
+        return tmp_
 
     def get_current_stat(self):
         tmp_ = self.get_last_row()[0]

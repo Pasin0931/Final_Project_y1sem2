@@ -48,7 +48,7 @@ class gameDB:
         this_ = res.fetchall()
         return this_
 
-    def clean_db(self):
+    def reset_db(self):
         try:
             res = self.cur.execute(f"""DELETE FROM {self.table_name}""")
             self.con.commit()

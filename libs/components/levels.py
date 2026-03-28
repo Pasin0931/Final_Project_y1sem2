@@ -70,9 +70,9 @@ class Level:
         self.gennerate_enemy()
         if len(self.level_boss) == 0:
             self.gennerate_boss()
-            print(self.level_boss, 'BOSS GENNERATED')
+            # print(self.level_boss, 'BOSS GENNERATED')
 
-        print(f"IN LEVEL - {self.current_lv}")
+        # print(f"IN LEVEL - {self.current_lv}")
     
     def show(self):
         self.level_selected()
@@ -384,7 +384,7 @@ class Level:
                 else:
                     pos_ = self.sys.w+120
 
-                print(this_boss)
+                # print(this_boss)
 
                 if this_boss == "minotaur":
                     self.level_boss.append(MinotaurEnemy(self.sys, pos_, 1))
@@ -543,7 +543,7 @@ class Level:
     def apply_critical_boss(self, boss_) -> float:
             ran_ = random.random()
             if ran_ <= boss_.critical_chance+0.2:
-                print("ENEMY CRITICALLL")
+                # print("BOSS CRITICALLL")
                 return boss_.power
             else:
                 return 0  

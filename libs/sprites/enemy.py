@@ -412,13 +412,13 @@ class MushroomEnemy(Enemy):
             if self.attack_timer > 0: # stop
                 self.attack_timer -= 1
             else:
-                if self.hitbox.centerx < player_pos_center-150 and not self.is_attacking:
+                if self.hitbox.centerx < player_pos_center-120 and not self.is_attacking:
                     if not player_is_dead:
                         self.rect.x += self.speed
                         self.set_state(1)
                         self.face_right()
                     self.attack_box = pygame.Rect(0, 0, 0, 0)
-                elif self.hitbox.centerx > player_pos_center+150 and not self.is_attacking:
+                elif self.hitbox.centerx > player_pos_center+120 and not self.is_attacking:
                     if not player_is_dead:
                         self.rect.x -= self.speed
                         self.set_state(1)
@@ -470,13 +470,13 @@ class BigMushroomEnemy(MushroomEnemy):
             if self.attack_timer > 0: # stop
                 self.attack_timer -= 1
             else:
-                if self.hitbox.centerx < player_pos_center-150 and not self.is_attacking:
+                if self.hitbox.centerx < player_pos_center-120 and not self.is_attacking:
                     if not player_is_dead:
                         self.rect.x += self.speed
                         self.set_state(1)
                         self.face_right()
                     self.attack_box = pygame.Rect(0, 0, 0, 0)
-                elif self.hitbox.centerx > player_pos_center+150 and not self.is_attacking:
+                elif self.hitbox.centerx > player_pos_center+120 and not self.is_attacking:
                     if not player_is_dead:
                         self.rect.x -= self.speed
                         self.set_state(1)

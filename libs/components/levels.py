@@ -163,6 +163,9 @@ class Level:
                 self.show_result(player_, True)
                 player['accumulative_points'] += self.point_earned
                 self.sts_operator.update(player['health'], player['power'], player['critical'], player['stamina'], player['stamina_regen'], player['accumulative_points'])
+                if player_.health < 0:
+                    player_.health = 0
+                self.time_stamp_operator.update(player_.health, self.point_earned, self.curr_time)
                 running = False
             
             self.screen.blit(self.bg, (0, 0))
@@ -240,6 +243,8 @@ class Level:
             if current_time - self.last_print_time >= self.interval:
                 # print("time hitted !!!!")
                 self.last_print_time = current_time
+                if player_.health < 0:
+                    player_.health = 0
                 self.time_stamp_operator.update(player_.health, self.point_earned, self.curr_time) # ------------------ publish time stamp
                 self.curr_time+=5
                 # print(self.last_print_time)
@@ -283,7 +288,7 @@ class Level:
     def gennerate_enemy(self):
         try:
             if self.current_lv == 1:
-                random_enemy = random.randint(7, 8)
+                random_enemy = random.randint(8, 14)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
@@ -310,7 +315,7 @@ class Level:
                     self.spw_mul_r += MULTT
             
             elif self.current_lv == 2:
-                random_enemy = random.randint(7, 8)
+                random_enemy = random.randint(8, 14)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
@@ -337,7 +342,7 @@ class Level:
                     self.spw_mul_r += MULTT
 
             elif self.current_lv == 3:
-                random_enemy = random.randint(7, 8)
+                random_enemy = random.randint(8, 14)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
@@ -364,7 +369,7 @@ class Level:
                     self.spw_mul_r += MULTT
 
             elif self.current_lv == 4:
-                random_enemy = random.randint(1, 2)
+                random_enemy = random.randint(8, 14)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
@@ -391,7 +396,7 @@ class Level:
                     self.spw_mul_r += MULTT
 
             elif self.current_lv == 5:
-                random_enemy = random.randint(7, 8)
+                random_enemy = random.randint(8, 14)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right

@@ -93,7 +93,7 @@ class Upgrade:
 
             self.sys.paragraph_normal(300, 160+17, 300, 100, f"Health (cost: 10) : {self.health}", (255,255,255), 36)
             self.sys.paragraph_normal(300, 240+17, 300, 100, f"Power (cost: 10) : {self.power}", (255,255,255), 36)
-            self.sys.paragraph_normal(300, 320+17, 300, 100, f"Critical (cost: 10) : {self.critical}", (255,255,255), 36)
+            self.sys.paragraph_normal(300, 320+17, 300, 100, f"Critical (cost: 60) : {self.critical}", (255,255,255), 36)
             self.sys.paragraph_normal(300, 400+17, 300, 100, f"Stamina (cost: 10) : {self.stamina}", (255,255,255), 36)
             self.sys.paragraph_normal(300, 480+17, 300, 100, f"Stamina Regen (cost: 10) : {self.stamina_regen}", (255,255,255), 36)
 
@@ -144,9 +144,9 @@ class Upgrade:
                 self.in_sufficient_points = True
                 print('Insufficient Points')
         elif name == 'critical':
-            if self.points >= 10:
-                self.critical += 0.1
-                self.points -= 10
+            if self.points >= 60:
+                self.critical += 0.15
+                self.points -= 60
                 self.sts_operator.update(self.health, self.power, self.critical, self.stamina, self.stamina_regen, self.points)
                 self.point_usage_tracker.update(0, 0, 1, 0, 0)
                 self.in_sufficient_points = False

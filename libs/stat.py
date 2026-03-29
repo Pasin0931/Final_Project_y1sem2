@@ -14,7 +14,7 @@ skeleton =        {"health": 5,   "power": 10, "critical": 0.02, 'point': 1}
 goblin =          {"health": 15,  "power": 8,  "critical": 0.03, 'point': 3}
 mushroom =        {"health": 25,  "power": 5,  "critical": 0.01, 'point': 6}
 big_mushroom =    {"health": 45,  "power": 5,  "critical": 0.01, 'point': 10}
-flying_eye =      {"health": 30,  "power": 12, "critical": 0.04, 'point': 12}
+flying_eye =      {"health": 35,  "power": 12, "critical": 0.04, 'point': 12}
 
 # -------------------------
 

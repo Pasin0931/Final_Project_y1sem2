@@ -76,7 +76,9 @@ class Level:
         self.enemy_defeated_operator = EnemyDefeated()
 
         # for time stamp
-        self.time_now = 10
+        self.last_print_time = 0
+        self.interval = 5000
+        self.curr_time = 0
 
         self.gennerate_enemy()
         if len(self.level_boss) == 0:
@@ -155,6 +157,8 @@ class Level:
             pressed_keys = pygame.key.get_pressed()
             player_.update(pressed_keys, dashing, jump, attack_click, combo_click)
 
+            current_time = pygame.time.get_ticks()
+
             if player_.is_dead and player_.play_dead_anim:
                 self.show_result(player_, True)
                 player['accumulative_points'] += self.point_earned
@@ -232,6 +236,13 @@ class Level:
             healthbar_.update_health(player_.health)
             staminabar_.update_stamina(player_.stamina)
             # print(player_.health)
+
+            if current_time - self.last_print_time >= self.interval:
+                # print("time hitted !!!!")
+                self.last_print_time = current_time
+                self.time_stamp_operator.update(player_.health, self.point_earned, self.curr_time) # ------------------ publish time stamp
+                self.curr_time+=5
+                # print(self.last_print_time)
 
             # self.sys.paragraph_normal(320, 200, 100, 100, f"{len(self.enemy_to_spawn_l)+len(self.enemy_to_spawn_r)}/{self.total_enemy}", (255, 255, 255), 60)
             self.screen.blit(player_.surf, player_.rect)

@@ -1,7 +1,7 @@
 import sqlite3
 from .statisticDb import GameDB
 
-class PlayerStats(GameDB):
+class PlayerStats(GameDB): # include -> pie chart
     def __init__(self):
         self.con = sqlite3.connect("libs/db/histories.db")
         self.cur = self.con.cursor()

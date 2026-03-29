@@ -2,6 +2,7 @@ import pygame
 from libs.components.ui import Button
 
 from ..db.playerDb import PlayerStats
+from ..db.additional_db import PointUsage
 
 from ..stat import player
 
@@ -17,6 +18,8 @@ class Upgrade:
         self.screen = screen
 
         self.sts_operator = PlayerStats()
+        self.point_usage_tracker = PointUsage()
+        
         tmp_ = self.sts_operator.get_current_stat()
 
         self.health = tmp_[1]
@@ -125,6 +128,7 @@ class Upgrade:
                 self.health += 10
                 self.points -= 10
                 self.sts_operator.update(self.health, self.power, self.critical, self.stamina, self.stamina_regen, self.points)
+                self.point_usage_tracker.update(1, 0, 0, 0, 0)
                 self.in_sufficient_points = False
             else:
                 self.in_sufficient_points = True
@@ -134,6 +138,7 @@ class Upgrade:
                 self.power += 0.5
                 self.points -= 10
                 self.sts_operator.update(self.health, self.power, self.critical, self.stamina, self.stamina_regen, self.points)
+                self.point_usage_tracker.update(0, 1, 0, 0, 0)
                 self.in_sufficient_points = False
             else:
                 self.in_sufficient_points = True
@@ -143,6 +148,7 @@ class Upgrade:
                 self.critical += 0.1
                 self.points -= 10
                 self.sts_operator.update(self.health, self.power, self.critical, self.stamina, self.stamina_regen, self.points)
+                self.point_usage_tracker.update(0, 0, 1, 0, 0)
                 self.in_sufficient_points = False
             else:
                 self.in_sufficient_points = True
@@ -152,6 +158,7 @@ class Upgrade:
                 self.stamina += 10
                 self.points -= 10
                 self.sts_operator.update(self.health, self.power, self.critical, self.stamina, self.stamina_regen, self.points)
+                self.point_usage_tracker.update(0, 0, 0, 1, 0)
                 self.in_sufficient_points = False
             else:
                 self.in_sufficient_points = True
@@ -161,6 +168,7 @@ class Upgrade:
                 self.stamina_regen += 2
                 self.points -= 10
                 self.sts_operator.update(self.health, self.power, self.critical, self.stamina, self.stamina_regen, self.points)
+                self.point_usage_tracker.update(0, 0, 0, 0, 1)
                 self.in_sufficient_points = False
             else:
                 self.in_sufficient_points = True

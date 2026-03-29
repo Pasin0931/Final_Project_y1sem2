@@ -57,11 +57,14 @@ class GameDB:
             print("Error while cleaning database")
 
     def initialize_tables(self):
-        a = ['a', 'b', 'c']
         b = ['health', 'power', 'critical', 'stamina', 'stamina_regen', 'accumulative_points']
+        c = ['skeleton', 'goblin', 'mushroom', 'big_mushroom', 'flying_eye']
+        d = ['health', 'points', 'time_stamp']
 
-        self.cur.execute(f"CREATE TABLE if not exists game_statistic (id INTEGER PRIMARY KEY, {a[0]}, {a[1]}, {a[2]})")
         self.cur.execute(f"CREATE TABLE if not exists player_statistic (id INTEGER PRIMARY KEY, {b[0]}, {b[1]}, {b[2]}, {b[3]}, {b[4]}, {b[5]})")
+        self.cur.execute(f"CREATE TABLE if not exists point_usage_statistic (id INTEGER PRIMARY KEY, {b[0]}, {b[1]}, {b[2]}, {b[3]}, {b[4]})")
+        self.cur.execute(f"CREATE TABLE if not exists species_defeated (id INTEGER PRIMARY KEY, {c[0]}, {c[1]}, {c[2]}, {c[3]}, {c[4]})")
+        self.cur.execute(f"CREATE TABLE if not exists in_game_ts (id INTEGER PRIMARY KEY, {d[0]}, {d[1]}, {d[2]})")
 
         # print('Statistic database initialized . . .')
         # print('Player statistic database initialized . . .')

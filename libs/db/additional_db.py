@@ -8,14 +8,14 @@ class EnemyDefeated(GameDB): # include bar graph
 
         self.initialize_tables()
 
-        self.columns = ['skeleton', 'goblin', 'mushroom', 'big_mushroom', 'flying_eye']
+        self.columns = ['skeleton', 'goblin', 'mushroom', 'big_mushroom', 'flying_eye', 'minotaur', 'golem', 'widow']
         self.table_name = 'species_defeated'
 
-    def update(self, a, b, c, d, e):
-        res = self.cur.execute(f"""INSERT INTO {self.table_name} ({self.columns[0]}, {self.columns[1]}, {self.columns[2]}, {self.columns[3]}, {self.columns[4]})
-                                   VALUES ({a}, {b}, {c}, {d}, {e})""")
+    def update(self, a, b, c, d, e, f, g, h):
+        res = self.cur.execute(f"""INSERT INTO {self.table_name} ({self.columns[0]}, {self.columns[1]}, {self.columns[2]}, {self.columns[3]}, {self.columns[4]}, {self.columns[5]}, {self.columns[6]}, {self.columns[7]})
+                                   VALUES ({a}, {b}, {c}, {d}, {e}, {f}, {g}, {h})""")
         self.con.commit()
-        print(f"({a}, {b}, {c}, {d}, {e}) -> Data inserted into {self.table_name}")
+        print(f"({a}, {b}, {c}, {d}, {e}, {f}, {g}, {h}) -> Data inserted into {self.table_name}")
 
 class PointUsage(GameDB):
     def __init__(self):

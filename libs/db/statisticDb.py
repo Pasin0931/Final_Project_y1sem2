@@ -58,12 +58,12 @@ class GameDB:
 
     def initialize_tables(self):
         b = ['health', 'power', 'critical', 'stamina', 'stamina_regen', 'accumulative_points']
-        c = ['skeleton', 'goblin', 'mushroom', 'big_mushroom', 'flying_eye']
+        c = ['skeleton', 'goblin', 'mushroom', 'big_mushroom', 'flying_eye', 'minotaur', 'golem', 'widow']
         d = ['health', 'points', 'time_stamp']
 
         self.cur.execute(f"CREATE TABLE if not exists player_statistic (id INTEGER PRIMARY KEY, {b[0]}, {b[1]}, {b[2]}, {b[3]}, {b[4]}, {b[5]})")
         self.cur.execute(f"CREATE TABLE if not exists point_usage_statistic (id INTEGER PRIMARY KEY, {b[0]}, {b[1]}, {b[2]}, {b[3]}, {b[4]})")
-        self.cur.execute(f"CREATE TABLE if not exists species_defeated (id INTEGER PRIMARY KEY, {c[0]}, {c[1]}, {c[2]}, {c[3]}, {c[4]})")
+        self.cur.execute(f"CREATE TABLE if not exists species_defeated (id INTEGER PRIMARY KEY, {c[0]}, {c[1]}, {c[2]}, {c[3]}, {c[4]}, {c[5]}, {c[6]}, {c[7]})")
         self.cur.execute(f"CREATE TABLE if not exists in_game_ts (id INTEGER PRIMARY KEY, {d[0]}, {d[1]}, {d[2]})")
 
         # print('Statistic database initialized . . .')

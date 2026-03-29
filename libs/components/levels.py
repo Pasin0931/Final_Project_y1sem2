@@ -11,6 +11,8 @@ from libs.sprites.boss import MinotaurEnemy, GolemEnemy, TarnishedWidowEnemy
 from ..db.statisticDb import GameDB
 from ..db.playerDb import PlayerStats
 
+from ..db.additional_db import EnemyDefeated, InGameTimeStamp
+
 from ..stat import player, lv1_sts, lv2_sts, lv3_sts, lv4_sts, lv5_sts, minotaur, stone_golem, tarnished_widow
 
 MULTT = 440
@@ -70,6 +72,11 @@ class Level:
 
         self.sts_operator = PlayerStats()
         self.stage_operator = GameDB()
+        self.time_stamp_operator = InGameTimeStamp()
+        self.enemy_defeated_operator = EnemyDefeated()
+
+        # for time stamp
+        self.time_now = 10
 
         self.gennerate_enemy()
         if len(self.level_boss) == 0:
@@ -165,6 +172,16 @@ class Level:
                             j.kill_counted = True
                             self.enemy_killed += 1
                             self.point_earned += j.point
+                            if j.__class__.__name__ == "SkeletonEnemy":
+                                self.enemy_defeated_operator.update(1, 0, 0, 0, 0, 0, 0, 0)
+                            elif j.__class__.__name__ == "GoblinEnemy":
+                                self.enemy_defeated_operator.update(0, 1, 0, 0, 0, 0, 0, 0)
+                            elif j.__class__.__name__ == "MushroomEnemy":
+                                self.enemy_defeated_operator.update(0, 0, 1, 0, 0, 0, 0, 0)
+                            elif j.__class__.__name__ == "BigMushroomEnemy":
+                                self.enemy_defeated_operator.update(0, 0, 0, 1, 0, 0, 0, 0)
+                            elif j.__class__.__name__ == "FlyingEyeEnemy":
+                                self.enemy_defeated_operator.update(0, 0, 0, 0, 1, 0, 0, 0)
 
                 self.check_attack_collide_enemy(player_)
                 self.check_enemy_attack_collide_player(player_)
@@ -197,6 +214,13 @@ class Level:
                     if i.health <= 0 and not i.kill_counted:
                         i.kill_counted = True
                         self.point_earned += i.point
+                        print(i.__class__.__name__)
+                        if i.__class__.__name__ == "MinotaurEnemy":
+                            self.enemy_defeated_operator.update(0, 0, 0, 0, 0, 1, 0, 0)
+                        elif i.__class__.__name__ == "GolemEnemy":
+                            self.enemy_defeated_operator.update(0, 0, 0, 0, 0, 0, 1, 0)
+                        elif i.__class__.__name__ == "TarnishedWidowEnemy":
+                            self.enemy_defeated_operator.update(0, 0, 0, 0, 0, 0, 0, 1)
 
             if self.pass_round[0] and len(self.level_boss) == 0:
                 self.show_result(player_, False)

@@ -91,7 +91,7 @@ class Plotter:
         for ts in zero_points['id']-1:
             # print(ts)
             plt.axvline(x=ts, color='red', linestyle='--')
-            plt.text(ts+2, plt.ylim()[1]-40, f'game {game}', color='red', fontsize=10)
+            plt.text(ts+0.25, plt.ylim()[1]-45, f'game {game}', color='red', fontsize=10, rotation=270)
             game+=1
         game = 0
 

@@ -29,6 +29,8 @@ class main_menu:
         self.sys = sys
         self.screen = screen
         self.status = status
+
+        self.error_summary = False
     
     def show(self):
         sound = pygame.mixer.Sound("./sounds/click.mp3")
@@ -76,6 +78,8 @@ class main_menu:
                     sound.play()
                     self.status = "summary"
                     Summary(self.sys, self.screen).show()
+                    # print("Error while entering summary")
+                    # self.error_summary = True
                     
                 if quit_b.is_clicked(event):
                     # print("quit")
@@ -90,6 +94,9 @@ class main_menu:
             self.screen.blit(bg, (0, 0))
             
             self.sys.paragraph(70, 170, 100, 100, "DarK Impact", (255, 255, 255), 65)
+
+            # if self.error_summary:
+                # self.sys.paragraph_normal(290, 460, 100, 100, "You must collect enough data to view summary", (255, 255, 255), 45)
             
             play_b.create(self.screen)
             upgrade_b.create(self.screen)

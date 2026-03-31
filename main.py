@@ -5,6 +5,18 @@ from libs.system_lib import System, Background
 from libs.components.ui import Button
 from libs.components.menu import main_menu
 
+from libs.db.additional_db import PointUsage
+from libs.db.additional_db import EnemyDefeated
+from libs.db.additional_db import InGameTimeStamp
+from libs.db.statisticDb import GameDB
+from libs.db.playerDb import PlayerStats
+
+# PlayerStats()
+# GameDB()
+# InGameTimeStamp()
+# EnemyDefeated()
+# PointUsage()
+
 from pygame.locals import (
     RLEACCEL,
     K_UP,

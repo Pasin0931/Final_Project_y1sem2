@@ -10,17 +10,17 @@ player =          {"health": sts_[1], "power": sts_[2], "critical": sts_[3], "st
 
 # -------------------------
 
-skeleton =        {"health": 5,   "power": 10, "critical": 0.02, 'point': 1}
-goblin =          {"health": 15,  "power": 8,  "critical": 0.03, 'point': 3}
+skeleton =        {"health": 15,   "power": 10, "critical": 0.02, 'point': 3}
+goblin =          {"health": 20,  "power": 8,  "critical": 0.03, 'point': 3}
 mushroom =        {"health": 25,  "power": 5,  "critical": 0.01, 'point': 6}
 big_mushroom =    {"health": 45,  "power": 5,  "critical": 0.01, 'point': 10}
 flying_eye =      {"health": 35,  "power": 12, "critical": 0.04, 'point': 12}
 
 # -------------------------
 
-minotaur =        {"health": 50, "power": 10,  "critical": 0.05, 'point': 40}
-stone_golem =     {"health": 70, "power": 20,  "critical": 0.03, 'point': 60}
-tarnished_widow = {"health": 50, "power": 20,  "critical": 0.08, 'point': 80}
+minotaur =        {"health": 70, "power": 10,  "critical": 0.05, 'point': 40}
+stone_golem =     {"health": 100, "power": 20,  "critical": 0.03, 'point': 60}
+tarnished_widow = {"health": 130, "power": 20,  "critical": 0.08, 'point': 80}
 
 
 lv1_sts = {

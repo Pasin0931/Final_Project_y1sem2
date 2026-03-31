@@ -17,6 +17,10 @@ from ..stat import player, lv1_sts, lv2_sts, lv3_sts, lv4_sts, lv5_sts, minotaur
 
 MULTT = 440
 
+LOWEST_SPAWN = 15
+HIGHT_SPAWN = 20
+
+
 from pygame.locals import (
     RLEACCEL,
     K_UP,
@@ -288,7 +292,7 @@ class Level:
     def gennerate_enemy(self):
         try:
             if self.current_lv == 1:
-                random_enemy = random.randint(8, 14)
+                random_enemy = random.randint(LOWEST_SPAWN, HIGHT_SPAWN)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
@@ -315,7 +319,7 @@ class Level:
                     self.spw_mul_r += MULTT
             
             elif self.current_lv == 2:
-                random_enemy = random.randint(8, 14)
+                random_enemy = random.randint(LOWEST_SPAWN, HIGHT_SPAWN)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
@@ -342,7 +346,7 @@ class Level:
                     self.spw_mul_r += MULTT
 
             elif self.current_lv == 3:
-                random_enemy = random.randint(8, 14)
+                random_enemy = random.randint(LOWEST_SPAWN, HIGHT_SPAWN)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
@@ -369,7 +373,7 @@ class Level:
                     self.spw_mul_r += MULTT
 
             elif self.current_lv == 4:
-                random_enemy = random.randint(8, 14)
+                random_enemy = random.randint(LOWEST_SPAWN, HIGHT_SPAWN)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right
@@ -396,7 +400,7 @@ class Level:
                     self.spw_mul_r += MULTT
 
             elif self.current_lv == 5:
-                random_enemy = random.randint(8, 14)
+                random_enemy = random.randint(LOWEST_SPAWN, HIGHT_SPAWN)
                 # print(random_enemy)
                 for i in range(random_enemy):
                     spawn_dir = random.randint(0, 1) # 0 left 1 right

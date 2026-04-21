@@ -44,10 +44,10 @@ class main_menu:
         bg = pygame.transform.scale_by(bg, 1.1) # scale bg image up by 1.1
         # screen.blit(bg, (0, 0))
 
-        play_b = Button(120, 280, 100, 60, "Play", 32)
-        upgrade_b = Button(118, 365, 170, 60, "Upgrade", 32)
-        summary_b = Button(110, 450, 190, 60, "Summary", 32)
-        quit_b = Button(120, 530, 100, 60, "Quit", 32)
+        play_b = Button(195, 290, 100, 60, "Play", 32)
+        upgrade_b = Button(183, 370, 170, 60, "Upgrade", 32)
+        summary_b = Button(185, 445, 190, 60, "Summary", 32)
+        quit_b = Button(195, 520, 100, 60, "Quit", 32)
 
         running = True
         while running:
@@ -93,7 +93,7 @@ class main_menu:
             # screen.fill((0, 0, 0))
             self.screen.blit(bg, (0, 0))
             
-            self.sys.paragraph(70, 170, 100, 100, "DarK Impact", (255, 255, 255), 65)
+            self.sys.paragraph(170, 190, 100, 100, "DarK Impact", (255, 255, 255), 65)
 
             # if self.error_summary:
                 # self.sys.paragraph_normal(290, 460, 100, 100, "You must collect enough data to view summary", (255, 255, 255), 45)

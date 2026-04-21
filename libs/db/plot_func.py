@@ -68,38 +68,47 @@ class Plotter:
         plt.savefig(self.plt_adr[1], dpi=600, bbox_inches='tight')
         plt.clf()
 
-    def get_lines_plot(self):
+    def get_lines_plot(self, show_health=True, show_points=True):
         plt.figure()
+
+        if not show_health and not show_points:
+            plt.text(0.5, 0.5, "No data selected",
+                    ha='center', va='center', fontsize=20)
+            plt.xlim(0, 1)
+            plt.ylim(0, 1)
+            plt.title('Player In-Game health x points received')
+            plt.axis('off')
+            plt.savefig(self.plt_adr[2], dpi=300, bbox_inches='tight')
+            plt.close()
+            return
+
         x = np.arange(len(self.in_game_ts_df))
-
         width = 0.35
-        plt.plot(x - width/2, self.in_game_ts_df['health'], label='Health')
-        plt.plot(x + width/2, self.in_game_ts_df['points'], label='Points')
 
-        # in_game_ts_df
+        if show_health:
+            plt.plot(x - width/2, self.in_game_ts_df['health'], label='Health')
+
+        if show_points:
+            plt.plot(x + width/2, self.in_game_ts_df['points'], label='Points')
 
         plt.xticks(x[::5], self.in_game_ts_df['time_stamp'][::5])
-
         plt.xticks(fontsize=7, rotation=45)
         plt.xlabel('Time (seconds)')
         plt.ylabel('Amount')
 
         zero_points = self.in_game_ts_df[self.in_game_ts_df['time_stamp'] == 0]
-        # print(zero_points)
 
         game = 1
-        for ts in zero_points['id']-1:
-            # print(ts)
+        for ts in zero_points['id'] - 1:
             plt.axvline(x=ts, color='red', linestyle='--')
-            plt.text(ts+0.25, plt.ylim()[1]-45, f'game {game}', color='red', fontsize=10, rotation=270)
-            game+=1
-        game = 0
+            plt.text(ts + 0.25, plt.ylim()[1] - 45, f'game {game}', color='red', fontsize=10, rotation=270)
+            game += 1
 
         plt.title('Player In-Game health x points received')
         plt.legend()
-        # plt.show()
-        plt.savefig(self.plt_adr[2], dpi=600, bbox_inches='tight')
-        plt.clf()
+
+        plt.savefig(self.plt_adr[2], dpi=300, bbox_inches='tight')
+        plt.close()
 
     def get_table_plot(self):
         plt.figure()

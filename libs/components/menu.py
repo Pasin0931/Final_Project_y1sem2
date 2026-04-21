@@ -34,11 +34,11 @@ class main_menu:
     
     def show(self):
         sound = pygame.mixer.Sound("./sounds/click.mp3")
-        ambient = pygame.mixer.Sound("./sounds/caelid.mp3")
+        # ambient = pygame.mixer.Sound("./sounds/caelid.mp3")
         sound.set_volume(1.0)
-        ambient.set_volume(1.0)
+        # ambient.set_volume(1.0)
         
-        ambient.play()
+        # ambient.play()
         
         bg = Background("menu", "image").get_bg()
         bg = pygame.transform.scale_by(bg, 1.1) # scale bg image up by 1.1
@@ -65,7 +65,7 @@ class main_menu:
                     # print("play")
                     sound.play()
                     self.status = "play"
-                    Selection(self.sys, self.screen, ambient).show()
+                    Selection(self.sys, self.screen, None).show()
                     
                 if upgrade_b.is_clicked(event):
                     # print("upgrade")

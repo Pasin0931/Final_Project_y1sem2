@@ -52,25 +52,25 @@ class Selection:
                     running = False
                     
                 if lv1.is_clicked(event):
-                    self.ambient.stop()
+                    # self.ambient.stop()
                     Level(self.sys, self.screen, 1).show()
-                    self.ambient.play()
+                    # self.ambient.play()
                 elif lv2.is_clicked(event):
-                    self.ambient.stop()
+                    # self.ambient.stop()
                     Level(self.sys, self.screen, 2).show()
-                    self.ambient.play()
+                    # self.ambient.play()
                 elif lv3.is_clicked(event):
-                    self.ambient.stop()
+                    # self.ambient.stop()
                     Level(self.sys, self.screen, 3).show()
-                    self.ambient.play()
+                    # self.ambient.play()
                 elif lv4.is_clicked(event):
-                    self.ambient.stop()
+                    # self.ambient.stop()
                     Level(self.sys, self.screen, 4).show()
-                    self.ambient.play()
+                    # self.ambient.play()
                 elif lv5.is_clicked(event):
-                    self.ambient.stop()
+                    # self.ambient.stop()
                     Level(self.sys, self.screen, 5).show()
-                    self.ambient.play()
+                    # self.ambient.play()
                 
                 if back_b.is_clicked(event):
                     running = False

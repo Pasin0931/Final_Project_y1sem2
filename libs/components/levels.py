@@ -129,7 +129,7 @@ class Level:
                     if event.key == K_ESCAPE:
                         result = self.pause(player_)
                         if result == "quit":
-                            self.ambient.stop()
+                            # self.ambient.stop()
                             self.ambient = None
                             running = False
                         
@@ -154,7 +154,7 @@ class Level:
                 elif event.type == QUIT:
                     result = self.pause(player_)
                     if result == "quit":
-                        self.ambient.stop()
+                        # self.ambient.stop()
                         self.ambient = None
                         running = False
 
@@ -264,29 +264,29 @@ class Level:
         if self.bg == None:
             if self.current_lv == 1:
                 self.bg = Background("stage", "s1").get_bg()
-                if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg1.mp3")).play(loops=-1)
-                    self.ambient.set_volume(1.0)
+                # if self.ambient == None:
+                    # self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg1.mp3")).play(loops=-1)
+                    # self.ambient.set_volume(1.0)
             elif self.current_lv == 2:
                 self.bg = Background("stage", "s2").get_bg()
-                if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg2.mp3")).play(loops=-1)
-                    self.ambient.set_volume(1.0)
+                # if self.ambient == None:
+                #     self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg2.mp3")).play(loops=-1)
+                #     self.ambient.set_volume(1.0)
             elif self.current_lv == 3:
                 self.bg = Background("stage", "s3").get_bg()
-                if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg3.mp3")).play(loops=-1)
-                    self.ambient.set_volume(1.0)
+                # if self.ambient == None:
+                #     self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg3.mp3")).play(loops=-1)
+                #     self.ambient.set_volume(1.0)
             elif self.current_lv == 4:
                 self.bg = Background("stage", "s4").get_bg()
-                if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg4.mp3")).play(loops=-1)
-                    self.ambient.set_volume(1.0)
+                # if self.ambient == None:
+                #     self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg4.mp3")).play(loops=-1)
+                #     self.ambient.set_volume(1.0)
             elif self.current_lv == 5:
                 self.bg = Background("stage", "s5").get_bg()
-                if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg5.mp3")).play(loops=-1)
-                    self.ambient.set_volume(1.0)
+                # if self.ambient == None:
+                #     self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg5.mp3")).play(loops=-1)
+                #     self.ambient.set_volume(1.0)
         self.bg = pygame.transform.scale_by(self.bg, 1.1)
 
     def gennerate_enemy(self):
@@ -517,29 +517,29 @@ class Level:
         if self.bg == None:
             if self.current_lv == 1:
                 self.bg = Background("stage", "s1").get_bg()
-                if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg1.mp3")).play(loops=-1)
-                    self.ambient.set_volume(1.0)
+                # if self.ambient == None:
+                #     self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg1.mp3")).play(loops=-1)
+                #     self.ambient.set_volume(1.0)
             elif self.current_lv == 2:
                 self.bg = Background("stage", "s2").get_bg()
-                if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg2.mp3")).play(loops=-1)
-                    self.ambient.set_volume(1.0)
+                # if self.ambient == None:
+                #     self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg2.mp3")).play(loops=-1)
+                #     self.ambient.set_volume(1.0)
             elif self.current_lv == 3:
                 self.bg = Background("stage", "s3").get_bg()
-                if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg3.mp3")).play(loops=-1)
-                    self.ambient.set_volume(1.0)
+                # if self.ambient == None:
+                #     self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg3.mp3")).play(loops=-1)
+                #     self.ambient.set_volume(1.0)
             elif self.current_lv == 4:
                 self.bg = Background("stage", "s4").get_bg()
-                if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg4.mp3")).play(loops=-1)
-                    self.ambient.set_volume(1.0)
+                # if self.ambient == None:
+                #     self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg4.mp3")).play(loops=-1)
+                #     self.ambient.set_volume(1.0)
             elif self.current_lv == 5:
                 self.bg = Background("stage", "s5").get_bg()
-                if self.ambient == None:
-                    self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg5.mp3")).play(loops=-1)
-                    self.ambient.set_volume(1.0)
+                # if self.ambient == None:
+                #     self.ambient = pygame.mixer.Sound(("./sounds/ambients/stg5.mp3")).play(loops=-1)
+                #     self.ambient.set_volume(1.0)
         self.bg = pygame.transform.scale_by(self.bg, 1.1)
 
     def check_attack_collide_enemy(self, player_):

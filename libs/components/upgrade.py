@@ -42,7 +42,7 @@ class Upgrade:
         stamina_up = Button(800, 400, 170, 60, "Upgrade", 26)
         regen_up = Button(800, 480, 170, 60, "Upgrade", 26)
 
-        cheat_add_point = Button(450, 635, 350, 60, "lcheatl add points", 32)
+        cheat_add_point = Button(450, 635, 350, 60, "l cheat l add points", 32)
         reset_progress_bt = Button(960, 635, 290, 60, "Reset Progress", 32)
 
         running = True

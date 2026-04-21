@@ -9,17 +9,18 @@ class Summary:
         self.screen = screen
         self.plotting_error = False
 
-        try:
-            self.this_plotter = Plotter()
-            self.adr_ = self.this_plotter.get_plots_address()
-        except ValueError:
-            self.plotting_error = True
-
         self.show_health = True
         self.show_points = True
 
-        self.enemy_types = [col for col in self.this_plotter.species_defeated_df.columns if col != "id"]
-        self.enemy_visible = {enemy: True for enemy in self.enemy_types}
+        try:
+            self.this_plotter = Plotter()
+            self.adr_ = self.this_plotter.get_plots_address()
+
+            self.enemy_types = [col for col in self.this_plotter.species_defeated_df.columns if col != "id"]
+            self.enemy_visible = {enemy: True for enemy in self.enemy_types}
+
+        except Exception:
+            self.plotting_error = True
 
     def show(self):
         if not self.plotting_error:
@@ -140,7 +141,7 @@ class Summary:
 
                 self.screen.fill((0, 0, 0))
                 self.sys.paragraph(450, 300, 100, 100, "More data required !", (255, 255, 255), 40)
-                self.sys.paragraph(120, 370, 100, 100, "You need to play at least 1 game and upgrade your character to view summary", (255, 255, 255), 30)
+                self.sys.paragraph(120, 370, 100, 100, "You need to play at least l game and upgrade your character to view summary", (255, 255, 255), 30)
 
                 back_b.create(self.screen)
                 pygame.display.flip()

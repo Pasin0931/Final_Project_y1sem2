@@ -18,6 +18,9 @@ class Summary:
         self.show_health = True
         self.show_points = True
 
+        self.enemy_types = [col for col in self.this_plotter.species_defeated_df.columns if col != "id"]
+        self.enemy_visible = {enemy: True for enemy in self.enemy_types}
+
     def show(self):
         if not self.plotting_error:
             back_b = Button(40, 635, 150, 60, "BacK", 32)
@@ -27,6 +30,21 @@ class Summary:
 
             imgs = [pygame.transform.scale(pygame.image.load(i), (760, 580)) for i in self.adr_]
             imgs[-1] = pygame.transform.scale(pygame.image.load(self.adr_[-1]), (1200, 580))
+
+            enemy_buttons = []
+            start_x = 180
+            # print(self.enemy_types)
+            for idx, enemy in enumerate(self.enemy_types):
+                # print(idx)
+                # print(enemy)
+                if enemy == "big_mushroom":
+                    enemy = "mushroom ll"
+                if enemy == "mushroom":
+                    enemy = "mushroom l"
+                elif enemy == "flying_eye":
+                    enemy = "eye"
+                btn = Button(start_x + idx * 110, 635, 145, 50, enemy, 15)
+                enemy_buttons.append(btn)
 
             page = 0
             running = True
@@ -50,16 +68,36 @@ class Summary:
                         if page < len(imgs) - 1:
                             page += 1
 
+                    if page == 0:
+                        for enemy, btn in zip(self.enemy_types, enemy_buttons):
+                            if btn.is_clicked(event):
+                                self.enemy_visible[enemy] = not self.enemy_visible[enemy]
+
+                                self.this_plotter.get_bar_plot(self.enemy_visible)
+
+                                imgs[0] = pygame.transform.scale(
+                                    pygame.image.load(self.adr_[0]).convert(),
+                                    (760, 580)
+                                )
+
                     if page == 2:
                         if health_b.is_clicked(event):
-                            # print("l")
                             self.show_health = not self.show_health
                             self.this_plotter.get_lines_plot(self.show_health, self.show_points)
 
+                            imgs[2] = pygame.transform.scale(
+                                pygame.image.load(self.adr_[2]).convert(),
+                                (760, 580)
+                            )
+
                         if points_b.is_clicked(event):
-                            # print("r")
                             self.show_points = not self.show_points
                             self.this_plotter.get_lines_plot(self.show_health, self.show_points)
+
+                            imgs[2] = pygame.transform.scale(
+                                pygame.image.load(self.adr_[2]).convert(),
+                                (760, 580)
+                            )
 
                 self.screen.fill((0, 0, 0))
                 pygame.draw.rect(self.screen, (255, 255, 255), (0, 0, 2000, 590))
@@ -67,16 +105,18 @@ class Summary:
 
                 screen_width = self.screen.get_width()
 
-                if page == 2:
-                    img = pygame.transform.scale(pygame.image.load(self.adr_[2]).convert(), (760, 580))
-                else:
-                    img = imgs[page]
+                img = imgs[page]
 
                 x_pos = (screen_width - img.get_width()) // 2
                 self.screen.blit(img, (x_pos, 0))
 
                 back_b.create(self.screen)
                 next_b.create(self.screen)
+
+                if page == 0:
+                    for enemy, btn in zip(self.enemy_types, enemy_buttons):
+                        btn.color = (0, 255, 0) if self.enemy_visible[enemy] else (100, 100, 100)
+                        btn.create(self.screen)
 
                 if page == 2:
                     health_b.color = (0, 255, 0) if self.show_health else (100, 100, 100)

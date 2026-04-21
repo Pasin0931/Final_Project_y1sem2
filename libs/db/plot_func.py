@@ -34,23 +34,35 @@ class Plotter:
         self.get_lines_plot()
         self.get_table_plot()
 
-    def get_bar_plot(self):
+    def get_bar_plot(self, visible=None):
         this_lab = []
         values_ = []
-        for i in self.species_defeated_df:
-            if i in ['id']:
-                continue
-            this_lab.append(i)
-            values_.append(self.species_defeated_df[i].sum())
-        tmp_df = pd.DataFrame({'Enemy type': this_lab, 'values': values_})
-        ax = tmp_df.plot.bar(x="Enemy type", y="values", rot=0, title='Enemy Defeated', fontsize=8)
-        ax.set_xlabel('Enemy Type', fontsize=10)
-        ax.set_ylabel('Count', fontsize=10)
-        ax.set_xticklabels(ax.get_xticklabels(), rotation=20)
-        ax.minorticks_on()
 
-        ax.text(0.98, 0.85, f'Enemy killed: {sum(values_)}', transform=ax.transAxes, ha='right', va='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
-        plt.savefig(self.plt_adr[0], dpi=600, bbox_inches='tight')
+        for col in self.species_defeated_df.columns:
+            if col == "id":
+                continue
+
+            if visible is not None and not visible.get(col, True):
+                continue
+
+            this_lab.append(col)
+            values_.append(self.species_defeated_df[col].sum())
+
+        plt.figure()
+
+        if len(this_lab) == 0:
+            plt.text(0.5, 0.5, "No data selected", ha='center', va='center', fontsize=14)
+            plt.axis('off')
+        else:
+            tmp_df = pd.DataFrame({'Enemy type': this_lab, 'values': values_})
+            ax = tmp_df.plot.bar(x="Enemy type", y="values", rot=0)
+
+            ax.set_xlabel('Enemy Type')
+            ax.set_ylabel('Count')
+            ax.set_xticklabels(ax.get_xticklabels(), rotation=20)
+
+        plt.savefig(self.plt_adr[0], dpi=300, bbox_inches='tight')
+        plt.close()
 
     def get_pie_plot(self):
         plt.figure()

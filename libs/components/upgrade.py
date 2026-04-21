@@ -2,7 +2,7 @@ import pygame
 from libs.components.ui import Button
 
 from ..db.playerDb import PlayerStats
-from ..db.additional_db import PointUsage
+from ..db.additional_db import PointUsage, EnemyDefeated, InGameTimeStamp
 
 from ..stat import player
 
@@ -19,6 +19,8 @@ class Upgrade:
 
         self.sts_operator = PlayerStats()
         self.point_usage_tracker = PointUsage()
+        self.sts_enemy_def = EnemyDefeated()
+        self.sts_ig_ts = InGameTimeStamp()
         
         tmp_ = self.sts_operator.get_current_stat()
 
@@ -83,7 +85,10 @@ class Upgrade:
                     self.points = 0
 
                     # self.sts_operator.reset_db() # this one will bomb player table
-
+                    self.sts_operator.reset_db()
+                    self.point_usage_tracker.reset_db()
+                    self.sts_enemy_def.reset_db()
+                    self.sts_ig_ts.reset_db()
                     self.sts_operator.update(self.health, self.power, self.critical, self.stamina, self.stamina_regen, self.points)
                     print('Progress eseted')
 

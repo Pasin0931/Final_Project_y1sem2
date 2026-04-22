@@ -116,12 +116,12 @@ class Summary:
 
                 if page == 0:
                     for enemy, btn in zip(self.enemy_types, enemy_buttons):
-                        btn.color = (0, 255, 0) if self.enemy_visible[enemy] else (100, 100, 100)
+                        btn.text_color = (0, 255, 0) if self.enemy_visible[enemy] else (100, 100, 100)
                         btn.create(self.screen)
 
                 if page == 2:
-                    health_b.color = (0, 255, 0) if self.show_health else (100, 100, 100)
-                    points_b.color = (0, 255, 0) if self.show_points else (100, 100, 100)
+                    health_b.text_color = (0, 255, 0) if self.show_health else (100, 100, 100)
+                    points_b.text_color = (0, 255, 0) if self.show_points else (100, 100, 100)
                     health_b.create(self.screen)
                     points_b.create(self.screen)
 

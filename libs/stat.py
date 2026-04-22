@@ -62,6 +62,5 @@ lv5_sts = {
               "mushroom", "mushroom",
               "big_mushroom",
               "flying_eye", "flying_eye", "flying_eye"],
-    "boss":  ["golem",
-              "widow", "widow", "widow", "widow", "widow"]
+    "boss":  ["widow", "widow", "widow", "widow", "widow"]
 }

@@ -39,6 +39,8 @@ from pygame.locals import (
     MOUSEBUTTONDOWN,
     K_r,
     K_f,
+    K_k,
+    K_l,
 )
 
 # this_db = gameDB(['a', 'b', 'c'], 'test')
@@ -50,7 +52,6 @@ class Level:
         self.screen = screen
         self.current_lv = current_lv
         
-        self.ambient = None
         self.bg = None
 
         self.enemy_to_spawn_l = []
@@ -90,8 +91,50 @@ class Level:
             # print(self.level_boss, 'BOSS GENNERATED')
 
         # print(f"IN LEVEL - {self.current_lv}")
+
+        self.ambient = pygame.mixer.Sound("./sounds/ambients/ashen_crown_dusk.mp3")
+        self.ambient.set_volume(0.5)
+
+        self.boss_theme = pygame.mixer.Sound("./sounds/bosses/ashen_crown.mp3")
+        self.boss_theme.set_volume(0.5)
+
+        self.ambient_channel = None
+        self.boss_channel = None
+
+        self.boss_music_started = False
     
+    def close_ambients(self):
+        if self.ambient_channel is not None:
+            self.ambient_channel.stop()
+
+        if self.boss_channel is not None:
+            self.boss_channel.stop()
+
+        if self.ambient is not None:
+            self.ambient.stop()
+
+        if self.boss_theme is not None:
+            self.boss_theme.stop()
+
+    def pause_current_ambient(self):
+        if self.boss_music_started:
+            if self.boss_channel is not None:
+                self.boss_channel.pause()
+        else:
+            if self.ambient_channel is not None:
+                self.ambient_channel.pause()
+
+    def continue_current_ambient(self):
+        if self.boss_music_started:
+            if self.boss_channel is not None:
+                self.boss_channel.unpause()
+        else:
+            if self.ambient_channel is not None:
+                self.ambient_channel.unpause()
+
     def show(self):
+        self.ambient_channel = self.ambient.play(loops=-1)
+
         self.level_selected()
 
         player_ = Player(self.sys)
@@ -129,8 +172,7 @@ class Level:
                     if event.key == K_ESCAPE:
                         result = self.pause(player_)
                         if result == "quit":
-                            # self.ambient.stop()
-                            self.ambient = None
+                            self.close_ambients()
                             running = False
                         
                     if event.key == K_SPACE or event.key == K_w:
@@ -139,9 +181,9 @@ class Level:
                     elif event.key == K_LSHIFT:
                         # print("dashing")
                         dashing = True
-                    elif event.key == K_r:
+                    elif event.key == K_k:
                         attack_click = True
-                    elif event.key == K_f:
+                    elif event.key == K_l:
                         combo_click = True
 
                 elif event.type == MOUSEBUTTONDOWN:
@@ -154,8 +196,7 @@ class Level:
                 elif event.type == QUIT:
                     result = self.pause(player_)
                     if result == "quit":
-                        # self.ambient.stop()
-                        self.ambient = None
+                        self.close_ambients()
                         running = False
 
             pressed_keys = pygame.key.get_pressed()
@@ -202,8 +243,12 @@ class Level:
             else:
                 self.pass_round = [True, False]
 
-            if self.pass_round[0] == True:
+            if self.pass_round[0]:
                 # print("boss")
+                if not self.boss_music_started:
+                    self.ambient.stop()
+                    self.boss_channel = self.boss_theme.play(loops=-1)
+                    self.boss_music_started = True
 
                 for i in self.level_boss:
                     i.update(player_.hitbox.centerx, player_.is_dead) # BOSSSSSS
@@ -631,6 +676,7 @@ class Level:
                     pygame.draw.rect(self.screen, (0, 0 ,255), i.attack_box, 5) # boss attack box debugging
 
     def pause(self, player_):
+        self.pause_current_ambient()
         cover = pygame.Surface((self.sys.w, self.sys.h), pygame.SRCALPHA)
         cover.fill((0, 0, 0, 120))
 
@@ -670,9 +716,11 @@ class Level:
             self.screen.blit(points_earned_surf, (stats_x, pause_y + 110))
 
             pygame.display.flip()
+        self.continue_current_ambient()
         return "resume"
     
     def show_result(self, player_, is_defeated):
+        self.close_ambients()
         cover = pygame.Surface((self.sys.w, self.sys.h), pygame.SRCALPHA)
         cover.fill((0, 0, 0, 200))
 

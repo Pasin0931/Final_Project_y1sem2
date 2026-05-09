@@ -69,6 +69,7 @@ pip3 install -r requirements.txt
     - LEFT SHIFT      -> Dodge (roll)
     - LEFT CLICK & K  -> Normal attack
     - RIGHT CLICK & L -> Combo attack (Only increase critical chance but same damage)
+    - ESC             -> Pause game
 5) Defeat series of enemies and survive until the boss appears
 6) Earn upgrade points after completing a stage or dying during battle
 7) Use collected points to upgrade player stats before entering harder stages

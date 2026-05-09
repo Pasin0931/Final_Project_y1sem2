@@ -17,6 +17,33 @@
   - Progressive difficulty across multiple stages and advanced Boss AI.
   - Automated Data Visualization generates Bar, Pie, and Line charts of gameplay stats.
 
+- **Screenshots:**
+
+  ### Gameplay
+  ![1](screenshots/gameplay/01.png)
+  ![2](screenshots/gameplay/02.png)
+  ![3](screenshots/gameplay/03.png)
+  ![4](screenshots/gameplay/a1.png)
+  ![5](screenshots/gameplay/a2.png)
+  ![6](screenshots/gameplay/a3.png)
+  ![7](screenshots/gameplay/a4.png)
+  ![8](screenshots/gameplay/a5.png)
+  ![9](screenshots/gameplay/a6.png)
+  ![10](screenshots/gameplay/a7.png)
+  ![11](screenshots/gameplay/a8.png)
+  ![12](screenshots/gameplay/dead.png)
+
+  ### Data Visualization
+  ![g1](screenshots/visualization/dt1.png)
+  ![g2](screenshots/visualization/dt2.png)
+  ![g3](screenshots/visualization/dt3.png)
+  ![g4](screenshots/visualization/dt4.png)
+  ![g5](screenshots/visualization/dt5.png)
+
+- **Proposal:** [Project Proposal](./proposal.pdf)
+
+- **YouTube Presentation:** *https://www.youtube.com/watch?v=DZbk7HASFBg*
+
 ---
 
 ## 2. Concept

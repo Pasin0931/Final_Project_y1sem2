@@ -19,8 +19,12 @@ The Statistics Menu provides data-driven feedback on player performance. It pull
 ![Health and Points Progression](dt3.png)
 - **Purpose & Importance:** Illustrates the relationship between health maintenance and point acquisition. It identifies performance "heartbeats," showing when point gains spike relative to damage taken.
 
-### 4. Performance Statistics Table
-![Statistical Summary Table](dt4.png)
+### 4. Player Survival Efficiency 
+![Total Points Earned to session duration correlation](dt4.png)
+- **Purpose & Importance:** Correlates session time with points to identify "Efficiency Outliers." It distinguishes high-skill, aggressive play from passive survival, visualizing the true skill-to-reward ratio and validating the game's high-stakes difficulty.
+
+### 5. Performance Statistics Table
+![Statistical Summary Table](dt5.png)
 - **Purpose & Importance:** Provides a mathematical summary of career performance. Using Mean, Median, and Stdev, it quantifies player consistency and the skill gap between stages.
 
 ---

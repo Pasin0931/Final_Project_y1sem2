@@ -1,5 +1,5 @@
 import pygame
-from .sprites_loader import Knight, FemaleKnight
+from .sprites_loader import Knight
 from ..stat import player
 import random
 

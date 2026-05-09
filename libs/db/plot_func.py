@@ -26,13 +26,15 @@ class Plotter:
             os.path.join(plots_dir, 'barplot.png'),
             os.path.join(plots_dir, 'pieplot.png'),
             os.path.join(plots_dir, 'lineplot.png'),
-            os.path.join(plots_dir, 'tableplot.png')
+            os.path.join(plots_dir, 'tableplot.png'),
+            os.path.join(plots_dir, 'scatterplot.png')
         ]
 
         self.get_bar_plot()
         self.get_pie_plot()
         self.get_lines_plot()
         self.get_table_plot()
+        self.get_scatter_plot()
 
     def get_bar_plot(self, visible=None):
         this_lab = []
@@ -141,8 +143,32 @@ class Plotter:
         table.set_fontsize(12)
         table.scale(1.5, 2)
         plt.title('Player In-Game Statistics', fontsize=14, pad=20)
-        plt.savefig(self.plt_adr[3], dpi=600, bbox_inches='tight')
+        plt.savefig(self.plt_adr[4], dpi=600, bbox_inches='tight')
         plt.clf()
+
+    def get_scatter_plot(self):
+        plt.figure(figsize=(10, 6))
+
+        session_id = (self.in_game_ts_df['time_stamp'] == 0).cumsum()
+        
+        session_data = self.in_game_ts_df.groupby(session_id).agg({'time_stamp': 'max', 'points': 'max'})
+
+        plt.scatter(
+            session_data['time_stamp'], 
+            session_data['points'], 
+            alpha=0.7, 
+            c='#882222', 
+            edgecolors='black', 
+            s=100
+        )
+
+        plt.title('Player Survival Efficiency', fontsize=16, pad=15)
+        plt.xlabel('Session Duration (Seconds)', fontsize=12)
+        plt.ylabel('Total Points Earned', fontsize=12)
+        plt.grid(True, linestyle='--', alpha=0.6)
+
+        plt.savefig(self.plt_adr[3], dpi=300, bbox_inches='tight')
+        plt.close()
 
     def get_plots_address(self):
         return self.plt_adr

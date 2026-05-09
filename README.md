@@ -3,7 +3,7 @@
 ## Project Description
 
 - Project by: Pasin Makcharoen
-- Game Genre: Action, Dark Fantasy, Soulborne
+- Game Genre: Action, Dark Fantasy, Soulsborne
 
 Dark Impact is a fixed-screen 2D soulslike action game set in a dark fantasy world. Players can challenge any of the five stages freely, with each stage offering increasing difficulty, stronger enemies, and intense boss fights.
 The game focuses on skill-based combat, emphasizing movement, attacking, and dodge mechanics to deliver a challenging and rewarding experience inspired by soulborne gameplay. Players fight through series of enemies such as Skeletons, Goblins, Mushrooms, and Flying Eyes before facing powerful bosses including the Minotaur, Golem, and Tarnished Widow.
@@ -109,7 +109,7 @@ None
 
 ---
 
-## External sources
+### External sources
 
 # Sprites
 Acknowledge to:
@@ -128,23 +128,23 @@ Prompt: soulborn calm ambient music theme: slow loop, length: 3 minutes
 
 # Backgrounds
 Acknowledge to:
-1. s1, gemini.google.com [stage 1 - background]
+1. s1.png, gemini.google.com [stage 1 - background]
 Prompt: gennerate me Pixel art panoramic landscape of a serene green meadow at sunrise, with layered hills in the background under a gradient sky. The foreground has a detailed cracked stone wall. A thick, wide black bar frames the top and bottom.
-2. s2, gemini.google.com [stage 2 - background]
+2. s2.png, gemini.google.com [stage 2 - background]
 Prompt: gennerate me Pixel art panoramic landscape of a serene green meadow at sunrise, with layered hills in the background under a gradient sky. The foreground has a detailed cracked stone wall. A thick, wide black bar frames the top and bottom. 
 night version, no fireflies
-3. s3, gemini.google.com [stage 3 - background]
+3. s3.png, gemini.google.com [stage 3 - background]
 Prompt: gennerate me Pixel art panoramic landscape of a serene green meadow at sunrise, with layered hills in the background under a gradient sky. The foreground has a detailed cracked stone wall. A thick, wide black bar frames the top and bottom.      
 night version, ruined fantasy medieval age village background with smoke rising far away, and flames, no moon, no sun
-4. s4, gemini.google.com [stage 4 - background]
+4. s4.png, gemini.google.com [stage 4 - background]
 Prompt: gennerate me Pixel art panoramic landscape of a serene green meadow at sunrise, with layered hills in the background under a gradient sky. The foreground has a detailed cracked stone wall. A thick, wide black bar frames the top and bottom.       
 night version, battle field, no moon, no sun
-5. s5, gemini.google.com [stage 5 - background]
+5. s5.png, gemini.google.com [stage 5 - background]
 Prompt: gennerate me Pixel art panoramic landscape of a serene green meadow at sunrise, with layered hills in the background under a gradient sky. The foreground has a detailed cracked stone wall. A thick, wide black bar frames the top and bottom.         
 night version, battle field, crimson moon at the center, blood red sky
-6. selection, gemini.google.com [stage selection - background]
+6. selection.png, gemini.google.com [stage selection - background]
 Prompt: gennerate me A 2D pixel art game selection screen with a dark gothic fantasy aesthetic. The gennerate me background features a silhouette of a massive crumbling dark castle with sharp spires and a ruined bridge. A giant, glowing blood-red moon dominates the upper left sky against a deep crimson gradient atmosphere. In the center foreground, five empty stone-textured square UI buttons are arranged in a horizontal row, each featuring a glowing red outline. Thick black cinematic bars frame the top and bottom. High-contrast 16-bit style, ominous and apocalyptic mood. no title needed, just five empty stone-textured square UI buttons arranged in a horizontal row at the center x and y of the screen, do not make the stone block lower than y axis
-7. image, gemini.google.com [menu - background]
+7. image.png, gemini.google.com [menu - background]
 Prompt: gan u gennerate the main menu with my theme (bloodmoon) do not include any title or text, also have some space on the left side of the screen because I will put buttons and title there
 REMOVE STONE BLOCKS
 

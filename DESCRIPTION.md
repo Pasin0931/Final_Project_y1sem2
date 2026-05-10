@@ -15,7 +15,7 @@
   - Fast-paced 2D combat with jumping, dashing, and combo attacks.
   - Resource management system involving Health and Stamina.
   - Progressive difficulty across multiple stages and advanced Boss AI.
-  - Automated Data Visualization generates Bar, Pie, and Line charts of gameplay stats.
+  - Automated Data Visualization generates Bar, Pie, Line charts, and scatterplot of gameplay stats.
 
 - **Screenshots:**
 
@@ -116,18 +116,41 @@ All gameplay data is recorded by the `StatsLogger` and database classes into an 
 
 ## 7. External Sources
 
-### Sprites & Artwork
-- **Fantasy Knight (Player):** [aamatniekss](https://aamatniekss.itch.io/fantasy-knight-free-pixelart-animated-character)
-- **Monsters (Skeleton, Goblin, Mushroom, Eye):** [LuizMelo](https://luizmelo.itch.io/monsters-creatures-fantasy)
-- **Bosses (Minotaur, Golem):** [xzany](https://xzany.itch.io/)
-- **Tarnished Widow Boss:** [Penusbmic](https://penusbmic.itch.io/the-dark-series-the-tarnished-widow-boss)
-- **Backgrounds:** AI-generated assets via Google Gemini.
+# Sprites
+Acknowledge to:
+1. Fantasy Knight (player sprite), https://aamatniekss.itch.io/fantasy-knight-free-pixelart-animated-character [sprite sheet]
+2. Skeleton, Goblin, Mushroom, Big Mushroom, Flying Eye (Enemy sprite), https://luizmelo.itch.io/monsters-creatures-fantasy [sprite sheet]
+3. Minotaur (boss sprite) https://xzany.itch.io/minotaur-2d-pixel-art [sprite sheet]
+4. Golem (boss sprite) https://xzany.itch.io/stone-golem [sprite sheet]
+5. Tarnished Widow (boss sprite) https://penusbmic.itch.io/the-dark-series-the-tarnished-widow-boss [sprite sheet]
 
-### Libraries & Frameworks
-- **Pygame:** Core game loop and 2D rendering engine.
-- **Pandas & NumPy:** Data analysis and numerical processing.
-- **Matplotlib & Seaborn:** Generation of bar, pie, and line charts.
-- **SQLAlchemy:** Database engine abstraction and connectivity.
+# Music / Ambients
+Acknowledge to:
+1. Ashen Crown (AI Gennerated), suno.com [boss background music]
+Prompt: soulborn boss fight ambient music theme: slow loop, length: 3 minutes
+2. Ashen Crown Dusk (AI Gennerated), suno.com [stage ambient music]
+Prompt: soulborn calm ambient music theme: slow loop, length: 3 minutes
 
-### Music & Ambient
-- **Ambients & Boss Themes:** Generated via Suno AI.
+# Backgrounds
+Acknowledge to:
+1. s1.png, gemini.google.com [stage 1 - background]
+Prompt: gennerate me Pixel art panoramic landscape of a serene green meadow at sunrise, with layered hills in the background under a gradient sky. The foreground has a detailed cracked stone wall. A thick, wide black bar frames the top and bottom.
+2. s2.png, gemini.google.com [stage 2 - background]
+Prompt: gennerate me Pixel art panoramic landscape of a serene green meadow at sunrise, with layered hills in the background under a gradient sky. The foreground has a detailed cracked stone wall. A thick, wide black bar frames the top and bottom. 
+night version, no fireflies
+3. s3.png, gemini.google.com [stage 3 - background]
+Prompt: gennerate me Pixel art panoramic landscape of a serene green meadow at sunrise, with layered hills in the background under a gradient sky. The foreground has a detailed cracked stone wall. A thick, wide black bar frames the top and bottom.      
+night version, ruined fantasy medieval age village background with smoke rising far away, and flames, no moon, no sun
+4. s4.png, gemini.google.com [stage 4 - background]
+Prompt: gennerate me Pixel art panoramic landscape of a serene green meadow at sunrise, with layered hills in the background under a gradient sky. The foreground has a detailed cracked stone wall. A thick, wide black bar frames the top and bottom.       
+night version, battle field, no moon, no sun
+5. s5.png, gemini.google.com [stage 5 - background]
+Prompt: gennerate me Pixel art panoramic landscape of a serene green meadow at sunrise, with layered hills in the background under a gradient sky. The foreground has a detailed cracked stone wall. A thick, wide black bar frames the top and bottom.         
+night version, battle field, crimson moon at the center, blood red sky
+6. selection.png, gemini.google.com [stage selection - background]
+Prompt: gennerate me A 2D pixel art game selection screen with a dark gothic fantasy aesthetic. The gennerate me background features a silhouette of a massive crumbling dark castle with sharp spires and a ruined bridge. A giant, glowing blood-red moon dominates the upper left sky against a deep crimson gradient atmosphere. In the center foreground, five empty stone-textured square UI buttons are arranged in a horizontal row, each featuring a glowing red outline. Thick black cinematic bars frame the top and bottom. High-contrast 16-bit style, ominous and apocalyptic mood. no title needed, just five empty stone-textured square UI buttons arranged in a horizontal row at the center x and y of the screen, do not make the stone block lower than y axis
+7. image.png, gemini.google.com [menu - background]
+Prompt: gan u gennerate the main menu with my theme (bloodmoon) do not include any title or text, also have some space on the left side of the screen because I will put buttons and title there
+REMOVE STONE BLOCKS
+
+# All original background gennerated by gemini is stored in ../stage/old

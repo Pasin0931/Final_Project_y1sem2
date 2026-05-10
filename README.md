@@ -12,6 +12,9 @@ Defeating enemies grants upgrade points that can be used to improve player stats
 ---
 
 ## Installation
+
+Requirement: Python >= 3.14.x
+
 To Clone this project:
 ```sh
 git clone https://github.com/Pasin0931/Final_Project_y1sem2.git

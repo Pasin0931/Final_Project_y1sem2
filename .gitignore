@@ -19,7 +19,3 @@ ENV/
 *.log
 *.tmp
 *.swp
-
-# database
-*.db
-.db

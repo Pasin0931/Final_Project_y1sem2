@@ -370,7 +370,7 @@ class GoblinEnemy(Enemy):
                     self.is_attacking = True
 
                 if self.is_attacking:
-                    self.attack_w_frames(player_pos_center, [9, 10])
+                    self.attack_w_frames(player_pos_center, [10, 11])
                 
                 self.hitbox = pygame.Rect(self.rect.x+130, self.rect.y+135, 75, 90) # update hitbox
 

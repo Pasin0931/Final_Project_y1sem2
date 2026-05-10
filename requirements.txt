@@ -1,5 +1,4 @@
 pygame-ce
-sqlite3
 sqlalchemy
 matplotlib
 seaborn
